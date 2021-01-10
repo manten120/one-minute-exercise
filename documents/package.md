@@ -5,8 +5,14 @@
 | prettier | ソースコードを整形 |
 | eslint | バクチェックとコーディングスタイルを保つ |
 | eslint-config-prettier | ESLintとPrettierを併用する際に必要 |
+| eslint-config-airbnb-base | ESLintでairbnbのコードスタイルを適用する |
 | husky | Gitコマンドをフックに別のコマンドを呼び出せる |
 | lint-staged | commitしたファイルにlintを実行する |
-|  |  |
-|  |  |
-
+| bootstrap | スタイルをつける |
+| jquery | bootstrapに必要。DOM操作など |
+| popper.js | bootstrapに必要 |
+| webpack | 複数のJSファイルを1ファイルにまとめる |
+| webpack-cli | webpackコマンドでwebpackを実行する |
+| @babel/core | モダンなJavaScriptやjQueryなどをブラウザで読み込めるバージョンのJavaScriptに変換する |
+| @babel/preset-env | 変換するバージョンを指定するプリセット。デフォルトはes5 |
+| babel-loader | webpackでbabelを使用する |

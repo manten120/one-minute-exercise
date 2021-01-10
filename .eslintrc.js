@@ -11,5 +11,5 @@ module.exports = {
   },
   root: true,
   rules: {},
-  ignorePatterns: ['bin/www'],
+  ignorePatterns: ['bin/www', 'public/**/*.js'],
 };
