@@ -95,10 +95,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 
- // eslint-disable-next-line no-new-func
+ // jQueryをグローバルスコープに適用する
+// eslint-disable-next-line no-new-func
 
 var global = Function('return this;')();
 global.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a;
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
 
 /***/ }),
 /* 1 */

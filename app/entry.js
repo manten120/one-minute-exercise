@@ -5,3 +5,6 @@ import $ from 'jquery';
 // eslint-disable-next-line no-new-func
 const global = Function('return this;')();
 global.jQuery = $;
+
+// モーダルをデフォルトで表示する
+$('#modalLong').modal('show');

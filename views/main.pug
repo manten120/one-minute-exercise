@@ -4,25 +4,44 @@ block content
   link(rel="stylesheet" href="/stylesheets/main.css")
   // ここまでheadタグに含まれる
   body
-    div.container
-      h1= title
-      p Welcome to #{title}
-      button(type="button" data-toggle="modal" data-target="#exampleModalCenter").btn.btn-primary Launch demo modal
-      div.row
-        p.style-test.col-4 スタイルテスト
-        p.col-4 スタイルテスト
-        p.style-test.col-4 スタイルテスト
+    div.container.full-height
+      div.row.full-height
+        div.col-6.left-section チャットエリア
+        div.col-6.right-section
+          p.title エクササイズを選んでください
+            div.row
+              
+              button(type="button" class="" data-toggle="modal" data-target="#modalLong").btn.btn-primary Launch demo modal
 
-      // モーダルウインドウ
-      div(tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true").modal.fade#exampleModalCenter
-        div(role="document").modal-dialog.modal-dialog-centered
-          div.modal-content
-            div.modal-header
-              h5.modal-title#exampleModalCenterTitle Modal title
-              button(type="button" data-dismiss="modal" aria-label="Close").close
-                span(aria-hidden="true") &times;
-            div.modal-body
-            div.modal-footer
-              button(type="button" data-dismiss="modal").btn.btn-secondary Close
-              button(type="button").btn.btn-primary Save changes
-      script(src="/stylesheet/main.css")
+    <!-- Modal -->
+    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade
+      div(role="document").modal-dialog
+        div.modal-content
+          div.modal-header
+            h5#exampleModalLongTitle.modal-title エクササイズを選んでください
+          div.modal-body
+            div.row
+              div.col-6
+                div.square-wrapper
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
+              div.col-6
+                div.square-wrapper
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.square
