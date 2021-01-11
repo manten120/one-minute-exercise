@@ -12,7 +12,9 @@
 | jquery | bootstrapに必要。DOM操作など |
 | popper.js | bootstrapに必要 |
 | webpack | 複数のJSファイルを1ファイルにまとめる |
-| webpack-cli | webpackコマンドでwebpackを実行する |
+| webpack-cli | webpackコマンドでwebpackを実行する --watchオプションでコード変更時に自動で実行|
 | @babel/core | モダンなJavaScriptやjQueryなどをブラウザで読み込めるバージョンのJavaScriptに変換する |
 | @babel/preset-env | 変換するバージョンを指定するプリセット。デフォルトはes5 |
 | babel-loader | webpackでbabelを使用する |
+| nodemon | コード変更時に自動でサーバーを再起動する。仮想環境で使用する場合--legacy-watchオプションが必要 |
+

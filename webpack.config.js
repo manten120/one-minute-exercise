@@ -20,4 +20,8 @@ module.exports = {
       },
     ],
   },
+  watchOptions: {
+    // 仮想環境で--watchオプション(変更時にオートビルド)を有効にする
+    poll: true,
+  },
 };
