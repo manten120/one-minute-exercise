@@ -1,0 +1,131 @@
+extends layout
+
+block content
+  link(rel="stylesheet" href="/stylesheets/main.css")
+  //- ここまでheadタグに含まれる
+  body
+    div.container.full-height
+      div.row.full-height
+        //- 左カラム・チャットエリア
+        div.col-5.left-section
+          //- 他人の投稿
+          div.post
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon
+              p.name hanako
+            div.fukidashi
+              div.fukidashi-inner
+                //- p.comment やります
+                div.wrapper-img-comment
+                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          //- 他人の投稿
+          div.post
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon
+              p.name hanako
+            div.fukidashi
+              div.fukidashi-inner
+                //- p.comment やります
+                div.wrapper-img-comment
+                  img(src="images/teashiage.jpg" alt="...").img-comment
+          //- 自分の投稿
+          div.post.own
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon.own
+              p.name hanako
+            div.fukidashi.own
+              div.fukidashi-inner
+                //- p.comment やります
+                div.wrapper-img-comment
+                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          //- 他人の投稿
+          div.post
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon
+              p.name hanako
+            div.fukidashi
+              div.fukidashi-inner
+                //- p.comment やります
+                div.wrapper-img-comment
+                  img(src="images/teashiage.jpg" alt="...").img-comment
+
+        //- 右カラム
+        div.col-7.right-section
+          //- タイマー
+          div.right-section-header
+            h4.title 1分だけ がんばりましょ!!
+            div.progress.mb-2
+              div(role="progressbar" style="width: 100%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
+          //- 画像エリア
+          div(style="display: block;").row#img-area
+            div.col-12
+              div.wrapper-img-selected
+                img(src="images/kubi.jpg" alt="...").img-random
+                img(src="images/sukuwatto.jpg" alt="...").img-selected
+              h5(style="display: none;").text-addition 時間があまったらやってみよう!!
+          //- コメントボタンエリア
+          div(style="display: none;").row#comment-btn-area
+            div.col-12
+              div.stamps
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
+              div.buttons
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おつかれさまでした
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 つかれたぁー
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 次の1時間も頑張ろう！
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おなかすいた～
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 ごはん食べた?
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 まだです
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 食べたよ
+                
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おはよ～
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 こんにちは
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 こんばんは
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おやすみなさい
+                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 また明日
+
+
+            //- button(type="button" class="" data-toggle="modal" data-target="#modalLong").btn.btn-primary Launch demo modal
+
+    //- Modal
+    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade
+      div(role="document").modal-dialog
+        div.modal-content
+          div.modal-header
+            h5#exampleModalLongTitle.modal-title エクササイズを選んでください
+          div.modal-body
+            div.row
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              div.col-6
+                div.wrapper-img-menus
+                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus

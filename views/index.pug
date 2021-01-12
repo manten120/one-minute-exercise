@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  // ここまでheadタグに含まれる
+  body
+    h1= title
+    p Welcome to #{title}
+    button(type="button" data-toggle="modal" data-target="#exampleModalCenter").btn.btn-primary Launch demo modal
+
+    // モーダルウインドウ
+    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true").modal.fade#exampleModalCenter
+      div(role="document").modal-dialog.modal-dialog-centered
+        div.modal-content
+          div.modal-header
+            h5.modal-title#exampleModalCenterTitle Modal title
+            button(type="button" data-dismiss="modal" aria-label="Close").close
+              span(aria-hidden="true") &times;
+          div.modal-body
+          div.modal-footer
+            button(type="button" data-dismiss="modal").btn.btn-secondary Close
+            button(type="button").btn.btn-primary Save changes
