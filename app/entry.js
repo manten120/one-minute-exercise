@@ -18,20 +18,27 @@ const textAddition = $('.text-addition');
 const imgArea = $('#img-area');
 const commentBtnArea = $('#comment-btn-area');
 
+// エクササイズ後のタイマー
+let closeTimerWidth = 100;
+const closeTimer = () => {
+  console.log('here!');
+  setTimeout(() => {
+    if (closeTimerWidth <= 0) {
+      return;
+    }
+    closeTimerWidth -= 100 / 1200;
+    console.log(closeTimerWidth);
+    progressBar.css('width', `${closeTimerWidth}%`);
+    closeTimer();
+  }, 10);
+};
+
+// エクササイズ中のタイマー
 let w = 100;
 const exerciseTimer = () => {
   setTimeout(() => {
-    w -= 100 / 3000; // 100 / 6000
+    w -= 100 / 1000; // 100 / 6000
     progressBar.css('width', `${w}%`);
-
-    if (w <= 25) {
-      progressBar.removeClass('bg-warning');
-      progressBar.addClass('bg-danger');
-    } else if (w <= 50) {
-      progressBar.addClass('bg-warning');
-      imgSelectedExercise.fadeOut(2000);
-      textAddition.fadeIn(2000);
-    }
 
     if (w <= 0) {
       setTimeout(() => {
@@ -40,13 +47,25 @@ const exerciseTimer = () => {
         commentBtnArea.show();
       }, 1000);
       setTimeout(() => {
-        title.text('このページを自動で閉じます');
         progressGray.css('width', '20%');
         progressBar.css('width', '100%');
-      }, 5000);
-      return;
+      }, 3000);
+      setTimeout(() => {
+        title.text('このページを自動で閉じます');
+        closeTimer();
+      }, 4000);
+    } else if (w <= 25) {
+      progressBar.removeClass('bg-warning');
+      progressBar.addClass('bg-danger');
+      exerciseTimer();
+    } else if (w <= 50) {
+      progressBar.addClass('bg-warning');
+      imgSelectedExercise.fadeOut(2000);
+      textAddition.fadeIn(2000);
+      exerciseTimer();
+    } else if (w <= 100) {
+      exerciseTimer();
     }
-    exerciseTimer();
   }, 10);
 };
 

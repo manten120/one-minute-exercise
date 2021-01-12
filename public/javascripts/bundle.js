@@ -102,31 +102,39 @@ var global = Function('return this;')();
 global.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a; // モーダルをデフォルトで表示する
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
-var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
-var imgRandomExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random');
+var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
+
 var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
 var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
 var imgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#img-area');
-var commentBtnArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#comment-btn-area');
+var commentBtnArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#comment-btn-area'); // エクササイズ後のタイマー
+
+var closeTimerWidth = 100;
+
+var closeTimer = function closeTimer() {
+  console.log('here!');
+  setTimeout(function () {
+    if (closeTimerWidth <= 0) {
+      return;
+    }
+
+    closeTimerWidth -= 100 / 1200;
+    console.log(closeTimerWidth);
+    progressBar.css('width', "".concat(closeTimerWidth, "%"));
+    closeTimer();
+  }, 10);
+}; // エクササイズ中のタイマー
+
+
 var w = 100;
 
 var exerciseTimer = function exerciseTimer() {
   setTimeout(function () {
-    w -= 100 / 3000; // 100 / 6000
+    w -= 100 / 1000; // 100 / 6000
 
     progressBar.css('width', "".concat(w, "%"));
-    console.log(w);
-
-    if (w <= 25) {
-      progressBar.removeClass('bg-warning');
-      progressBar.addClass('bg-danger');
-    } else if (w <= 50) {
-      progressBar.addClass('bg-warning');
-      imgSelectedExercise.fadeOut(2000);
-      textAddition.fadeIn(2000);
-    }
 
     if (w <= 0) {
       setTimeout(function () {
@@ -135,14 +143,25 @@ var exerciseTimer = function exerciseTimer() {
         commentBtnArea.show();
       }, 1000);
       setTimeout(function () {
-        title.text('このページを自動で閉じます');
         progressGray.css('width', '20%');
         progressBar.css('width', '100%');
-      }, 5000);
-      return;
+      }, 3000);
+      setTimeout(function () {
+        title.text('このページを自動で閉じます');
+        closeTimer();
+      }, 4000);
+    } else if (w <= 25) {
+      progressBar.removeClass('bg-warning');
+      progressBar.addClass('bg-danger');
+      exerciseTimer();
+    } else if (w <= 50) {
+      progressBar.addClass('bg-warning');
+      imgSelectedExercise.fadeOut(2000);
+      textAddition.fadeIn(2000);
+      exerciseTimer();
+    } else if (w <= 100) {
+      exerciseTimer();
     }
-
-    exerciseTimer();
   }, 10);
 };
 
