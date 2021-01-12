@@ -108,3 +108,46 @@ PCで作業中の人が対象ユーザーだから。
 
 
 <br/>
+
+
+# memo
+
+user
+```json
+{
+  "id": "",
+  "name": "",
+  "hart": "",
+}
+```
+
+post
+```json
+{
+  "from": {
+    "id": "",
+    "name": "user1",
+  },
+  "to": {
+    "id": "",
+    "name": "user2",
+  },
+  "content": {
+    "type": "img",
+    "index": "",
+    "url":"",
+    "text": "",
+  }
+}
+```
+
+stamps
+```json
+{
+  "category":,
+  "index":,
+  "url":,
+  "name":,
+}
+```
+

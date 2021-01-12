@@ -12,6 +12,7 @@
   overflow-y: scroll;
 }
 
+/* モーダルウインドウ */
 .wrapper-img-menus {
   position: relative;
   width: 100%;
@@ -39,38 +40,15 @@
   box-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
-.wrapper-img-selected {
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  margin-bottom: 16px;
-}
-
-.img-selected, .img-random {
-  position: absolute;
-  /* top: 0;
-  left: 0; */
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border: 1px solid rgba(222, 226, 230);
-  border-radius: 5px;
-}
-
-/* チャットエリア */
+/* 左カラム・チャットエリア */
 .post {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   width: 80%;
 }
 
 .post.own {
-  display: flex;
   flex-direction: row-reverse;
-  /* justify-content: center; */
-  align-items: center;
-  width: 80%;
   margin: 0 0 0 auto;
 }
 
@@ -82,8 +60,6 @@
 
 .icon.own {
   margin: 24px 0 0 4px;
-  width: 48px;
-  border-radius: 50%;
 }
 
 .name {
@@ -104,6 +80,10 @@
   background: #FFF;
 }
 
+.fukidashi.own {
+  margin: 8px 15px 8px 0;
+}
+
 .fukidashi:before {
   content: "";
   position: absolute;
@@ -112,23 +92,6 @@
   margin-top: -15px;
   border: 15px solid transparent;
   border-right: 15px solid #FFF;
-}
-
-.fukidashi p {
-  margin: 0;
-  padding: 0;
-}
-
-.fukidashi.own {
-  position: relative;
-  display: inline-block;
-  margin: 8px 15px 8px 0;
-  padding: 0px 10px;
-  min-width: 160px;
-  max-width: 100%;
-  color: #555;
-  font-size: 16px;
-  background: #FFF;
 }
 
 .fukidashi.own:before {
@@ -141,7 +104,7 @@
   border-left: 15px solid #FFF;
 }
 
-.fukidashi.own p {
+.fukidashi p {
   margin: 0;
   padding: 0;
 }
@@ -163,17 +126,30 @@
   object-fit: contain;
 }
 
-/*  */
+/* 右カラム エクササイズ画像エリア*/
 .title {
-  /* position: sticky;
-  top: 0;
-  right: 0;
-  z-index: 1; */
   margin: 16px 0;
 }
 
-/* コメントボタンエリア*/
+.wrapper-img-selected {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  margin-bottom: 16px;
+}
 
+.img-selected, .img-random {
+  position: absolute;
+  /* top: 0;
+  left: 0; */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 1px solid rgba(222, 226, 230);
+  border-radius: 5px;
+}
+
+/* 右カラム コメントボタンエリア */
 .stamp {
   width: 114px;
   height: 114px;
