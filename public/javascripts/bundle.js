@@ -99,8 +99,61 @@ __webpack_require__.r(__webpack_exports__);
 // eslint-disable-next-line no-new-func
 
 var global = Function('return this;')();
-global.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a;
+global.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a; // モーダルをデフォルトで表示する
+
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
+var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
+var imgRandomExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random');
+var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
+var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
+var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
+var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
+var imgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#img-area');
+var commentBtnArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#comment-btn-area');
+var w = 100;
+
+var exerciseTimer = function exerciseTimer() {
+  setTimeout(function () {
+    w -= 100 / 3000; // 100 / 6000
+
+    progressBar.css('width', "".concat(w, "%"));
+    console.log(w);
+
+    if (w <= 25) {
+      progressBar.removeClass('bg-warning');
+      progressBar.addClass('bg-danger');
+    } else if (w <= 50) {
+      progressBar.addClass('bg-warning');
+      imgSelectedExercise.fadeOut(2000);
+      textAddition.fadeIn(2000);
+    }
+
+    if (w <= 0) {
+      setTimeout(function () {
+        title.text('おつかれさまでした!');
+        imgArea.hide();
+        commentBtnArea.show();
+      }, 1000);
+      setTimeout(function () {
+        title.text('このページを自動で閉じます');
+        progressGray.css('width', '20%');
+        progressBar.css('width', '100%');
+      }, 5000);
+      return;
+    }
+
+    exerciseTimer();
+  }, 10);
+};
+
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus').on('click', function () {
+  exerciseTimer();
+});
+var messagesArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section');
+messagesArea.animate({
+  scrollTop: 5000000
+}); // messagesArea.scrollTop = messagesArea.scrollHeight;
+// // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
 /***/ }),
 /* 1 */
