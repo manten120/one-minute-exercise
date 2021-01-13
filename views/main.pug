@@ -8,14 +8,24 @@ block content
       div.row.full-height
         //- 左カラム・チャットエリア
         div.col-5.left-section
-          //- 他人の投稿
-          div.post
+          //- 他人の投稿テンプレート#postTemplate
+          div(style="display: none").post
             div.user
               img(src="/images/girl1.jpg", alt="").icon
               p.name hanako
             div.fukidashi
-              div.fukidashi-inner
-                //- p.comment やります
+              div.comment
+                p.text-comment
+                div.wrapper-img-comment
+                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          //- 自分の投稿テンプレート
+          div(style="display: none").post.own#postOwnTemplate
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon.own
+              p.name hanako
+            div.fukidashi.own
+              div.comment
+                p.text-comment
                 div.wrapper-img-comment
                   img(src="images/sukuwatto.jpg" alt="...").img-comment
           //- 他人の投稿
@@ -24,8 +34,18 @@ block content
               img(src="/images/girl1.jpg", alt="").icon
               p.name hanako
             div.fukidashi
-              div.fukidashi-inner
-                //- p.comment やります
+              div.comment
+                //- p.text-comment やります
+                div.wrapper-img-comment
+                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          //- 他人の投稿
+          div.post
+            div.user
+              img(src="/images/girl1.jpg", alt="").icon
+              p.name hanako
+            div.fukidashi
+              div.comment
+                //- p.text-comment やります
                 div.wrapper-img-comment
                   img(src="images/teashiage.jpg" alt="...").img-comment
           //- 自分の投稿
@@ -34,8 +54,8 @@ block content
               img(src="/images/girl1.jpg", alt="").icon.own
               p.name hanako
             div.fukidashi.own
-              div.fukidashi-inner
-                //- p.comment やります
+              div.comment
+                p.text-comment
                 div.wrapper-img-comment
                   img(src="images/sukuwatto.jpg" alt="...").img-comment
           //- 他人の投稿
@@ -44,8 +64,8 @@ block content
               img(src="/images/girl1.jpg", alt="").icon
               p.name hanako
             div.fukidashi
-              div.fukidashi-inner
-                //- p.comment やります
+              div.comment
+                //- p.text-comment やります
                 div.wrapper-img-comment
                   img(src="images/teashiage.jpg" alt="...").img-comment
 
@@ -60,40 +80,44 @@ block content
           div(style="display: block;").row#img-area
             div.col-12
               div.wrapper-img-selected
-                img(src="images/kubi.jpg" alt="...").img-random
-                img(src="images/sukuwatto.jpg" alt="...").img-selected
+                img(src="images/kubi.jpg" alt="..." style="display: none;").img-random
+                img(src="images/sukuwatto.jpg" alt="..." style="display: none;").img-selected
               h5(style="display: none;").text-addition 時間があまったらやってみよう!!
               button(type="button" class="" data-toggle="modal" data-target="#modalLong").btn.btn-primary Launch demo modal
           //- コメントボタンエリア
           div(style="display: none;").row#comment-btn-area
             div.col-12
               div.stamps
-                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.stamp
-                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
+                img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
               div.buttons
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おつかれさまでした
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 つかれたぁー
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 次の1時間も頑張ろう！
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おなかすいた～
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 ごはん食べた?
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 まだです
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 食べたよ
+                - const texts = ['おつかれさまでした', 'つかれたぁー', '次の1時間も頑張ろう！', 'おなかすいた～',]
+                each text in texts
+                  button(type="button" data-text=text).btn.btn-outline-primary.btn-text.mr-2.mb-2 #{text}
+
+                //- button(type="button" data-text="おつかれさまでした").btn.btn-outline-primary.btn-text.mr-2.mb-2 おつかれさまでした
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 つかれたぁー
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 次の1時間も頑張ろう！
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おなかすいた～
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 ごはん食べた?
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 まだです
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 食べたよ
                 
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おはよ～
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 こんにちは
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 こんばんは
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 おやすみなさい
-                button(type="button").btn.btn-outline-primary.btn-comment.mr-2.mb-2 また明日
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おはよ～
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんにちは
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんばんは
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おやすみなさい
+                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 また明日
 
     //- Modal
     div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade

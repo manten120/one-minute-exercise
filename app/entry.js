@@ -1,10 +1,6 @@
 import 'bootstrap';
 import $ from 'jquery';
-
-// jQueryをグローバルスコープに適用する
-// eslint-disable-next-line no-new-func
-// const global = Function('return this;')();
-// global.jQuery = $;
+import io from 'socket.io-client';
 
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
@@ -17,17 +13,16 @@ const progressBar = $('.progress-bar');
 const textAddition = $('.text-addition');
 const imgArea = $('#img-area');
 const commentBtnArea = $('#comment-btn-area');
+const BtnText = $('.btn-text');
 
 // エクササイズ後のタイマー
 let closeTimerWidth = 100;
 const closeTimer = () => {
-  console.log('here!');
   setTimeout(() => {
     if (closeTimerWidth <= 0) {
       return;
     }
     closeTimerWidth -= 100 / 1200;
-    console.log(closeTimerWidth);
     progressBar.css('width', `${closeTimerWidth}%`);
     closeTimer();
   }, 10);
@@ -37,7 +32,7 @@ const closeTimer = () => {
 let w = 100;
 const exerciseTimer = () => {
   setTimeout(() => {
-    w -= 100 / 1000; // 100 / 6000
+    w -= 100 / 100; // 100 / 6000
     progressBar.css('width', `${w}%`);
 
     if (w <= 0) {
@@ -73,7 +68,57 @@ $('.img-menus').on('click', () => {
   exerciseTimer();
 });
 
-// const messagesArea = $('.left-section');
-// messagesArea.animate({ scrollTop: 5000000 });
+const leftSection = $('.left-section');
+leftSection.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
+
+/**
+ * socket.io
+ */
+
+// サーバーの IP アドレスに対して WebSocket 通信を開始するリクエストを送る
+const socket = io();
+
+socket.on('start data', () => {
+  console.log('start data came');
+});
+
+// eslint-disable-next-line func-names
+BtnText.on('click', function () {
+  const text = $(this).data('text');
+  console.log($(this).data('text'));
+  socket.emit('post text', { text });
+
+  const a = $('#postOwnTemplate').clone().removeAttr('id');
+  a.find('.text-comment').text(text);
+  a.find('.wrapper-img-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({ scrollTop: 5000000 });
+});
+
+const BtnStamp = $('.btn-stamp');
+BtnStamp.on('click', function () {
+  const src = $(this).attr('src');
+
+  const a = $('#postOwnTemplate').clone().removeAttr('id');
+  a.find('.img-comment').attr('src', src);
+  a.find('.text-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({ scrollTop: 5000000 });
+});
+
+const imgMenus = $('.img-menus');
+const imgSelected = $('.img-selected');
+const imgRandom = $('.img-random');
+imgMenus.on('click', function () {
+  const src = $(this).attr('src');
+
+  imgSelected.attr('src', src).show();
+  imgRandom.show();
+  const a = $('#postOwnTemplate').clone().removeAttr('id');
+  a.find('.img-comment').attr('src', src);
+  a.find('.text-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({ scrollTop: 5000000 });
+});
