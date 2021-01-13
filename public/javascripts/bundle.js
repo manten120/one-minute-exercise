@@ -180,14 +180,32 @@ leftSection.animate({
 var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()();
 socket.on('start data', function () {
   console.log('start data came');
+});
+socket.on('some one posts text', function (data) {
+  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  a.find('.text-comment').text(data.text);
+  a.find('.wrapper-img-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({
+    scrollTop: 5000000
+  });
+});
+socket.on('some one posts stamp', function (data) {
+  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  a.find('.img-comment').attr('src', data.src);
+  a.find('.text-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({
+    scrollTop: 5000000
+  });
 }); // eslint-disable-next-line func-names
 
 BtnText.on('click', function () {
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
-  console.log(jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text'));
-  socket.emit('post text', {
+  socket.emit('post my text', {
     text: text
   });
+  console.log('post my text: ', text);
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
   a.find('.text-comment').text(text);
   a.find('.wrapper-img-comment').hide();
@@ -199,6 +217,9 @@ BtnText.on('click', function () {
 var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
 BtnStamp.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
+  socket.emit('post my stamp', {
+    src: src
+  });
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
   a.find('.img-comment').attr('src', src);
   a.find('.text-comment').hide();

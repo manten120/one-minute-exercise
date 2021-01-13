@@ -84,11 +84,28 @@ socket.on('start data', () => {
   console.log('start data came');
 });
 
+socket.on('some one posts text', (data) => {
+  const a = $('#postTemplate').clone().removeAttr('id');
+  a.find('.text-comment').text(data.text);
+  a.find('.wrapper-img-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({ scrollTop: 5000000 });
+});
+
+socket.on('some one posts stamp', (data) => {
+  const a = $('#postTemplate').clone().removeAttr('id');
+  a.find('.img-comment').attr('src', data.src);
+  a.find('.text-comment').hide();
+  a.appendTo(leftSection).fadeIn();
+  leftSection.animate({ scrollTop: 5000000 });
+});
+
 // eslint-disable-next-line func-names
 BtnText.on('click', function () {
   const text = $(this).data('text');
-  console.log($(this).data('text'));
-  socket.emit('post text', { text });
+  socket.emit('post my text', { text });
+
+  console.log('post my text: ', text);
 
   const a = $('#postOwnTemplate').clone().removeAttr('id');
   a.find('.text-comment').text(text);
@@ -100,6 +117,7 @@ BtnText.on('click', function () {
 const BtnStamp = $('.btn-stamp');
 BtnStamp.on('click', function () {
   const src = $(this).attr('src');
+  socket.emit('post my stamp', { src });
 
   const a = $('#postOwnTemplate').clone().removeAttr('id');
   a.find('.img-comment').attr('src', src);

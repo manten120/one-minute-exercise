@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --watch & PORT=8000 nodemon --legacy-watch .bin/www",
+    "dev2": "webpack --config webpack.config.js --watch & PORT=8002 nodemon --legacy-watch .bin/www",
     "lint-fix": "eslint --fix './**/*.js' && prettier --write './**/*js'"
   },
   "dependencies": {

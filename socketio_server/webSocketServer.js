@@ -7,8 +7,12 @@ function createWebSocketServer(io) {
 
     socket.on('disconnect', () => {});
 
-    socket.on('post text', (data) => {
-      console.log('post text: ', data.text);
+    socket.on('post my text', (data) => {
+      socket.broadcast.emit('some one posts text', { text: data.text });
+    });
+
+    socket.on('post my stamp', (data) => {
+      socket.broadcast.emit('some one posts stamp', { src: data.src });
     });
   });
 }
