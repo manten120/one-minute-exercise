@@ -161,11 +161,9 @@ var exerciseTimer = function exerciseTimer() {
       exerciseTimer();
     }
   }, 10);
-};
+}; // チャット最下部にオートスクロール
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus').on('click', function () {
-  exerciseTimer();
-});
+
 var leftSection = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section');
 leftSection.animate({
   scrollTop: 5000000
@@ -230,9 +228,13 @@ BtnStamp.on('click', function () {
 });
 var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
 var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
-var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random');
+var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); // eslint-disable-next-line func-names
+
 imgMenus.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
+  socket.emit('post my stamp', {
+    src: src
+  });
   imgSelected.attr('src', src).show();
   imgRandom.show();
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
@@ -242,6 +244,7 @@ imgMenus.on('click', function () {
   leftSection.animate({
     scrollTop: 5000000
   });
+  exerciseTimer();
 });
 
 /***/ }),

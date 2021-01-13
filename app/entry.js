@@ -64,10 +64,7 @@ const exerciseTimer = () => {
   }, 10);
 };
 
-$('.img-menus').on('click', () => {
-  exerciseTimer();
-});
-
+// チャット最下部にオートスクロール
 const leftSection = $('.left-section');
 leftSection.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
@@ -129,14 +126,18 @@ BtnStamp.on('click', function () {
 const imgMenus = $('.img-menus');
 const imgSelected = $('.img-selected');
 const imgRandom = $('.img-random');
+// eslint-disable-next-line func-names
 imgMenus.on('click', function () {
   const src = $(this).attr('src');
+  socket.emit('post my stamp', { src });
 
   imgSelected.attr('src', src).show();
   imgRandom.show();
+
   const a = $('#postOwnTemplate').clone().removeAttr('id');
   a.find('.img-comment').attr('src', src);
   a.find('.text-comment').hide();
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
+  exerciseTimer();
 });
