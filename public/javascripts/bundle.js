@@ -97,9 +97,9 @@ __webpack_require__.r(__webpack_exports__);
 
  // jQueryをグローバルスコープに適用する
 // eslint-disable-next-line no-new-func
-
-var global = Function('return this;')();
-global.jQuery = jquery__WEBPACK_IMPORTED_MODULE_1___default.a; // モーダルをデフォルトで表示する
+// const global = Function('return this;')();
+// global.jQuery = $;
+// モーダルをデフォルトで表示する
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
 var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
@@ -167,11 +167,9 @@ var exerciseTimer = function exerciseTimer() {
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus').on('click', function () {
   exerciseTimer();
-});
-var messagesArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section');
-messagesArea.animate({
-  scrollTop: 5000000
-}); // messagesArea.scrollTop = messagesArea.scrollHeight;
+}); // const messagesArea = $('.left-section');
+// messagesArea.animate({ scrollTop: 5000000 });
+// messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
 /***/ }),

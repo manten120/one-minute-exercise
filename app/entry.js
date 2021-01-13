@@ -3,8 +3,8 @@ import $ from 'jquery';
 
 // jQueryをグローバルスコープに適用する
 // eslint-disable-next-line no-new-func
-const global = Function('return this;')();
-global.jQuery = $;
+// const global = Function('return this;')();
+// global.jQuery = $;
 
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
@@ -73,7 +73,7 @@ $('.img-menus').on('click', () => {
   exerciseTimer();
 });
 
-const messagesArea = $('.left-section');
-messagesArea.animate({ scrollTop: 5000000 });
+// const messagesArea = $('.left-section');
+// messagesArea.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
