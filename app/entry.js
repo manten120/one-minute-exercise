@@ -83,11 +83,11 @@ $('.left-section').on('click', '.fukidashi', function () {
  */
 $('.left-section').on(
   {
-    mouseenter: function () {
+    mouseenter() {
       $(this).find('.icon').addClass('hover');
       $(this).parent().find('.fukidashi').addClass('hover');
     },
-    mouseleave: function () {
+    mouseleave() {
       $(this).find('.icon').removeClass('hover');
       $(this).parent().find('.fukidashi').removeClass('hover');
     },
@@ -97,11 +97,11 @@ $('.left-section').on(
 
 $('.left-section').on(
   {
-    mouseenter: function () {
+    mouseenter() {
       $(this).addClass('hover');
       $(this).parent().find('.icon').addClass('hover');
     },
-    mouseleave: function () {
+    mouseleave() {
       $(this).removeClass('hover');
       $(this).parent().find('.icon').removeClass('hover');
     },
