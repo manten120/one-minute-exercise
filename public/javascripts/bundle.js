@@ -170,6 +170,54 @@ leftSection.animate({
 }); // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
+var replyto;
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi', function () {
+  var username = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('user');
+  console.log(username);
+});
+/**
+ * 吹き出しとユーザーアイコンを
+ * マウスホバーまたはクリックしたとき
+ * 両要素に.hoverクラスを着脱することで
+ * アニメーションをつける
+ */
+
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+  'mouseenter': function mouseenter() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').addClass('hover');
+  },
+  'mouseleave': function mouseleave() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').removeClass('hover');
+  }
+}, '.user');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+  'mouseenter': function mouseenter() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').addClass('hover');
+  },
+  'mouseleave': function mouseleave() {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').removeClass('hover');
+  }
+}, '.fukidashi');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').removeClass('hover');
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').addClass('hover');
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').removeClass('hover');
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').addClass('hover');
+});
 /**
  * socket.io
  */

@@ -9,11 +9,11 @@ block content
         //- 左カラム・チャットエリア
         div.col-5.left-section
           //- 他人の投稿テンプレート#postTemplate
-          div(style="display: none").post#postTemplate
+          div(style="display: none" data-user='{"id": "117117", "name": "hanako", "hart":"3"}').post#postTemplate
             div.user
               img(src="/images/girl1.jpg", alt="").icon
               p.name hanako
-            div.fukidashi
+            div.fukidashi(data-username="tarou")
               div.comment
                 p.text-comment
                 div.wrapper-img-comment
@@ -22,7 +22,7 @@ block content
           div(style="display: none").post.own#postOwnTemplate
             div.user
               img(src="/images/girl1.jpg", alt="").icon.own
-              p.name hanako
+              p.name tarou
             div.fukidashi.own
               div.comment
                 p.text-comment

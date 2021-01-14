@@ -56,6 +56,12 @@
   margin: 24px 4px 0 0;
   width: 48px;
   border-radius: 50%;
+  transition: all .1s;
+}
+
+.icon.hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.4)
 }
 
 .icon.own {
@@ -78,6 +84,12 @@
   color: #555;
   font-size: 16px;
   background: #FFF;
+  transition: all .1s;
+}
+
+.fukidashi.hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
 }
 
 .fukidashi.own {

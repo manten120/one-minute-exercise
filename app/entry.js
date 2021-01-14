@@ -70,6 +70,64 @@ leftSection.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
+$('.left-section').on('click', '.fukidashi', function () {
+  const username = $(this).parent().data('user');
+  console.log(username);
+});
+
+/**
+ * 吹き出しとユーザーアイコンを
+ * マウスホバーまたはクリックしたとき
+ * 両要素に.hoverクラスを着脱することで
+ * アニメーションをつける
+ */
+$('.left-section').on(
+  {
+    mouseenter: function () {
+      $(this).find('.icon').addClass('hover');
+      $(this).parent().find('.fukidashi').addClass('hover');
+    },
+    mouseleave: function () {
+      $(this).find('.icon').removeClass('hover');
+      $(this).parent().find('.fukidashi').removeClass('hover');
+    },
+  },
+  '.user'
+);
+
+$('.left-section').on(
+  {
+    mouseenter: function () {
+      $(this).addClass('hover');
+      $(this).parent().find('.icon').addClass('hover');
+    },
+    mouseleave: function () {
+      $(this).removeClass('hover');
+      $(this).parent().find('.icon').removeClass('hover');
+    },
+  },
+  '.fukidashi'
+);
+
+$('.left-section').on('mousedown', '.fukidashi', function () {
+  $(this).removeClass('hover');
+  $(this).parent().find('.icon').removeClass('hover');
+});
+$('.left-section').on('mouseup', '.fukidashi', function () {
+  $(this).addClass('hover');
+  $(this).parent().find('.icon').addClass('hover');
+});
+
+$('.left-section').on('mousedown', '.user', function () {
+  $(this).find('.icon').removeClass('hover');
+  $(this).parent().find('.fukidashi').removeClass('hover');
+});
+
+$('.left-section').on('mouseup', '.user', function () {
+  $(this).find('.icon').addClass('hover');
+  $(this).parent().find('.fukidashi').addClass('hover');
+});
+
 /**
  * socket.io
  */
