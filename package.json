@@ -46,5 +46,8 @@
     "./**/*.js": [
       "yarn lint-fix"
     ]
+  },
+  "engines": {
+    "node": "~10"
   }
 }
