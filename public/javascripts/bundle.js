@@ -108,7 +108,7 @@ var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
 var imgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#img-area');
-var commentBtnArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#comment-btn-area');
+var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabs-area');
 var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // エクササイズ後のタイマー
 
 var closeTimerWidth = 100;
@@ -138,7 +138,7 @@ var exerciseTimer = function exerciseTimer() {
       setTimeout(function () {
         title.text('おつかれさまでした!');
         imgArea.hide();
-        commentBtnArea.show();
+        tabsArea.show();
       }, 1000);
       setTimeout(function () {
         progressGray.css('width', '20%');
@@ -170,12 +170,8 @@ leftSection.animate({
 }); // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi', function () {
-  var username = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('user');
-  console.log(username);
-});
 /**
- * 吹き出しとユーザーアイコンを
+ * 他のユーザーの吹き出しとユーザーアイコンを
  * マウスホバーまたはクリックしたとき
  * 両要素に.hoverクラスを着脱することで
  * アニメーションをつける
@@ -183,39 +179,67 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fuk
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
   mouseenter: function mouseenter() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
   },
   mouseleave: function mouseleave() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
   }
 }, '.user');
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
   },
   mouseleave: function mouseleave() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
   }
-}, '.fukidashi');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi', function () {
+}, '.fukidashi:not(.own)');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi:not(.own)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi:not(.own)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').removeClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user:not(.own)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon').addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi').addClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user:not(.own)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+});
+/**
+ * reply
+ */
+
+var dataSomeone;
+
+var removeMention = function removeMention() {
+  dataSomeone = undefined;
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1");
+};
+
+var setMention = function setMention(data) {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name, "\u3055\u3093"));
+};
+
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.own)', function () {
+  dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
+  setMention(dataSomeone);
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.user:not(.own)', function () {
+  dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
+  setMention(dataSomeone);
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (event) {
+  if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.own)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.own)').length) {
+    removeMention();
+  }
 });
 /**
  * socket.io
@@ -227,18 +251,42 @@ socket.on('start data', function () {
   console.log('start data came');
 });
 socket.on('some one posts text', function (data) {
+  /**
+   * data = {
+   *   mention: '返信相手の名前または空文字列',
+   *   text: '返信内容のテキスト'
+   * }
+   */
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+
+  if (data.mention) {
+    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
+    a.find('.mention-comment').show();
+  }
+
   a.find('.text-comment').text(data.text);
-  a.find('.wrapper-img-comment').hide();
+  a.find('.text-comment').show();
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
 });
 socket.on('some one posts stamp', function (data) {
+  /**
+   * data = {
+   *   mention: '返信相手の名前または空文字列',
+   *   src: 'スタンプ画像のurl'
+   * }
+   */
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+
+  if (data.mention) {
+    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
+    a.find('.mention-comment').show();
+  }
+
   a.find('.img-comment').attr('src', data.src);
-  a.find('.text-comment').hide();
+  a.find('.wrapper-img-comment').show();
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
@@ -247,31 +295,60 @@ socket.on('some one posts stamp', function (data) {
 
 BtnText.on('click', function () {
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
-  socket.emit('post my text', {
+  var emitData = {
+    to: '',
+    from: '',
     text: text
-  });
-  console.log('post my text: ', text);
+  };
+
+  if (dataSomeone) {
+    console.log(dataSomeone.name);
+    emitData.to = dataSomeone;
+    emitData.from = 'myid';
+  }
+
+  socket.emit('post my text', emitData);
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.text-comment').text(text);
-  a.find('.wrapper-img-comment').hide();
+  a.find('.text-comment').text(text).show();
+
+  if (dataSomeone) {
+    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+  }
+
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
+  removeMention();
 });
 var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
 BtnStamp.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
-  socket.emit('post my stamp', {
+  var emitData = {
+    to: '',
+    from: '',
     src: src
-  });
+  };
+
+  if (dataSomeone) {
+    emitData.to = dataSomeone;
+    emitData.from = 'myid';
+  }
+
+  socket.emit('post my stamp', emitData);
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
+
+  if (dataSomeone) {
+    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+  }
+
   a.find('.img-comment').attr('src', src);
-  a.find('.text-comment').hide();
+  a.find('.wrapper-img-comment').show();
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
+  removeMention();
 });
 var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
 var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
@@ -285,8 +362,8 @@ imgMenus.on('click', function () {
   imgSelected.attr('src', src).show();
   imgRandom.show();
   var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.img-comment').attr('src', src);
-  a.find('.text-comment').hide();
+  a.find('.img-comment').attr('src', src).show();
+  a.find('.wrapper-img-comment').show();
   a.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
