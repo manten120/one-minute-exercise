@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --watch & PORT=8000 nodemon --legacy-watch .bin/www",
+    "dev2": "webpack --config webpack.config.js --watch & PORT=8002 nodemon --legacy-watch .bin/www",
     "lint-fix": "eslint --fix './**/*.js' && prettier --write './**/*js'"
   },
   "dependencies": {
@@ -12,11 +13,14 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "helmet": "^4.3.1",
     "http-errors": "~1.6.2",
     "jquery": "3.4.1",
     "morgan": "~1.9.0",
     "popper.js": "^1.16.1",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "socket.io": "^3.0.5",
+    "socket.io-client": "^3.0.5"
   },
   "devDependencies": {
     "@babel/core": "7.1.6",
@@ -42,5 +46,8 @@
     "./**/*.js": [
       "yarn lint-fix"
     ]
+  },
+  "engines": {
+    "node": "~10"
   }
 }

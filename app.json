@@ -1,0 +1,8 @@
+{
+  "name": "one-minute-exercise",
+  "description": "1分間エクササイズ",
+  "repository": "https://github.com/manten120/one-minute-exercise",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}

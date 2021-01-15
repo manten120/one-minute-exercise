@@ -12,6 +12,7 @@
   overflow-y: scroll;
 }
 
+/* モーダルウインドウ */
 .wrapper-img-menus {
   position: relative;
   width: 100%;
@@ -27,6 +28,7 @@
   height: 100%;
   object-fit: contain;
   transition: all .1s;
+  user-select: none;
 }
 
 .img-menus:hover {
@@ -39,38 +41,15 @@
   box-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
-.wrapper-img-selected {
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  margin-bottom: 16px;
-}
-
-.img-selected, .img-random {
-  position: absolute;
-  /* top: 0;
-  left: 0; */
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border: 1px solid rgba(222, 226, 230);
-  border-radius: 5px;
-}
-
-/* チャットエリア */
+/* 左カラム・チャットエリア */
 .post {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   width: 80%;
 }
 
 .post.own {
-  display: flex;
   flex-direction: row-reverse;
-  /* justify-content: center; */
-  align-items: center;
-  width: 80%;
   margin: 0 0 0 auto;
 }
 
@@ -78,16 +57,23 @@
   margin: 24px 4px 0 0;
   width: 48px;
   border-radius: 50%;
+  transition: all .1s;
+  user-select: none;
+}
+
+.icon.hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.4)
 }
 
 .icon.own {
   margin: 24px 0 0 4px;
-  width: 48px;
-  border-radius: 50%;
 }
 
 .name {
+  text-align: center;
   color: #3A3A3A;
+  user-select: none;
 }
 
 .fukidashi {
@@ -102,6 +88,16 @@
   color: #555;
   font-size: 16px;
   background: #FFF;
+  transition: all .1s;
+}
+
+.fukidashi.hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
+}
+
+.fukidashi.own {
+  margin: 8px 15px 8px 0;
 }
 
 .fukidashi:before {
@@ -114,23 +110,6 @@
   border-right: 15px solid #FFF;
 }
 
-.fukidashi p {
-  margin: 0;
-  padding: 0;
-}
-
-.fukidashi.own {
-  position: relative;
-  display: inline-block;
-  margin: 8px 15px 8px 0;
-  padding: 0px 10px;
-  min-width: 160px;
-  max-width: 100%;
-  color: #555;
-  font-size: 16px;
-  background: #FFF;
-}
-
 .fukidashi.own:before {
   content: "";
   position: absolute;
@@ -141,9 +120,11 @@
   border-left: 15px solid #FFF;
 }
 
-.fukidashi.own p {
-  margin: 0;
+.text-comment {
+  margin: 16px 0;
   padding: 0;
+  text-align:center;
+  user-select: none;
 }
 
 .wrapper-img-comment {
@@ -161,34 +142,58 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  user-select: none;
 }
 
-/*  */
+/* 右カラム エクササイズ画像エリア*/
 .title {
-  /* position: sticky;
-  top: 0;
-  right: 0;
-  z-index: 1; */
   margin: 16px 0;
 }
 
-/* コメントボタンエリア*/
+.wrapper-img-selected {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  margin-bottom: 16px;
+}
 
-.stamp {
+.img-selected, .img-random {
+  position: absolute;
+  /* top: 0;
+  left: 0; */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border: 2px solid rgb(0, 123, 255);
+  border-radius: 5px;
+  user-select: none;
+}
+
+/* 右カラム コメントボタンエリア */
+/* tabs */
+.wrapper-tabs {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+}
+
+.btn-stamp {
   width: 114px;
   height: 114px;
   margin-bottom: 8px;
   margin-right: 8px;
   object-fit: contain;
   transition: all .1s;
+  user-select: none;
 }
 
-.stamp:hover {
+.btn-stamp:hover {
   transform: translateY(-1px);
   box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
 }
 
-.stamp:active {
+.btn-stamp:active {
   transform: translateY(0px);
   box-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
