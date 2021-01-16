@@ -259,7 +259,6 @@ socket.on('start data', function () {
 });
 socket.on('some one posts text', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
-  ;
 
   if (data.to) {
     template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));

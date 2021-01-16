@@ -90,9 +90,9 @@ block content
                   img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
                   img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
                 div.buttons
-                  - const texts = ['おつかれさまでした', 'つかれたぁー', '次の1時間も頑張ろう！', 'おなかすいた～',]
-                  each text in texts
-                    button(type="button" data-text=text).btn.btn-outline-primary.btn-text.mr-2.mb-2 #{text}
+                  each pair in textAndColorPairs
+                    - const btnOutlineColor = `btn-outline-${pair.color}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
               //- タブコンテンツ2
               div(role="tabpanel" aria-labelledby="profile-tab").tab-pane.fade#tab-stamp タブコンテンツ2
               //- タブコンテンツ3
