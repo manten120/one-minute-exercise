@@ -15,7 +15,7 @@ const texts = {
 const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
 
 /**
- * arayOfArrays = [
+ * arrayOfArrays = [
  *   [
  *     { text: 'おつかれさまでした', color: 'primary' },
  *     { text: 'つかれたぁ～', color: 'primary' },
