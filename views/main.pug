@@ -3,38 +3,40 @@ extends layout
 block content
   link(rel="stylesheet" href="/stylesheets/main.css")
   //- ここまでheadタグに含まれる
-  body
+  body(data-mine=myData)
     div.container.full-height
       div.row.full-height
         //- 左カラム・チャットエリア
         div.col-5.left-section
           //- 他人の投稿テンプレート#postTemplate
-          div(style="display: none" data-someone='{"id": "117117", "name": "hanako"}').post#postTemplate
+          div(style="display: none" data-someone='{"name": "hanako", "icon": "/images/icons/girl1.jpg"}').post#postTemplate
             div.user
-              img(src="/images/girl1.jpg", alt="").icon
+              img(src="/images/icons/girl1.jpg", alt="").icon
               p.name hanako
             div.fukidashi
               div.comment
-                p(style="display: none").mention-comment.mt-3
+                div
+                  span(style="display: none").mention-comment.mt-3
                 p(style="display: none").text-comment
                 div(style="display: none").wrapper-img-comment
                   img(src="images/sukuwatto.jpg" alt="...").img-comment
           //- 自分の投稿テンプレート
-          div(style="display: none" data-own='{"id": "882882", "name": "tarou"}').post.own#postOwnTemplate
-            div.user.own
-              img(src="/images/girl1.jpg", alt="").icon.own
-              p.name tarou
-            div.fukidashi.own
-              div.comment
-                p(style="display: none").mention-comment.mt-3
-                p(style="display: none").text-comment
-                div(style="display: none").wrapper-img-comment
-                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          div(style="display: none" data-mine=myData).post.mine#myPostTemplate
+            div.user.mine
+              img(src=myData.icon, alt="").icon.mine
+              p.name.mine #{myData.name}
+            div.fukidashi.mine
+              div.comment.mine
+                div
+                  span(style="display: none").mention-comment.mine.mt-3
+                p(style="display: none").text-comment.mine
+                div(style="display: none").wrapper-img-comment.mine
+                  img(src="images/sukuwatto.jpg" alt="...").img-comment.mine
 
         //- 右カラム
         div.col-7.right-section
           div.m-1.mt-3.mb-4.d-flex.justify-content-end
-            p.mr-3 userNameさん、こんにちは
+            p.mr-3 #{myData.name}さん、こんにちは
             div.dropdown.mt-1
               a(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").dropdown-toggle
                 Dropdown menu
@@ -95,21 +97,6 @@ block content
               div(role="tabpanel" aria-labelledby="profile-tab").tab-pane.fade#tab-stamp タブコンテンツ2
               //- タブコンテンツ3
               div(role="tabpanel" aria-labelledby="contact-tab").tab-pane.fade#tab-text タブコンテンツ3
-
-
-                //- button(type="button" data-text="おつかれさまでした").btn.btn-outline-primary.btn-text.mr-2.mb-2 おつかれさまでした
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 つかれたぁー
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 次の1時間も頑張ろう！
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おなかすいた～
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 ごはん食べた?
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 まだです
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 食べたよ
-                
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おはよ～
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんにちは
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんばんは
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おやすみなさい
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 また明日
 
     //- Modal
     div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade

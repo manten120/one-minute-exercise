@@ -11,12 +11,12 @@ function createWebSocketServer(io) {
       /**
        * data = {
        *   to: {
-       *     id: '返信相手のid',
        *     name : '返信相手の名前'
+       *     icon: '返信相手のアイコンのパス',
        *   },
        *   from : {
-       *     id: '送り主(自分)のid',
        *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
        *   },
        *   text: '返信内容のテキスト'
        * };
@@ -24,33 +24,27 @@ function createWebSocketServer(io) {
        * または
        * data = {
        *   to: '',
-       *   from : '',
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
        *   text: '返信内容のテキスト'
        * };
        */
 
-      const emitData = {
-        mention: '',
-        text: data.text,
-      };
-
-      if (data.to) {
-        emitData.mention = data.to.name;
-      }
-
-      socket.broadcast.emit('some one posts text', emitData);
+      socket.broadcast.emit('some one posts text', data);
     });
 
     socket.on('post my stamp', (data) => {
       /**
        * data = {
        *   to: {
-       *     id: '返信相手のid',
        *     name : '返信相手の名前'
+       *     icon: '返信相手のアイコンのパス',
        *   },
        *   from : {
-       *     id: '送り主(自分)のid',
        *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
        *   },
        *   src: 'スタンプ画像のurl'
        * };
@@ -58,21 +52,15 @@ function createWebSocketServer(io) {
        * または
        * data = {
        *   to: '',
-       *   from : '',
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
        *   src: 'スタンプ画像のurl'
        * };
        */
 
-      const emitData = {
-        mention: '',
-        src: data.src,
-      };
-
-      if (data.to) {
-        emitData.mention = data.to.name;
-      }
-
-      socket.broadcast.emit('some one posts stamp', emitData);
+      socket.broadcast.emit('some one posts stamp', data);
     });
   });
 }

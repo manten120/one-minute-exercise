@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
 
+const myData = $('body').data('mine');
 const imgSelectedExercise = $('.img-selected');
 // const imgRandomExercise = $('.img-random')
 const title = $('.title');
@@ -79,48 +80,54 @@ leftSection.animate({ scrollTop: 5000000 });
 $('.left-section').on(
   {
     mouseenter() {
-      $(this).find('.icon:not(.own)').addClass('hover');
-      $(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+      $(this).find('.icon:not(.mine)').addClass('hover');
+      $(this).find('.name:not(.mine)').addClass('hover');
+      $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
     },
     mouseleave() {
-      $(this).find('.icon:not(.own)').removeClass('hover');
-      $(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+      $(this).find('.icon:not(.mine)').removeClass('hover');
+      $(this).find('.name:not(.mine)').removeClass('hover');
+      $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
     },
   },
-  '.user'
+  '.user:not(.mine)'
 );
 
 $('.left-section').on(
   {
     mouseenter() {
       $(this).addClass('hover');
-      $(this).parent().find('.icon:not(.own)').addClass('hover');
+      $(this).parent().find('.icon:not(.mine)').addClass('hover');
+      $(this).parent().find('.name:not(.mine)').addClass('hover');
     },
     mouseleave() {
       $(this).removeClass('hover');
-      $(this).parent().find('.icon:not(.own)').removeClass('hover');
+      $(this).parent().find('.icon:not(.mine)').removeClass('hover');
+      $(this).parent().find('.name:not(.mine)').removeClass('hover');
     },
   },
-  '.fukidashi:not(.own)'
+  '.fukidashi:not(.mine)'
 );
 
-$('.left-section').on('mousedown', '.fukidashi:not(.own)', function () {
+$('.left-section').on('mousedown', '.fukidashi:not(.mine)', function () {
   $(this).removeClass('hover');
-  $(this).parent().find('.icon:not(.own)').removeClass('hover');
+  $(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-$('.left-section').on('mouseup', '.fukidashi:not(.own)', function () {
+$('.left-section').on('mouseup', '.fukidashi:not(.mine)', function () {
   $(this).addClass('hover');
-  $(this).parent().find('.icon:not(.own)').addClass('hover');
+  $(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
 
-$('.left-section').on('mousedown', '.user:not(.own)', function () {
-  $(this).find('.icon:not(.own)').removeClass('hover');
-  $(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+$('.left-section').on('mousedown', '.user:not(.mine)', function () {
+  $(this).find('.icon:not(.mine)').removeClass('hover');
+  $(this).find('.name:not(.mine)').removeClass('hover');
+  $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
 
-$('.left-section').on('mouseup', '.user:not(.own)', function () {
-  $(this).find('.icon:not(.own)').addClass('hover');
-  $(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+$('.left-section').on('mouseup', '.user:not(.mine)', function () {
+  $(this).find('.icon:not(.mine)').addClass('hover');
+  $(this).find('.name:not(.mine)').addClass('hover');
+  $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 
 /**
@@ -137,18 +144,18 @@ const setMention = (data) => {
   $('.at').text(`@${data.name}さん`);
 };
 
-$('.left-section').on('click', '.fukidashi:not(.own)', function () {
+$('.left-section').on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
-$('.left-section').on('click', '.user:not(.own)', function () {
+$('.left-section').on('click', '.user:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
 $(document).on('click', (event) => {
-  if (!$(event.target).closest('.fukidashi:not(.own)').length && !$(event.target).closest('.user:not(.own)').length) {
+  if (!$(event.target).closest('.fukidashi:not(.mine)').length && !$(event.target).closest('.user:not(.mine)').length) {
     removeMention();
   }
 });
@@ -165,38 +172,38 @@ socket.on('start data', () => {
 });
 
 socket.on('some one posts text', (data) => {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   text: '返信内容のテキスト'
-   * }
-   */
-  const a = $('#postTemplate').clone().removeAttr('id');
-  if (data.mention) {
-    a.find('.mention-comment').text(`${data.mention}さん`);
-    a.find('.mention-comment').show();
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
-  a.find('.text-comment').text(data.text);
-  a.find('.text-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.text-comment').text(data.text);
+  template.find('.text-comment').show();
+  template.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
 });
 
 socket.on('some one posts stamp', (data) => {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   src: 'スタンプ画像のurl'
-   * }
-   */
-  const a = $('#postTemplate').clone().removeAttr('id');
-  if (data.mention) {
-    a.find('.mention-comment').text(`${data.mention}さん`);
-    a.find('.mention-comment').show();
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
-  a.find('.img-comment').attr('src', data.src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
 });
 
@@ -206,26 +213,24 @@ BtnText.on('click', function () {
 
   const emitData = {
     to: '',
-    from: '',
+    from: myData,
     text,
   };
 
   if (dataSomeone) {
-    console.log(dataSomeone.name);
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my text', emitData);
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.text-comment').text(text).show();
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
 
   if (dataSomeone) {
-    a.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
   }
 
-  a.appendTo(leftSection).fadeIn();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
 
   removeMention();
@@ -237,26 +242,25 @@ BtnStamp.on('click', function () {
 
   const emitData = {
     to: '',
-    from: '',
+    from: myData,
     src,
   };
 
   if (dataSomeone) {
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my stamp', emitData);
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
 
   if (dataSomeone) {
-    a.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
   }
 
-  a.find('.img-comment').attr('src', src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
 
   removeMention();
@@ -268,15 +272,21 @@ const imgRandom = $('.img-random');
 // eslint-disable-next-line func-names
 imgMenus.on('click', function () {
   const src = $(this).attr('src');
-  socket.emit('post my stamp', { src });
+
+  const emitData = {
+    to: '',
+    from: myData,
+    src,
+  };
+  socket.emit('post my stamp', emitData);
 
   imgSelected.attr('src', src).show();
   imgRandom.show();
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.img-comment').attr('src', src).show();
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({ scrollTop: 5000000 });
   exerciseTimer();
 });

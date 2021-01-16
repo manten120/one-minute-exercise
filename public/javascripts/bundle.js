@@ -101,6 +101,7 @@ __webpack_require__.r(__webpack_exports__);
  // モーダルをデフォルトで表示する
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
+var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
 var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
 
 var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
@@ -179,39 +180,45 @@ leftSection.animate({
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
   mouseenter: function mouseenter() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
   },
   mouseleave: function mouseleave() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
   }
-}, '.user');
+}, '.user:not(.mine)');
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').addClass('hover');
   },
   mouseleave: function mouseleave() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').removeClass('hover');
   }
-}, '.fukidashi:not(.own)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi:not(.own)', function () {
+}, '.fukidashi:not(.mine)');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user:not(.own)', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user:not(.mine)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user:not(.own)', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user:not(.mine)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 /**
  * reply
@@ -228,16 +235,16 @@ var setMention = function setMention(data) {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name, "\u3055\u3093"));
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.user:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.user:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (event) {
-  if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.own)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.own)').length) {
+  if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.mine)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.mine)').length) {
     removeMention();
   }
 });
@@ -251,43 +258,44 @@ socket.on('start data', function () {
   console.log('start data came');
 });
 socket.on('some one posts text', function (data) {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   text: '返信内容のテキスト'
-   * }
-   */
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  ;
 
-  if (data.mention) {
-    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
-    a.find('.mention-comment').show();
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
 
-  a.find('.text-comment').text(data.text);
-  a.find('.text-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.text-comment').text(data.text);
+  template.find('.text-comment').show();
+  template.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
 });
 socket.on('some one posts stamp', function (data) {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   src: 'スタンプ画像のurl'
-   * }
-   */
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
-  if (data.mention) {
-    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
-    a.find('.mention-comment').show();
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
 
-  a.find('.img-comment').attr('src', data.src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
@@ -297,25 +305,23 @@ BtnText.on('click', function () {
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
   var emitData = {
     to: '',
-    from: '',
+    from: myData,
     text: text
   };
 
   if (dataSomeone) {
-    console.log(dataSomeone.name);
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my text', emitData);
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.text-comment').text(text).show();
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
 
   if (dataSomeone) {
-    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
   }
 
-  a.appendTo(leftSection).fadeIn();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
@@ -326,25 +332,24 @@ BtnStamp.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
   var emitData = {
     to: '',
-    from: '',
+    from: myData,
     src: src
   };
 
   if (dataSomeone) {
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my stamp', emitData);
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
 
   if (dataSomeone) {
-    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
   }
 
-  a.find('.img-comment').attr('src', src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });
@@ -356,15 +361,18 @@ var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); //
 
 imgMenus.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
-  socket.emit('post my stamp', {
+  var emitData = {
+    to: '',
+    from: myData,
     src: src
-  });
+  };
+  socket.emit('post my stamp', emitData);
   imgSelected.attr('src', src).show();
   imgRandom.show();
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.img-comment').attr('src', src).show();
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftSection).fadeIn();
   leftSection.animate({
     scrollTop: 5000000
   });

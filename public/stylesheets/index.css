@@ -1,0 +1,18 @@
+input[type="radio"].user-icon {
+  display: none;
+}
+
+label img {
+  margin: 2px;
+  padding: 2px;
+  width: 52px;
+  height: 52px;
+  border-radius: 52%;
+  background-color: #FFF;
+  object-fit: cover;
+  object-position: 50% 0%; /* 左から50%, 上から0%の位置 */
+}
+
+input[type="radio"].user-icon:checked + label img {
+  background-color: #007BFF;
+}
