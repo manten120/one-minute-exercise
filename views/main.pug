@@ -42,9 +42,10 @@ block content
                 Dropdown menu
               //- dropdownの内容
               div(aria-labelledby="dropdownMenuLink").dropdown-menu.m-2
-                a(href="#").dropdown-item トップページ
-                a(href="#").dropdown-item ログイン
-                a(href="#").dropdown-item アカウント作成
+                a(href="/").dropdown-item トップページ
+                if !isTwitterOauth
+                  a(href="/#login").dropdown-item 名前・アイコン変更
+                a(href="/logout").dropdown-item ログアウト
 
           //- タイマー
           div.right-section-header

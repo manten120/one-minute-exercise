@@ -7,10 +7,13 @@ const router = express.Router();
 
 /* GET main page. */
 router.get('/', (req, res) => {
+  let isTwitterOauth = false;
+
   // myData = { name: '名前', icon 'アイコンのパス' }
   let myData;
 
   if (req.user) {
+    isTwitterOauth = true;
     myData = {
       // eslint-disable-next-line no-underscore-dangle
       name: req.user._json.name,
@@ -35,7 +38,7 @@ router.get('/', (req, res) => {
     aisatsu = 'こんばんは';
   }
 
-  res.render('main', { myData, menusSrc, stampsSrc, textAndColorPairs, aisatsu });
+  res.render('main', { isTwitterOauth, myData, menusSrc, stampsSrc, textAndColorPairs, aisatsu });
   res.end();
 });
 

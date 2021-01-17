@@ -79,11 +79,13 @@ app.use('/login', loginRouter);
 app.get('/login/twitter', passport.authenticate('twitter'));
 
 app.get('/oauth_callback', passport.authenticate('twitter', { failureRedirect: '/' }), (req, res) => {
+  res.clearCookie('mdOneMinEx');
   res.redirect('/main');
 });
 
 app.get('/logout', (req, res) => {
   req.logout();
+  res.clearCookie('mdOneMinEx');
   res.redirect('/');
 });
 
