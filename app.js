@@ -40,6 +40,9 @@ passport.deserializeUser((obj, cb) => {
 /* Twitter認証 ここまで */
 
 const app = express();
+app.use(helmet());
+
+// Twitterのアイコン画像を使用するためhttps://pbs.twimg.comを許可
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
