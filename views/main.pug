@@ -65,13 +65,13 @@ block content
           //- タブズエリア
           div(style="display: none;").row#tabs-area
             //- タブズ
-            div.wrapper-tabs.d-flex.justify-content-between
+            div.wrapper-tabs.d-flex
               ul(role="tablist").nav.nav-tabs
                 li.nav-item
                   a(data-toggle="tab" href="#tab-stamp").nav-link.active スタンプ
                 li.nav-item
                   a(data-toggle="tab" href="#tab-text").nav-link テキスト
-              div.at.mt-3.mr-2 @全員
+              div.at.mt-3.ml-4.small @全員
             div.tab-content
               //-タブコンテンツ１
               div.col-12.tab-pane.fade.show.active#tab-stamp

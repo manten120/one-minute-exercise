@@ -228,11 +228,11 @@ var dataSomeone;
 
 var removeMention = function removeMention() {
   dataSomeone = undefined;
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1");
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1").removeClass('line');
 };
 
 var setMention = function setMention(data) {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name, "\u3055\u3093"));
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
 };
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.mine)', function () {

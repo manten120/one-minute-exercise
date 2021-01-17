@@ -137,11 +137,13 @@ let dataSomeone;
 
 const removeMention = () => {
   dataSomeone = undefined;
-  $('.at').text(`@全員`);
+  $('.at').text(`@全員`).removeClass('line');
 };
 
 const setMention = (data) => {
-  $('.at').text(`@${data.name}さん`);
+  $('.at')
+    .text(`@${data.name.slice(0, 10)}さん`)
+    .addClass('line');
 };
 
 $('.left-section').on('click', '.fukidashi:not(.mine)', function () {
