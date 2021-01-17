@@ -23,7 +23,19 @@ router.get('/', (req, res) => {
     res.redirect('/');
   }
 
-  res.render('main', { myData, menusSrc, stampsSrc, textAndColorPairs });
+  const hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
+  let aisatsu;
+  if (hour <= 3) {
+    aisatsu = 'こんばんは';
+  } else if (hour <= 9) {
+    aisatsu = 'おはようございます';
+  } else if (hour <= 17) {
+    aisatsu = 'こんにちは';
+  } else if (hour <= 23) {
+    aisatsu = 'こんばんは';
+  }
+
+  res.render('main', { myData, menusSrc, stampsSrc, textAndColorPairs, aisatsu });
   res.end();
 });
 
