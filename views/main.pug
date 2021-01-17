@@ -8,7 +8,7 @@ block content
       div.row.full-height
         //- 左カラム・チャットエリア
         div.col-5.left-section
-          //- 他人の投稿テンプレート#postTemplate
+          //- 他人の投稿テンプレート
           div(style="display: none" data-someone='{"name": "hanako", "icon": "images/icons/girl1.jpg"}').post#postTemplate
             div.user
               img(src="/images/icons/girl1.jpg", alt="ユーザーアイコン").icon
@@ -53,7 +53,7 @@ block content
             div.progress.mb-2
               div(role="progressbar" style="width: 100%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
           
-          //- 画像エリア
+          //- 選択したエクササイズを表示するエリア
           div(style="display: block;").row#img-area
             div.col-12
               div.wrapper-img-selected
@@ -68,26 +68,29 @@ block content
             div.wrapper-tabs.d-flex.justify-content-between
               ul(role="tablist").nav.nav-tabs
                 li.nav-item
-                  a(data-toggle="tab" href="#tab-favorite").nav-link.active お気に入り
-                li.nav-item
-                  a(data-toggle="tab" href="#tab-stamp").nav-link スタンプ
+                  a(data-toggle="tab" href="#tab-stamp").nav-link.active スタンプ
                 li.nav-item
                   a(data-toggle="tab" href="#tab-text").nav-link テキスト
               div.at.mt-3.mr-2 @全員
             div.tab-content
               //-タブコンテンツ１
-              div.col-12.tab-pane.fade.show.active#tab-favorite
+              div.col-12.tab-pane.fade.show.active#tab-stamp
                 div.stamps
                   each src in stampsSrc
                     img(src=src alt="スタンプ" ).img-thumbnail.btn-stamp
-                div.buttons
+                div.texts
                   each pair in textAndColorPairs
                     - const btnOutlineColor = `btn-outline-${pair.color}`;
                     button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
               //- タブコンテンツ2
-              div(role="tabpanel" aria-labelledby="profile-tab").tab-pane.fade#tab-stamp タブコンテンツ2
-              //- タブコンテンツ3
-              div(role="tabpanel" aria-labelledby="contact-tab").tab-pane.fade#tab-text タブコンテンツ3
+              div(role="tabpanel" aria-labelledby="tab-text").col-12.tab-pane.fade#tab-text
+                div.texts
+                  each pair in textAndColorPairs
+                    - const btnOutlineColor = `btn-outline-${pair.color}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
+                div.stamps
+                  each src in stampsSrc
+                    img(src=src alt="スタンプ" ).img-thumbnail.btn-stamp
 
     //- Modal
     div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade
