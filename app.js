@@ -40,7 +40,16 @@ passport.deserializeUser((obj, cb) => {
 /* Twitter認証 ここまで */
 
 const app = express();
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'img-src': ["'self'", 'data:', 'https://pbs.twimg.com'],
+    },
+  })
+);
+
+console.log(helmet.contentSecurityPolicy.getDefaultDirectives());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

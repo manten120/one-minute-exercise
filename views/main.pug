@@ -9,7 +9,7 @@ block content
         //- 左カラム・チャットエリア
         div.col-5.left-section
           //- 他人の投稿テンプレート#postTemplate
-          div(style="display: none" data-someone='{"name": "hanako", "icon": "/images/icons/girl1.jpg"}').post#postTemplate
+          div(style="display: none" data-someone='{"name": "hanako", "icon": "images/icons/girl1.jpg"}').post#postTemplate
             div.user
               img(src="/images/icons/girl1.jpg", alt="ユーザーアイコン").icon
               p.name hanako
@@ -19,7 +19,7 @@ block content
                   span(style="display: none").mention-comment.mt-3
                 p(style="display: none").text-comment
                 div(style="display: none").wrapper-img-comment
-                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+                  img(src="images/stamps/1-min.jpg" alt="...").img-comment
           //- 自分の投稿テンプレート
           div(style="display: none" data-mine=myData).post.mine#myPostTemplate
             div.user.mine
@@ -31,7 +31,7 @@ block content
                   span(style="display: none").mention-comment.mine.mt-3
                 p(style="display: none").text-comment.mine
                 div(style="display: none").wrapper-img-comment.mine
-                  img(src="images/sukuwatto.jpg" alt="...").img-comment.mine
+                  img(src="images/stamps/1-min.jpg" alt="...").img-comment.mine
 
         //- 右カラム
         div.col-7.right-section
@@ -79,16 +79,6 @@ block content
                 div.stamps
                   each src in stampsSrc
                     img(src=src alt="スタンプ" ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  //- img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
                 div.buttons
                   each pair in textAndColorPairs
                     - const btnOutlineColor = `btn-outline-${pair.color}`;
