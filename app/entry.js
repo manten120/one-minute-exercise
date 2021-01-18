@@ -10,7 +10,7 @@ const myData = $('body').data('mine');
 const imgSelectedExercise = $('.img-selected');
 // const imgRandomExercise = $('.img-random')
 
-const title = $('.title');
+const notice = $('#notice');
 const progressGray = $('.progress');
 const progressBar = $('.progress-bar');
 const textAddition = $('.text-addition');
@@ -40,7 +40,7 @@ const exerciseTimer = () => {
 
     if (w <= 0) {
       setTimeout(() => {
-        title.text('おつかれさまでした!');
+        notice.text('おつかれさまでした!');
         selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
@@ -49,7 +49,7 @@ const exerciseTimer = () => {
         progressBar.css('width', '100%');
       }, 3000);
       setTimeout(() => {
-        title.text('このページを自動で閉じます');
+        notice.text('このページを自動で閉じます');
         closeTimer();
       }, 4000);
     } else if (w <= 25) {
@@ -292,4 +292,24 @@ imgMenus.on('click', function () {
   myTemplate.appendTo(leftColumn).fadeIn();
   leftColumn.animate({ scrollTop: 5000000 });
   exerciseTimer();
+});
+
+/**
+ * タブ
+ */
+const rightColum = $('#right-column');
+rightColum.on('scroll', function () {
+  const scroll = $(this).scrollTop();
+  console.log(scroll);
+  if (scroll < 40) {
+    notice.removeClass('scrolled');
+  } else {
+    notice.addClass('scrolled');
+  }
+});
+
+$('.nav-link').on('click', () => {
+  if (rightColum.scrollTop() >= 57) {
+    rightColum.animate({ scrollTop: 57 }, 300);
+  }
 });

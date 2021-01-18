@@ -104,7 +104,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
 var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
 var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
 
-var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
+var notice = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#notice');
 var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
@@ -137,7 +137,7 @@ var exerciseTimer = function exerciseTimer() {
 
     if (w <= 0) {
       setTimeout(function () {
-        title.text('おつかれさまでした!');
+        notice.text('おつかれさまでした!');
         selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
@@ -146,7 +146,7 @@ var exerciseTimer = function exerciseTimer() {
         progressBar.css('width', '100%');
       }, 3000);
       setTimeout(function () {
-        title.text('このページを自動で閉じます');
+        notice.text('このページを自動で閉じます');
         closeTimer();
       }, 4000);
     } else if (w <= 25) {
@@ -375,6 +375,28 @@ imgMenus.on('click', function () {
     scrollTop: 5000000
   });
   exerciseTimer();
+});
+/**
+ * タブ
+ */
+
+var rightColum = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#right-column');
+rightColum.on('scroll', function () {
+  var scroll = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).scrollTop();
+  console.log(scroll);
+
+  if (scroll < 40) {
+    notice.removeClass('scrolled');
+  } else {
+    notice.addClass('scrolled');
+  }
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.nav-link').on('click', function () {
+  if (rightColum.scrollTop() >= 57) {
+    rightColum.animate({
+      scrollTop: 57
+    }, 300);
+  }
 });
 
 /***/ }),
