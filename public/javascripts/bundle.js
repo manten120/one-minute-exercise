@@ -165,7 +165,7 @@ var exerciseTimer = function exerciseTimer() {
 }; // チャット最下部にオートスクロール
 
 
-var leftSection = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section');
+var leftSection = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column');
 leftSection.animate({
   scrollTop: 5000000
 }); // messagesArea.scrollTop = messagesArea.scrollHeight;
@@ -178,7 +178,7 @@ leftSection.animate({
  * アニメーションをつける
  */
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
@@ -190,7 +190,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
   }
 }, '.user:not(.mine)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
@@ -202,20 +202,20 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').removeClass('hover');
   }
 }, '.fukidashi:not(.mine)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mousedown', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mouseup', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mousedown', '.user:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mouseup', '.user:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
@@ -235,11 +235,11 @@ var setMention = function setMention(data) {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('click', '.user:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });

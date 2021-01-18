@@ -66,7 +66,7 @@ const exerciseTimer = () => {
 };
 
 // チャット最下部にオートスクロール
-const leftSection = $('.left-section');
+const leftSection = $('.left-column');
 leftSection.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
@@ -77,7 +77,7 @@ leftSection.animate({ scrollTop: 5000000 });
  * 両要素に.hoverクラスを着脱することで
  * アニメーションをつける
  */
-$('.left-section').on(
+$('.left-column').on(
   {
     mouseenter() {
       $(this).find('.icon:not(.mine)').addClass('hover');
@@ -93,7 +93,7 @@ $('.left-section').on(
   '.user:not(.mine)'
 );
 
-$('.left-section').on(
+$('.left-column').on(
   {
     mouseenter() {
       $(this).addClass('hover');
@@ -109,22 +109,22 @@ $('.left-section').on(
   '.fukidashi:not(.mine)'
 );
 
-$('.left-section').on('mousedown', '.fukidashi:not(.mine)', function () {
+$('.left-column').on('mousedown', '.fukidashi:not(.mine)', function () {
   $(this).removeClass('hover');
   $(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-$('.left-section').on('mouseup', '.fukidashi:not(.mine)', function () {
+$('.left-column').on('mouseup', '.fukidashi:not(.mine)', function () {
   $(this).addClass('hover');
   $(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
 
-$('.left-section').on('mousedown', '.user:not(.mine)', function () {
+$('.left-column').on('mousedown', '.user:not(.mine)', function () {
   $(this).find('.icon:not(.mine)').removeClass('hover');
   $(this).find('.name:not(.mine)').removeClass('hover');
   $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
 
-$('.left-section').on('mouseup', '.user:not(.mine)', function () {
+$('.left-column').on('mouseup', '.user:not(.mine)', function () {
   $(this).find('.icon:not(.mine)').addClass('hover');
   $(this).find('.name:not(.mine)').addClass('hover');
   $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
@@ -146,12 +146,12 @@ const setMention = (data) => {
     .addClass('line');
 };
 
-$('.left-section').on('click', '.fukidashi:not(.mine)', function () {
+$('.left-column').on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
-$('.left-section').on('click', '.user:not(.mine)', function () {
+$('.left-column').on('click', '.user:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
