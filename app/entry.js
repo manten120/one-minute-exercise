@@ -6,13 +6,15 @@ import io from 'socket.io-client';
 $('#modalLong').modal('show');
 
 const myData = $('body').data('mine');
+
 const imgSelectedExercise = $('.img-selected');
 // const imgRandomExercise = $('.img-random')
+
 const title = $('.title');
 const progressGray = $('.progress');
 const progressBar = $('.progress-bar');
 const textAddition = $('.text-addition');
-const imgArea = $('#img-area');
+const selectedImgArea = $('#selected-img-area');
 const tabsArea = $('#tabs-area');
 const BtnText = $('.btn-text');
 
@@ -39,7 +41,7 @@ const exerciseTimer = () => {
     if (w <= 0) {
       setTimeout(() => {
         title.text('おつかれさまでした!');
-        imgArea.hide();
+        selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
       setTimeout(() => {
@@ -66,8 +68,8 @@ const exerciseTimer = () => {
 };
 
 // チャット最下部にオートスクロール
-const leftSection = $('.left-column');
-leftSection.animate({ scrollTop: 5000000 });
+const leftColumn = $('#left-column');
+leftColumn.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
@@ -77,7 +79,7 @@ leftSection.animate({ scrollTop: 5000000 });
  * 両要素に.hoverクラスを着脱することで
  * アニメーションをつける
  */
-$('.left-column').on(
+$(leftColumn).on(
   {
     mouseenter() {
       $(this).find('.icon:not(.mine)').addClass('hover');
@@ -93,7 +95,7 @@ $('.left-column').on(
   '.user:not(.mine)'
 );
 
-$('.left-column').on(
+$(leftColumn).on(
   {
     mouseenter() {
       $(this).addClass('hover');
@@ -109,29 +111,29 @@ $('.left-column').on(
   '.fukidashi:not(.mine)'
 );
 
-$('.left-column').on('mousedown', '.fukidashi:not(.mine)', function () {
+$(leftColumn).on('mousedown', '.fukidashi:not(.mine)', function () {
   $(this).removeClass('hover');
   $(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-$('.left-column').on('mouseup', '.fukidashi:not(.mine)', function () {
+$(leftColumn).on('mouseup', '.fukidashi:not(.mine)', function () {
   $(this).addClass('hover');
   $(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
 
-$('.left-column').on('mousedown', '.user:not(.mine)', function () {
+$(leftColumn).on('mousedown', '.user:not(.mine)', function () {
   $(this).find('.icon:not(.mine)').removeClass('hover');
   $(this).find('.name:not(.mine)').removeClass('hover');
   $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
 
-$('.left-column').on('mouseup', '.user:not(.mine)', function () {
+$(leftColumn).on('mouseup', '.user:not(.mine)', function () {
   $(this).find('.icon:not(.mine)').addClass('hover');
   $(this).find('.name:not(.mine)').addClass('hover');
   $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 
 /**
- * reply
+ * メンション
  */
 let dataSomeone;
 
@@ -146,12 +148,12 @@ const setMention = (data) => {
     .addClass('line');
 };
 
-$('.left-column').on('click', '.fukidashi:not(.mine)', function () {
+$(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
-$('.left-column').on('click', '.user:not(.mine)', function () {
+$(leftColumn).on('click', '.user:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
@@ -185,10 +187,9 @@ socket.on('some one posts text', (data) => {
   }
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
-  template.find('.text-comment').text(data.text);
-  template.find('.text-comment').show();
-  template.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  template.find('.text-comment').text(data.text).show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 });
 
 socket.on('some one posts stamp', (data) => {
@@ -205,8 +206,8 @@ socket.on('some one posts stamp', (data) => {
   template.find('.name').text(data.from.name);
   template.find('.img-comment').attr('src', data.src);
   template.find('.wrapper-img-comment').show();
-  template.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 });
 
 // eslint-disable-next-line func-names
@@ -232,8 +233,8 @@ BtnText.on('click', function () {
     myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
   }
 
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
 });
@@ -262,8 +263,8 @@ BtnStamp.on('click', function () {
 
   myTemplate.find('.img-comment').attr('src', src);
   myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
 });
@@ -288,7 +289,7 @@ imgMenus.on('click', function () {
   const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.img-comment').attr('src', src).show();
   myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
   exerciseTimer();
 });

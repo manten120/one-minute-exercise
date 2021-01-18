@@ -8,14 +8,14 @@ body {
   height: 100%;
 }
 
-.left-column {
+#left-column {
   height: 100%;
   padding-top: 80px;
   background-color: rgb(133, 156, 197);
   overflow-y: scroll;
 }
 
-.right-column {
+#right-column {
   position: relative;
   height: 100%;
   background-color: #fff;

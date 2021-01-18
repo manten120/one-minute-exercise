@@ -7,7 +7,7 @@ block content
     div.container.full-height
       div.row.full-height
         //- 左カラム・チャットエリア
-        div.col-5.left-column
+        div.col-5#left-column
           //- 他人の投稿テンプレート
           div(style="display: none" data-someone='{"name": "hanako", "icon": "images/icons/girl1.jpg"}').post#postTemplate
             div.user
@@ -34,7 +34,7 @@ block content
                   img(src="images/stamps/1-min.jpg" alt="...").img-comment.mine
 
         //- 右カラム
-        div.col-7.right-column
+        div.col-7#right-column
           div.m-1.mt-3.d-flex.justify-content-end#header-area
             p.greeting.mr-3 #{myData.name}さん、#{aisatsu}
             div.dropdown.mt-1
@@ -54,7 +54,7 @@ block content
               div(role="progressbar" style="width: 100%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
           
           //- 選択したエクササイズを表示するエリア
-          div(style="display: block;").row#img-area
+          div(style="display: block;").row#selected-img-area
             div.col-12
               div.wrapper-img-selected
                 img(src="images/menus/2.jpg" alt="エクササイズ画像" style="display: none;").img-random

@@ -108,7 +108,7 @@ var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
 var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
-var imgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#img-area');
+var selectedImgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#selected-img-area');
 var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabs-area');
 var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // エクササイズ後のタイマー
 
@@ -138,7 +138,7 @@ var exerciseTimer = function exerciseTimer() {
     if (w <= 0) {
       setTimeout(function () {
         title.text('おつかれさまでした!');
-        imgArea.hide();
+        selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
       setTimeout(function () {
@@ -165,8 +165,8 @@ var exerciseTimer = function exerciseTimer() {
 }; // チャット最下部にオートスクロール
 
 
-var leftSection = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column');
-leftSection.animate({
+var leftColumn = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#left-column');
+leftColumn.animate({
   scrollTop: 5000000
 }); // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
@@ -178,7 +178,7 @@ leftSection.animate({
  * アニメーションをつける
  */
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
@@ -190,7 +190,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
   }
 }, '.user:not(.mine)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
@@ -202,26 +202,26 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on({
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').removeClass('hover');
   }
 }, '.fukidashi:not(.mine)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mousedown', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mousedown', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mouseup', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mousedown', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mousedown', '.user:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('mouseup', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.user:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 /**
- * reply
+ * メンション
  */
 
 var dataSomeone;
@@ -235,11 +235,11 @@ var setMention = function setMention(data) {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('click', '.fukidashi:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-column').on('click', '.user:not(.mine)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.user:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
@@ -271,10 +271,9 @@ socket.on('some one posts text', function (data) {
 
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
-  template.find('.text-comment').text(data.text);
-  template.find('.text-comment').show();
-  template.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  template.find('.text-comment').text(data.text).show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
 });
@@ -294,8 +293,8 @@ socket.on('some one posts stamp', function (data) {
   template.find('.name').text(data.from.name);
   template.find('.img-comment').attr('src', data.src);
   template.find('.wrapper-img-comment').show();
-  template.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
 }); // eslint-disable-next-line func-names
@@ -320,8 +319,8 @@ BtnText.on('click', function () {
     myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
   }
 
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   removeMention();
@@ -348,8 +347,8 @@ BtnStamp.on('click', function () {
 
   myTemplate.find('.img-comment').attr('src', src);
   myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   removeMention();
@@ -371,8 +370,8 @@ imgMenus.on('click', function () {
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.img-comment').attr('src', src).show();
   myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   exerciseTimer();
