@@ -3,115 +3,96 @@ extends layout
 block content
   link(rel="stylesheet" href="/stylesheets/main.css")
   //- ここまでheadタグに含まれる
-  body
+  body(data-mine=myData)
     div.container.full-height
       div.row.full-height
         //- 左カラム・チャットエリア
-        div.col-5.left-section
-          //- 他人の投稿テンプレート#postTemplate
-          div(style="display: none" data-someone='{"id": "117117", "name": "hanako"}').post#postTemplate
+        div.col-5#left-column
+          //- 他人の投稿テンプレート
+          div(style="display: none" data-someone='{"name": "hanako", "icon": "images/icons/girl1.jpg"}').post#postTemplate
             div.user
-              img(src="/images/girl1.jpg", alt="").icon
+              img(src="/images/icons/girl1.jpg", alt="ユーザーアイコン").icon
               p.name hanako
             div.fukidashi
               div.comment
-                p(style="display: none").mention-comment.mt-3
+                div
+                  span(style="display: none").mention-comment.mt-3
                 p(style="display: none").text-comment
                 div(style="display: none").wrapper-img-comment
-                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+                  img(src="images/stamps/1-min.jpg" alt="...").img-comment
           //- 自分の投稿テンプレート
-          div(style="display: none" data-own='{"id": "882882", "name": "tarou"}').post.own#postOwnTemplate
-            div.user.own
-              img(src="/images/girl1.jpg", alt="").icon.own
-              p.name tarou
-            div.fukidashi.own
-              div.comment
-                p(style="display: none").mention-comment.mt-3
-                p(style="display: none").text-comment
-                div(style="display: none").wrapper-img-comment
-                  img(src="images/sukuwatto.jpg" alt="...").img-comment
+          div(style="display: none" data-mine=myData).post.mine#myPostTemplate
+            div.user.mine
+              img(src=myData.icon, alt="").icon.mine
+              p.name.mine #{myData.name}
+            div.fukidashi.mine
+              div.comment.mine
+                div
+                  span(style="display: none").mention-comment.mine.mt-3
+                p(style="display: none").text-comment.mine
+                div(style="display: none").wrapper-img-comment.mine
+                  img(src="images/stamps/1-min.jpg" alt="...").img-comment.mine
 
         //- 右カラム
-        div.col-7.right-section
-          div.m-1.mt-3.mb-4.d-flex.justify-content-end
-            p.mr-3 userNameさん、こんにちは
+        div.col-7#right-column
+          div.m-1.mt-3.d-flex.justify-content-end#header-area
+            p.greeting.mr-3 #{myData.name}さん、#{aisatsu}
             div.dropdown.mt-1
               a(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").dropdown-toggle
                 Dropdown menu
               //- dropdownの内容
               div(aria-labelledby="dropdownMenuLink").dropdown-menu.m-2
-                a(href="#").dropdown-item トップページ
-                a(href="#").dropdown-item ログイン
-                a(href="#").dropdown-item アカウント作成
+                a(href="/").dropdown-item トップページ
+                if !isTwitterOauth
+                  a(href="/#login").dropdown-item 名前・アイコン変更
+                a(href="/logout").dropdown-item ログアウト
 
           //- タイマー
-          div.right-section-header
-            h4.title 1分だけ がんばりましょ!!
+          div.pb-2#timer-area
+            h4#notice 1分だけ がんばりましょ!!
             div.progress.mb-2
               div(role="progressbar" style="width: 100%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
           
-          //- 画像エリア
-          div(style="display: block;").row#img-area
+          //- 選択したエクササイズを表示するエリア
+          div(style="display: block;").row#selected-img-area
             div.col-12
               div.wrapper-img-selected
-                img(src="images/kubi.jpg" alt="..." style="display: none;").img-random
-                img(src="images/sukuwatto.jpg" alt="..." style="display: none;").img-selected
+                img(src="images/menus/2.jpg" alt="エクササイズ画像" style="display: none;").img-random
+                img(src="images/menus/1.jpg" alt="エクササイズ画像" style="display: none;").img-selected
               h5(style="display: none;").text-addition 時間があまったらやってみよう!!
               button(type="button" class="" data-toggle="modal" data-target="#modalLong").btn.btn-primary Launch demo modal
           
-          //- タブズエリア
+          //- タブエリア
           div(style="display: none;").row#tabs-area
-            //- タブズ
-            div.wrapper-tabs.d-flex.justify-content-between
+            //- タブナビゲーション
+            div.wrapper-nav-tabs.d-flex
               ul(role="tablist").nav.nav-tabs
                 li.nav-item
-                  a(data-toggle="tab" href="#tab-favorite").nav-link.active お気に入り
-                li.nav-item
-                  a(data-toggle="tab" href="#tab-stamp").nav-link スタンプ
+                  a(data-toggle="tab" href="#tab-stamp").nav-link.active スタンプ
                 li.nav-item
                   a(data-toggle="tab" href="#tab-text").nav-link テキスト
-              div.at.mt-3.mr-2 @全員
+              div.at.mt-3.ml-4.small @全員
             div.tab-content
               //-タブコンテンツ１
-              div.col-12.tab-pane.fade.show.active#tab-favorite
+              div.col-12.tab-pane.show.active#tab-stamp
                 div.stamps
-                  img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/otsukaresama2.jpg" alt="..." ).img-thumbnail.btn-stamp
-                  img(src="images/stamps/tsukareta1.jpg" alt="..." ).img-thumbnail.btn-stamp
-                div.buttons
-                  - const texts = ['おつかれさまでした', 'つかれたぁー', '次の1時間も頑張ろう！', 'おなかすいた～',]
-                  each text in texts
-                    button(type="button" data-text=text).btn.btn-outline-primary.btn-text.mr-2.mb-2 #{text}
+                  each pair in stampsKeyAndSrcPairs
+                    img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key).img-thumbnail.btn-stamp
+                div.texts
+                  each pair in textAndColorPairs
+                    - const btnOutlineColor = `btn-outline-${pair.color}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
               //- タブコンテンツ2
-              div(role="tabpanel" aria-labelledby="profile-tab").tab-pane.fade#tab-stamp タブコンテンツ2
-              //- タブコンテンツ3
-              div(role="tabpanel" aria-labelledby="contact-tab").tab-pane.fade#tab-text タブコンテンツ3
+              div(role="tabpanel" aria-labelledby="tab-text").col-12.tab-pane.fade#tab-text
+                div.texts
+                  each pair in textAndColorPairs
+                    - const btnOutlineColor = `btn-outline-${pair.color}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
+                div.stamps
+                  each pair in stampsKeyAndSrcPairs
+                    img(src=pair.src alt="スタンプ" ).img-thumbnail.btn-stamp
 
-
-                //- button(type="button" data-text="おつかれさまでした").btn.btn-outline-primary.btn-text.mr-2.mb-2 おつかれさまでした
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 つかれたぁー
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 次の1時間も頑張ろう！
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おなかすいた～
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 ごはん食べた?
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 まだです
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 食べたよ
-                
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おはよ～
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんにちは
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 こんばんは
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 おやすみなさい
-                //- button(type="button").btn.btn-outline-primary.btn-text.mr-2.mb-2 また明日
-
-    //- Modal
+    //- モーダルウインドウ
     div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade
       div(role="document").modal-dialog
         div.modal-content
@@ -119,27 +100,7 @@ block content
             h5#exampleModalLongTitle.modal-title エクササイズを選んでください
           div.modal-body
             div.row
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/teashiage.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/kubi.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
-              div.col-6
-                div.wrapper-img-menus
-                  img(src="images/sukuwatto.jpg" alt="..." data-dismiss="modal").img-thumbnail.img-menus
+              each src in menusSrc
+                div.col-6
+                  div.wrapper-img-menus
+                    img(src=src alt="..." data-dismiss="modal").img-thumbnail.img-menus

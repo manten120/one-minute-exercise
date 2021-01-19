@@ -1,17 +1,21 @@
 import 'bootstrap';
 import $ from 'jquery';
 import io from 'socket.io-client';
+// import { stampsData } from '../utility/stamps';
 
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
 
+const myData = $('body').data('mine');
+
 const imgSelectedExercise = $('.img-selected');
 // const imgRandomExercise = $('.img-random')
-const title = $('.title');
+
+const notice = $('#notice');
 const progressGray = $('.progress');
 const progressBar = $('.progress-bar');
 const textAddition = $('.text-addition');
-const imgArea = $('#img-area');
+const selectedImgArea = $('#selected-img-area');
 const tabsArea = $('#tabs-area');
 const BtnText = $('.btn-text');
 
@@ -37,8 +41,8 @@ const exerciseTimer = () => {
 
     if (w <= 0) {
       setTimeout(() => {
-        title.text('おつかれさまでした!');
-        imgArea.hide();
+        notice.text('おつかれさまでした!');
+        selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
       setTimeout(() => {
@@ -46,7 +50,7 @@ const exerciseTimer = () => {
         progressBar.css('width', '100%');
       }, 3000);
       setTimeout(() => {
-        title.text('このページを自動で閉じます');
+        notice.text('このページを自動で閉じます');
         closeTimer();
       }, 4000);
     } else if (w <= 25) {
@@ -65,8 +69,8 @@ const exerciseTimer = () => {
 };
 
 // チャット最下部にオートスクロール
-const leftSection = $('.left-section');
-leftSection.animate({ scrollTop: 5000000 });
+const leftColumn = $('#left-column');
+leftColumn.animate({ scrollTop: 5000000 });
 // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
@@ -76,79 +80,87 @@ leftSection.animate({ scrollTop: 5000000 });
  * 両要素に.hoverクラスを着脱することで
  * アニメーションをつける
  */
-$('.left-section').on(
+$(leftColumn).on(
   {
     mouseenter() {
-      $(this).find('.icon:not(.own)').addClass('hover');
-      $(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+      $(this).find('.icon:not(.mine)').addClass('hover');
+      $(this).find('.name:not(.mine)').addClass('hover');
+      $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
     },
     mouseleave() {
-      $(this).find('.icon:not(.own)').removeClass('hover');
-      $(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+      $(this).find('.icon:not(.mine)').removeClass('hover');
+      $(this).find('.name:not(.mine)').removeClass('hover');
+      $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
     },
   },
-  '.user'
+  '.user:not(.mine)'
 );
 
-$('.left-section').on(
+$(leftColumn).on(
   {
     mouseenter() {
       $(this).addClass('hover');
-      $(this).parent().find('.icon:not(.own)').addClass('hover');
+      $(this).parent().find('.icon:not(.mine)').addClass('hover');
+      $(this).parent().find('.name:not(.mine)').addClass('hover');
     },
     mouseleave() {
       $(this).removeClass('hover');
-      $(this).parent().find('.icon:not(.own)').removeClass('hover');
+      $(this).parent().find('.icon:not(.mine)').removeClass('hover');
+      $(this).parent().find('.name:not(.mine)').removeClass('hover');
     },
   },
-  '.fukidashi:not(.own)'
+  '.fukidashi:not(.mine)'
 );
 
-$('.left-section').on('mousedown', '.fukidashi:not(.own)', function () {
+$(leftColumn).on('mousedown', '.fukidashi:not(.mine)', function () {
   $(this).removeClass('hover');
-  $(this).parent().find('.icon:not(.own)').removeClass('hover');
+  $(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-$('.left-section').on('mouseup', '.fukidashi:not(.own)', function () {
+$(leftColumn).on('mouseup', '.fukidashi:not(.mine)', function () {
   $(this).addClass('hover');
-  $(this).parent().find('.icon:not(.own)').addClass('hover');
+  $(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
 
-$('.left-section').on('mousedown', '.user:not(.own)', function () {
-  $(this).find('.icon:not(.own)').removeClass('hover');
-  $(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+$(leftColumn).on('mousedown', '.user:not(.mine)', function () {
+  $(this).find('.icon:not(.mine)').removeClass('hover');
+  $(this).find('.name:not(.mine)').removeClass('hover');
+  $(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
 
-$('.left-section').on('mouseup', '.user:not(.own)', function () {
-  $(this).find('.icon:not(.own)').addClass('hover');
-  $(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+$(leftColumn).on('mouseup', '.user:not(.mine)', function () {
+  $(this).find('.icon:not(.mine)').addClass('hover');
+  $(this).find('.name:not(.mine)').addClass('hover');
+  $(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 
 /**
- * reply
+ * メンション
  */
 let dataSomeone;
 
 const removeMention = () => {
   dataSomeone = undefined;
-  $('.at').text(`@全員`);
+  $('.at').text(`@全員`).removeClass('line');
 };
 
 const setMention = (data) => {
-  $('.at').text(`@${data.name}さん`);
+  $('.at')
+    .text(`@${data.name.slice(0, 10)}さん`)
+    .addClass('line');
 };
 
-$('.left-section').on('click', '.fukidashi:not(.own)', function () {
+$(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
-$('.left-section').on('click', '.user:not(.own)', function () {
+$(leftColumn).on('click', '.user:not(.mine)', function () {
   dataSomeone = $(this).parent().data('someone');
   setMention(dataSomeone);
 });
 
 $(document).on('click', (event) => {
-  if (!$(event.target).closest('.fukidashi:not(.own)').length && !$(event.target).closest('.user:not(.own)').length) {
+  if (!$(event.target).closest('.fukidashi:not(.mine)').length && !$(event.target).closest('.user:not(.mine)').length) {
     removeMention();
   }
 });
@@ -165,40 +177,61 @@ socket.on('start data', () => {
 });
 
 socket.on('some one posts text', (data) => {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   text: '返信内容のテキスト'
-   * }
-   */
-  const a = $('#postTemplate').clone().removeAttr('id');
-  if (data.mention) {
-    a.find('.mention-comment').text(`${data.mention}さん`);
-    a.find('.mention-comment').show();
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
-  a.find('.text-comment').text(data.text);
-  a.find('.text-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.text-comment').text(data.text).show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 });
 
 socket.on('some one posts stamp', (data) => {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   src: 'スタンプ画像のurl'
-   * }
-   */
-  const a = $('#postTemplate').clone().removeAttr('id');
-  if (data.mention) {
-    a.find('.mention-comment').text(`${data.mention}さん`);
-    a.find('.mention-comment').show();
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
-  a.find('.img-comment').attr('src', data.src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 });
+
+socket.on('some one posts menu', (data) => {
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
+  }
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
+});
+
+if ($('#modalLong').length) {
+  socket.emit('onload main page');
+}
 
 // eslint-disable-next-line func-names
 BtnText.on('click', function () {
@@ -206,27 +239,25 @@ BtnText.on('click', function () {
 
   const emitData = {
     to: '',
-    from: '',
+    from: myData,
     text,
   };
 
   if (dataSomeone) {
-    console.log(dataSomeone.name);
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my text', emitData);
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.text-comment').text(text).show();
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
 
   if (dataSomeone) {
-    a.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
   }
 
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
 });
@@ -237,29 +268,31 @@ BtnStamp.on('click', function () {
 
   const emitData = {
     to: '',
-    from: '',
+    from: myData,
     src,
   };
 
   if (dataSomeone) {
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my stamp', emitData);
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
 
   if (dataSomeone) {
-    a.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
   }
 
-  a.find('.img-comment').attr('src', src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
+
+  const key = $(this).data('key');
+  socket.emit('call npc', { from: myData, type: 'stamp', key });
 });
 
 const imgMenus = $('.img-menus');
@@ -268,15 +301,41 @@ const imgRandom = $('.img-random');
 // eslint-disable-next-line func-names
 imgMenus.on('click', function () {
   const src = $(this).attr('src');
-  socket.emit('post my stamp', { src });
+
+  const emitData = {
+    to: '',
+    from: myData,
+    src,
+  };
+  socket.emit('post my menu', emitData);
 
   imgSelected.attr('src', src).show();
   imgRandom.show();
 
-  const a = $('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.img-comment').attr('src', src).show();
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({ scrollTop: 5000000 });
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
   exerciseTimer();
+});
+
+/**
+ * タブ
+ */
+const rightColum = $('#right-column');
+rightColum.on('scroll', function () {
+  const scroll = $(this).scrollTop();
+  console.log(scroll);
+  if (scroll < 40) {
+    notice.removeClass('scrolled');
+  } else {
+    notice.addClass('scrolled');
+  }
+});
+
+$('.nav-link').on('click', () => {
+  if (rightColum.scrollTop() >= 57) {
+    rightColum.animate({ scrollTop: 57 }, 300);
+  }
 });

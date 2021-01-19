@@ -1,24 +1,45 @@
 const express = require('express');
+const menusSrc = require('../utility/menusSrc');
+const { stampsKeyAndSrcPairs } = require('../utility/stamps');
+const textAndColorPairs = require('../utility/textAndColorPairs');
 
 const router = express.Router();
 
 /* GET main page. */
 router.get('/', (req, res) => {
-  const u = {
-    name: '太郎',
-    id: 'hogehoge',
-    icon: '.foo.jpg',
-  };
-  const uJson = encodeURI(JSON.stringify(u));
-  console.log(decodeURI(uJson));
+  let isTwitterOauth = false;
 
-  const cookieExpireDays = 30;
-  const nowDate = new Date();
-  nowDate.setTime(nowDate.getTime() + cookieExpireDays * 24 * 60 * 60 * 1000);
-  const cookieExpireDate = nowDate.toGMTString();
+  // myData = { name: '名前', icon 'アイコンのパス' }
+  let myData;
 
-  res.setHeader('Set-Cookie', `last_access=${uJson};expires=${cookieExpireDate};`);
-  res.render('main', { title: 'Express' });
+  if (req.user) {
+    isTwitterOauth = true;
+    myData = {
+      // eslint-disable-next-line no-underscore-dangle
+      name: req.user._json.name,
+      // eslint-disable-next-line no-underscore-dangle
+      icon: req.user._json.profile_image_url_https,
+    };
+  } else if (req.cookies.mdOneMinEx) {
+    myData = req.cookies.mdOneMinEx;
+  } else {
+    res.redirect('/');
+  }
+
+  const hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
+  let aisatsu;
+  if (hour <= 3) {
+    aisatsu = 'こんばんは';
+  } else if (hour <= 9) {
+    aisatsu = 'おはようございます';
+  } else if (hour <= 17) {
+    aisatsu = 'こんにちは';
+  } else if (hour <= 23) {
+    aisatsu = 'こんばんは';
+  }
+
+  res.render('main', { isTwitterOauth, myData, menusSrc, stampsKeyAndSrcPairs, textAndColorPairs, aisatsu });
+  res.end();
 });
 
 module.exports = router;

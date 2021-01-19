@@ -1,14 +1,24 @@
-.left-section {
+/* 全体 */
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.full-height {
+  height: 100%;
+}
+
+#left-column {
   height: 100%;
   padding-top: 80px;
   background-color: rgb(133, 156, 197);
   overflow-y: scroll;
 }
 
-.right-section {
+#right-column {
   position: relative;
   height: 100%;
-  background-color: #FFF;
+  background-color: #fff;
   overflow-y: scroll;
 }
 
@@ -27,18 +37,18 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: all .1s;
+  transition: all 0.1s;
   user-select: none;
 }
 
 .img-menus:hover {
   transform: translateY(-3px);
-  box-shadow: 0px 6px 6px rgba(0,0,0,0.6);
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.6);
 }
 
 .img-menus:active {
   transform: translateY(0px);
-  box-shadow: 0px 0px 0px rgba(0,0,0,0);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
 /* 左カラム・チャットエリア */
@@ -48,7 +58,7 @@
   width: 80%;
 }
 
-.post.own {
+.post.mine {
   flex-direction: row-reverse;
   margin: 0 0 0 auto;
 }
@@ -56,79 +66,95 @@
 .icon {
   margin: 24px 4px 0 0;
   width: 48px;
+  height: 48px;
   border-radius: 50%;
-  transition: all .1s;
+  transition: all 0.1s;
   user-select: none;
+  object-fit: cover;
+  object-position: 50% 0%; /* 左から50%, 上から0%の位置 */
 }
 
 .icon.hover {
-  transform: translateY(-1px);
-  box-shadow: 0px 4px 4px rgba(0,0,0,0.4)
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-.icon.own {
+.icon.mine {
   margin: 24px 0 0 4px;
 }
 
 .name {
+  max-width: 52px;
   text-align: center;
-  color: #3A3A3A;
+  color: #444;
+  font-weight: 600;
+  font-size: 10px;
   user-select: none;
+  transition: all 0.1s;
+}
+
+.name:not(.mine).hover {
+  border-radius: 2px;
+  background: rgba(255, 255, 102, 0.9);
 }
 
 .fukidashi {
   position: relative;
   display: inline-block;
   margin: 8px 0 8px 15px;
-  padding: 0px 10px;
+  padding: 10px 10px;
   min-width: 160px;
   max-width: 100%;
   min-height: 60px;
   border-radius: 5px;
   color: #555;
   font-size: 16px;
-  background: #FFF;
-  transition: all .1s;
+  background: #fff;
+  transition: all 0.1s;
 }
 
 .fukidashi.hover {
-  transform: translateY(-1px);
-  box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-.fukidashi.own {
+.fukidashi.mine {
   margin: 8px 15px 8px 0;
 }
 
 .fukidashi:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: -30px;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-right: 15px solid #FFF;
+  border-right: 15px solid #fff;
 }
 
-.fukidashi.own:before {
-  content: "";
+.fukidashi.mine:before {
+  content: '';
   position: absolute;
   top: 50%;
   left: 100%;
   margin-top: -15px;
   border: 15px solid transparent;
-  border-left: 15px solid #FFF;
+  border-left: 15px solid #fff;
+}
+
+.mention-comment.me {
+  background: linear-gradient(transparent 60%, #ff6 60%);
 }
 
 .text-comment {
-  margin: 16px 0;
+  margin: 8px 0;
   padding: 0;
-  text-align:center;
   user-select: none;
 }
 
 .wrapper-img-comment {
   position: relative;
+  margin: 0 auto;
   width: 100%;
   max-width: 104px;
   margin-left: 16px;
@@ -145,11 +171,29 @@
   user-select: none;
 }
 
-/* 右カラム エクササイズ画像エリア*/
-.title {
-  margin: 16px 0;
+/* 右カラム ヘッダーエリア*/
+.greeting {
+  color: #555;
 }
 
+/* 右カラム タイマーエリア*/
+#timer-area {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fff;
+}
+
+#notice {
+  padding: 16px 0;
+}
+
+#notice.scrolled {
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+/* 右カラム エクササイズ画像エリア*/
 .wrapper-img-selected {
   position: relative;
   width: 100%;
@@ -157,7 +201,8 @@
   margin-bottom: 16px;
 }
 
-.img-selected, .img-random {
+.img-selected,
+.img-random {
   position: absolute;
   /* top: 0;
   left: 0; */
@@ -169,13 +214,19 @@
   user-select: none;
 }
 
-/* 右カラム コメントボタンエリア */
-/* tabs */
-.wrapper-tabs {
-  display: flex;
-  justify-content: space-between;
+/* 右カラム タブエリア*/
+.wrapper-nav-tabs {
+  position: sticky;
+  top: 75px;
+  z-index: 1;
   width: 100%;
-  padding: 16px;
+  padding: 0 16px 16px;
+  background-color: #fff;
+}
+
+.at.line {
+  /* line-height: 0.5; */
+  background: linear-gradient(transparent 40%, #ff6 60%, transparent 90%);
 }
 
 .btn-stamp {
@@ -184,16 +235,16 @@
   margin-bottom: 8px;
   margin-right: 8px;
   object-fit: contain;
-  transition: all .1s;
+  transition: all 0.1s;
   user-select: none;
 }
 
 .btn-stamp:hover {
   transform: translateY(-1px);
-  box-shadow: 0px 4px 4px rgba(0,0,0,0.4);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .btn-stamp:active {
   transform: translateY(0px);
-  box-shadow: 0px 0px 0px rgba(0,0,0,0);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
 }

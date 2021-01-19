@@ -98,16 +98,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_2__);
 
 
- // モーダルをデフォルトで表示する
+ // import { stampsData } from '../utility/stamps';
+// モーダルをデフォルトで表示する
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
+var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
 var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
 
-var title = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.title');
+var notice = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#notice');
 var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
-var imgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#img-area');
+var selectedImgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#selected-img-area');
 var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabs-area');
 var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // エクササイズ後のタイマー
 
@@ -136,8 +138,8 @@ var exerciseTimer = function exerciseTimer() {
 
     if (w <= 0) {
       setTimeout(function () {
-        title.text('おつかれさまでした!');
-        imgArea.hide();
+        notice.text('おつかれさまでした!');
+        selectedImgArea.hide();
         tabsArea.show();
       }, 1000);
       setTimeout(function () {
@@ -145,7 +147,7 @@ var exerciseTimer = function exerciseTimer() {
         progressBar.css('width', '100%');
       }, 3000);
       setTimeout(function () {
-        title.text('このページを自動で閉じます');
+        notice.text('このページを自動で閉じます');
         closeTimer();
       }, 4000);
     } else if (w <= 25) {
@@ -164,8 +166,8 @@ var exerciseTimer = function exerciseTimer() {
 }; // チャット最下部にオートスクロール
 
 
-var leftSection = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section');
-leftSection.animate({
+var leftColumn = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#left-column');
+leftColumn.animate({
   scrollTop: 5000000
 }); // messagesArea.scrollTop = messagesArea.scrollHeight;
 // // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
@@ -177,67 +179,73 @@ leftSection.animate({
  * アニメーションをつける
  */
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on({
   mouseenter: function mouseenter() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
   },
   mouseleave: function mouseleave() {
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
   }
-}, '.user');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on({
+}, '.user:not(.mine)');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on({
   mouseenter: function mouseenter() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').addClass('hover');
   },
   mouseleave: function mouseleave() {
     jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.name:not(.mine)').removeClass('hover');
   }
-}, '.fukidashi:not(.own)');
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.fukidashi:not(.own)', function () {
+}, '.fukidashi:not(.mine)');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mousedown', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.fukidashi:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.fukidashi:not(.mine)', function () {
   jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.own)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.icon:not(.mine)').addClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mousedown', '.user:not(.own)', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').removeClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').removeClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mousedown', '.user:not(.mine)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').removeClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').removeClass('hover');
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('mouseup', '.user:not(.own)', function () {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.own)').addClass('hover');
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.own)').addClass('hover');
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.user:not(.mine)', function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.icon:not(.mine)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).find('.name:not(.mine)').addClass('hover');
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().find('.fukidashi:not(.mine)').addClass('hover');
 });
 /**
- * reply
+ * メンション
  */
 
 var dataSomeone;
 
 var removeMention = function removeMention() {
   dataSomeone = undefined;
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1");
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1").removeClass('line');
 };
 
 var setMention = function setMention(data) {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name, "\u3055\u3093"));
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.fukidashi:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('.left-section').on('click', '.user:not(.own)', function () {
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.user:not(.mine)', function () {
   dataSomeone = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).parent().data('someone');
   setMention(dataSomeone);
 });
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (event) {
-  if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.own)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.own)').length) {
+  if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.mine)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.mine)').length) {
     removeMention();
   }
 });
@@ -251,72 +259,95 @@ socket.on('start data', function () {
   console.log('start data came');
 });
 socket.on('some one posts text', function (data) {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   text: '返信内容のテキスト'
-   * }
-   */
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
-  if (data.mention) {
-    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
-    a.find('.mention-comment').show();
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
 
-  a.find('.text-comment').text(data.text);
-  a.find('.text-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.text-comment').text(data.text).show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
 });
 socket.on('some one posts stamp', function (data) {
-  /**
-   * data = {
-   *   mention: '返信相手の名前または空文字列',
-   *   src: 'スタンプ画像のurl'
-   * }
-   */
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id');
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
-  if (data.mention) {
-    a.find('.mention-comment').text("".concat(data.mention, "\u3055\u3093"));
-    a.find('.mention-comment').show();
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
   }
 
-  a.find('.img-comment').attr('src', data.src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
-}); // eslint-disable-next-line func-names
+});
+socket.on('some one posts menu', function (data) {
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
+  }
+
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
+    scrollTop: 5000000
+  });
+});
+
+if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
+  socket.emit('onload main page');
+} // eslint-disable-next-line func-names
+
 
 BtnText.on('click', function () {
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
   var emitData = {
     to: '',
-    from: '',
+    from: myData,
     text: text
   };
 
   if (dataSomeone) {
-    console.log(dataSomeone.name);
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my text', emitData);
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.text-comment').text(text).show();
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
 
   if (dataSomeone) {
-    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
   }
 
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   removeMention();
@@ -326,29 +357,34 @@ BtnStamp.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
   var emitData = {
     to: '',
-    from: '',
+    from: myData,
     src: src
   };
 
   if (dataSomeone) {
     emitData.to = dataSomeone;
-    emitData.from = 'myid';
   }
 
   socket.emit('post my stamp', emitData);
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
 
   if (dataSomeone) {
-    a.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
   }
 
-  a.find('.img-comment').attr('src', src);
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   removeMention();
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  socket.emit('call npc', {
+    from: myData,
+    type: 'stamp',
+    key: key
+  });
 });
 var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
 var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
@@ -356,19 +392,44 @@ var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); //
 
 imgMenus.on('click', function () {
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
-  socket.emit('post my stamp', {
+  var emitData = {
+    to: '',
+    from: myData,
     src: src
-  });
+  };
+  socket.emit('post my menu', emitData);
   imgSelected.attr('src', src).show();
   imgRandom.show();
-  var a = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postOwnTemplate').clone().removeAttr('id');
-  a.find('.img-comment').attr('src', src).show();
-  a.find('.wrapper-img-comment').show();
-  a.appendTo(leftSection).fadeIn();
-  leftSection.animate({
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
     scrollTop: 5000000
   });
   exerciseTimer();
+});
+/**
+ * タブ
+ */
+
+var rightColum = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#right-column');
+rightColum.on('scroll', function () {
+  var scroll = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).scrollTop();
+  console.log(scroll);
+
+  if (scroll < 40) {
+    notice.removeClass('scrolled');
+  } else {
+    notice.addClass('scrolled');
+  }
+});
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('.nav-link').on('click', function () {
+  if (rightColum.scrollTop() >= 57) {
+    rightColum.animate({
+      scrollTop: 57
+    }, 300);
+  }
 });
 
 /***/ }),
