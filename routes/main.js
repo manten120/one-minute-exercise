@@ -1,6 +1,6 @@
 const express = require('express');
 const menusSrc = require('../utility/menusSrc');
-const stampsSrc = require('../utility/stampsSrc');
+const { stampsKeyAndSrcPairs } = require('../utility/stamps');
 const textAndColorPairs = require('../utility/textAndColorPairs');
 
 const router = express.Router();
@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
     aisatsu = 'こんばんは';
   }
 
-  res.render('main', { isTwitterOauth, myData, menusSrc, stampsSrc, textAndColorPairs, aisatsu });
+  res.render('main', { isTwitterOauth, myData, menusSrc, stampsKeyAndSrcPairs, textAndColorPairs, aisatsu });
   res.end();
 });
 

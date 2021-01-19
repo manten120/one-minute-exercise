@@ -1,6 +1,7 @@
 import 'bootstrap';
 import $ from 'jquery';
 import io from 'socket.io-client';
+// import { stampsData } from '../utility/stamps';
 
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
@@ -267,6 +268,9 @@ BtnStamp.on('click', function () {
   leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
+
+  const key = $(this).data('key');
+  socket.emit('call npc', { from: myData, type: 'stamp', key });
 });
 
 const imgMenus = $('.img-menus');

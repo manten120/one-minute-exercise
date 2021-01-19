@@ -98,7 +98,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_2__);
 
 
- // モーダルをデフォルトで表示する
+ // import { stampsData } from '../utility/stamps';
+// モーダルをデフォルトで表示する
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
 var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
@@ -352,6 +353,12 @@ BtnStamp.on('click', function () {
     scrollTop: 5000000
   });
   removeMention();
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  socket.emit('call npc', {
+    from: myData,
+    type: 'stamp',
+    key: key
+  });
 });
 var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
 var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
