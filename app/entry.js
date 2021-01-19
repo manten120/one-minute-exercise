@@ -211,6 +211,28 @@ socket.on('some one posts stamp', (data) => {
   leftColumn.animate({ scrollTop: 5000000 });
 });
 
+socket.on('some one posts menu', (data) => {
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
+  }
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({ scrollTop: 5000000 });
+});
+
+if ($('#modalLong').length) {
+  socket.emit('onload main page');
+}
+
 // eslint-disable-next-line func-names
 BtnText.on('click', function () {
   const text = $(this).data('text');
@@ -285,7 +307,7 @@ imgMenus.on('click', function () {
     from: myData,
     src,
   };
-  socket.emit('post my stamp', emitData);
+  socket.emit('post my menu', emitData);
 
   imgSelected.attr('src', src).show();
   imgRandom.show();

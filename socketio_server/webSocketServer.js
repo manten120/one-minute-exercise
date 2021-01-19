@@ -1,6 +1,42 @@
 const { stampsData } = require('../utility/stamps');
 const { textsData } = require('../utility/texts');
 
+let npc;
+let indexOfPreviousNpc;
+
+let npcExists = false;
+let coolDown = false;
+
+const setCoolDown = (coolDownTimeSeconds) => {
+  coolDown = true;
+  setTimeout(() => {
+    coolDown = false;
+  }, coolDownTimeSeconds * 1000);
+};
+
+const npcs = [
+  {
+    name: 'ばなな',
+    icon: 'images/icons/gorilla1.jpg',
+  },
+  {
+    name: 'みどり',
+    icon: 'images/icons/frog1.jpg',
+  },
+  {
+    name: 'ヤス',
+    icon: 'images/icons/boy1.jpg',
+  },
+  {
+    name: '*H a n a*',
+    icon: 'images/icons/girl2.jpg',
+  },
+  {
+    name: 'カダヤピ',
+    icon: 'images/icons/bird1.jpg',
+  },
+];
+
 function createWebSocketServer(io) {
   const rootIo = io.of('/');
   rootIo.on('connection', (socket) => {
@@ -69,7 +105,69 @@ function createWebSocketServer(io) {
       socket.broadcast.emit('some one posts stamp', data);
     });
 
+    socket.on('post my menu', (data) => {
+      /**
+       * data = {
+       *   to: '',
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
+       *   src: 'メニュー画像のurl'
+       * };
+       */
+
+      socket.broadcast.emit('some one posts menu', data);
+    });
+
+    socket.on('onload main page', () => {
+      const secondsForNpcToChooseMenu = Math.floor(Math.random() * 4) + 2;
+
+      if (!npcExists) {
+        npcExists = true;
+        setTimeout(() => {
+          npcExists = false;
+        }, (75 + secondsForNpcToChooseMenu) * 1000);
+
+        let indexOfNpc = Math.floor(Math.random() * npcs.length);
+        while (indexOfNpc === indexOfPreviousNpc) {
+          indexOfNpc = Math.floor(Math.random() * npcs.length);
+        }
+
+        console.log('indexOfNpc', indexOfNpc);
+        npc = npcs[indexOfNpc];
+        indexOfPreviousNpc = indexOfNpc;
+
+        const emitData = {
+          to: '',
+          from: {
+            name: npc.name,
+            icon: npc.icon,
+          },
+          src: 'images/menus/8.jpg',
+        };
+
+        setTimeout(() => {
+          rootIo.emit('some one posts menu', emitData);
+          setCoolDown(60);
+
+          emitData.src = 'images/stamps/1-min.jpg';
+
+          setTimeout(() => {
+            rootIo.emit('some one posts stamp', emitData);
+          }, 60000);
+        }, secondsForNpcToChooseMenu * 1000);
+      }
+      console.log('npc: ', npc);
+    });
+
     socket.on('call npc', (data) => {
+      if (coolDown || !npcExists) {
+        return;
+      }
+
+      setCoolDown(5);
+
       if (Math.random() < 0.1) {
         return;
       }
@@ -81,8 +179,8 @@ function createWebSocketServer(io) {
       const emitData = {
         to: '',
         from: {
-          name: 'NPC',
-          icon: 'images/icons/gorilla1.jpg',
+          name: npc.name,
+          icon: npc.icon,
         },
         // and
         // src: 'スタンプ画像のurl'
@@ -90,7 +188,7 @@ function createWebSocketServer(io) {
         // text: '返信内容のテキスト'
       };
 
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.5) {
         emitData.to = data.from;
       }
 
@@ -139,7 +237,7 @@ function createWebSocketServer(io) {
       }
 
       setTimeout(() => {
-        socket.emit(`some one posts ${responsePostType}`, emitData);
+        rootIo.emit(`some one posts ${responsePostType}`, emitData);
       }, responseTimeLag);
     });
   });

@@ -298,7 +298,33 @@ socket.on('some one posts stamp', function (data) {
   leftColumn.animate({
     scrollTop: 5000000
   });
-}); // eslint-disable-next-line func-names
+});
+socket.on('some one posts menu', function (data) {
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+
+  if (data.to) {
+    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
+  }
+
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  leftColumn.animate({
+    scrollTop: 5000000
+  });
+});
+
+if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
+  socket.emit('onload main page');
+} // eslint-disable-next-line func-names
+
 
 BtnText.on('click', function () {
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
@@ -371,7 +397,7 @@ imgMenus.on('click', function () {
     from: myData,
     src: src
   };
-  socket.emit('post my stamp', emitData);
+  socket.emit('post my menu', emitData);
   imgSelected.attr('src', src).show();
   imgRandom.show();
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
