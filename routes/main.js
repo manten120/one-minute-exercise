@@ -1,9 +1,12 @@
 const express = require('express');
-const menusSrc = require('../utility/menusSrc');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
 const textAndColorPairs = require('../utility/textAndColorPairs');
+const getSomeItemsOfShuffledMenus = require('../utility/menusSrc');
 
 const router = express.Router();
+
+let menusSrc;
+let isCoolDownTime = false;
 
 /* GET main page. */
 router.get('/', (req, res) => {
@@ -24,6 +27,14 @@ router.get('/', (req, res) => {
     myData = req.cookies.mdOneMinEx;
   } else {
     res.redirect('/');
+  }
+
+  if (!isCoolDownTime) {
+    menusSrc = getSomeItemsOfShuffledMenus(6);
+    isCoolDownTime = true;
+    setTimeout(() => {
+      isCoolDownTime = false;
+    }, 30000);
   }
 
   const hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();

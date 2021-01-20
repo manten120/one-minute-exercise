@@ -322,7 +322,10 @@ socket.on('some one posts menu', function (data) {
 });
 
 if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
-  socket.emit('onload main page');
+  var menusSrc = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('menus-src');
+  socket.emit('onload main page', {
+    menusSrc: menusSrc
+  });
 } // eslint-disable-next-line func-names
 
 

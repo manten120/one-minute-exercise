@@ -120,8 +120,10 @@ function createWebSocketServer(io) {
       socket.broadcast.emit('some one posts menu', data);
     });
 
-    socket.on('onload main page', () => {
+    socket.on('onload main page', (data) => {
       const secondsForNpcToChooseMenu = Math.floor(Math.random() * 4) + 2;
+
+      console.log(data.menusSrc);
 
       if (!npcExists) {
         npcExists = true;
@@ -144,8 +146,10 @@ function createWebSocketServer(io) {
             name: npc.name,
             icon: npc.icon,
           },
-          src: 'images/menus/8.jpg',
+          src: data.menusSrc[Math.floor(Math.random() * data.menusSrc.length)],
         };
+
+        console.log('src: ', emitData.src, 'data.menusSrc: ', data.menusSrc);
 
         setTimeout(() => {
           rootIo.emit('some one posts menu', emitData);
@@ -158,7 +162,6 @@ function createWebSocketServer(io) {
           }, 60000);
         }, secondsForNpcToChooseMenu * 1000);
       }
-      console.log('npc: ', npc);
     });
 
     socket.on('call npc', (data) => {
