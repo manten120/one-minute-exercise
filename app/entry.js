@@ -176,7 +176,7 @@ socket.on('start data', () => {
   console.log('start data came');
 });
 
-socket.on('some one posts text', (data) => {
+socket.on('someone posts text', (data) => {
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
     template.find('.mention-comment').text(`${data.to.name}さん`);
@@ -193,7 +193,7 @@ socket.on('some one posts text', (data) => {
   leftColumn.animate({ scrollTop: 5000000 });
 });
 
-socket.on('some one posts stamp', (data) => {
+socket.on('someone posts stamp', (data) => {
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
     template.find('.mention-comment').text(`${data.to.name}さん`);
@@ -211,7 +211,7 @@ socket.on('some one posts stamp', (data) => {
   leftColumn.animate({ scrollTop: 5000000 });
 });
 
-socket.on('some one posts menu', (data) => {
+socket.on('someone posts menu', (data) => {
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
     template.find('.mention-comment').text(`${data.to.name}さん`);

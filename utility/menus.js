@@ -5,17 +5,17 @@ const fileNames = fs.readdirSync('public/images/menus');
 
 /**
  * 例:
- * menus = [
+ * menusSrc = [
  *  'images/menus/1.jpg',
  *  'images/menus/2.jpg',
  *  'images/menus/3.jpg',
  *  'images/menus/4.jpg',
  * ]
  */
-const menus = fileNames.map((fileName) => `images/menus/${fileName}`);
+const menusSrc = fileNames.map((fileName) => `images/menus/${fileName}`);
 
-const getSomeItemsOfShuffledMenus = (numOfItems) => {
-  const shuffleMenus = ([...array]) => {
+const getRandomMenusSrc = (numberOfItems) => {
+  const shuffle = ([...array]) => {
     for (let i = array.length - 1; i >= 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
       // eslint-disable-next-line no-param-reassign
@@ -23,7 +23,7 @@ const getSomeItemsOfShuffledMenus = (numOfItems) => {
     }
     return array;
   };
-  return shuffleMenus(menus).slice(0, numOfItems);
+  return shuffle(menusSrc).slice(0, numberOfItems);
 };
 
-module.exports = getSomeItemsOfShuffledMenus;
+module.exports = { getRandomMenusSrc };

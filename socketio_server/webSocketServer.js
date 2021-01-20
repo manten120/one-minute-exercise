@@ -49,32 +49,19 @@ function createWebSocketServer(io) {
 
     socket.on('disconnect', () => {});
 
-    socket.on('post my text', (data) => {
+    socket.on('post my menu', (data) => {
       /**
-       * data = {
-       *   to: {
-       *     name : '返信相手の名前'
-       *     icon: '返信相手のアイコンのパス',
-       *   },
-       *   from : {
-       *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
-       *   },
-       *   text: '返信内容のテキスト'
-       * };
-       *
-       * または
        * data = {
        *   to: '',
        *   from : {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   text: '返信内容のテキスト'
+       *   src: 'メニュー画像のurl'
        * };
        */
 
-      socket.broadcast.emit('some one posts text', data);
+      socket.broadcast.emit('someone posts menu', data);
     });
 
     socket.on('post my stamp', (data) => {
@@ -102,41 +89,52 @@ function createWebSocketServer(io) {
        * };
        */
 
-      socket.broadcast.emit('some one posts stamp', data);
+      socket.broadcast.emit('someone posts stamp', data);
     });
 
-    socket.on('post my menu', (data) => {
+    socket.on('post my text', (data) => {
       /**
+       * data = {
+       *   to: {
+       *     name : '返信相手の名前'
+       *     icon: '返信相手のアイコンのパス',
+       *   },
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
+       *   text: '返信内容のテキスト'
+       * };
+       *
+       * または
        * data = {
        *   to: '',
        *   from : {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   src: 'メニュー画像のurl'
+       *   text: '返信内容のテキスト'
        * };
        */
 
-      socket.broadcast.emit('some one posts menu', data);
+      socket.broadcast.emit('someone posts text', data);
     });
 
     socket.on('onload main page', (data) => {
-      const secondsForNpcToChooseMenu = Math.floor(Math.random() * 4) + 2;
-
-      console.log(data.menusSrc);
-
       if (!npcExists) {
+        const secondsForNpcToChooseMenu = Math.floor(Math.random() * 4) + 2;
         npcExists = true;
         setTimeout(() => {
           npcExists = false;
         }, (75 + secondsForNpcToChooseMenu) * 1000);
 
-        let indexOfNpc = Math.floor(Math.random() * npcs.length);
+        const getRandomIndex = (array) => Math.floor(Math.random() * array.length);
+
+        let indexOfNpc = getRandomIndex(npcs);
         while (indexOfNpc === indexOfPreviousNpc) {
-          indexOfNpc = Math.floor(Math.random() * npcs.length);
+          indexOfNpc = getRandomIndex(npcs);
         }
 
-        console.log('indexOfNpc', indexOfNpc);
         npc = npcs[indexOfNpc];
         indexOfPreviousNpc = indexOfNpc;
 
@@ -146,19 +144,17 @@ function createWebSocketServer(io) {
             name: npc.name,
             icon: npc.icon,
           },
-          src: data.menusSrc[Math.floor(Math.random() * data.menusSrc.length)],
+          src: data.menusSrc[getRandomIndex(data.menusSrc)],
         };
 
-        console.log('src: ', emitData.src, 'data.menusSrc: ', data.menusSrc);
-
         setTimeout(() => {
-          rootIo.emit('some one posts menu', emitData);
+          rootIo.emit('someone posts menu', emitData);
           setCoolDown(60);
 
           emitData.src = 'images/stamps/1-min.jpg';
 
           setTimeout(() => {
-            rootIo.emit('some one posts stamp', emitData);
+            rootIo.emit('someone posts stamp', emitData);
           }, 60000);
         }, secondsForNpcToChooseMenu * 1000);
       }
@@ -240,7 +236,7 @@ function createWebSocketServer(io) {
       }
 
       setTimeout(() => {
-        rootIo.emit(`some one posts ${responsePostType}`, emitData);
+        rootIo.emit(`someone posts ${responsePostType}`, emitData);
       }, responseTimeLag);
     });
   });

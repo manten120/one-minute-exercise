@@ -1,3 +1,5 @@
+// このファイルは削除予定です
+
 const texts = {
   おつかれさま: ['おつかれさまでした', 'つかれたぁ～', 'リフレッシュ'],
   激励: [
@@ -47,4 +49,4 @@ arrayOfArrays.forEach((array) => {
   });
 });
 
-module.exports = textAndColorPairs;
+module.exports = { textAndColorPairs };

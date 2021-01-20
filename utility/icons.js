@@ -14,4 +14,4 @@ const fileNames = fs.readdirSync('public/images/icons');
  */
 const iconsSrc = fileNames.map((fileName) => `images/icons/${fileName}`);
 
-module.exports = iconsSrc;
+module.exports = { iconsSrc };

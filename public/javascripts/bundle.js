@@ -258,7 +258,7 @@ var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()();
 socket.on('start data', function () {
   console.log('start data came');
 });
-socket.on('some one posts text', function (data) {
+socket.on('someone posts text', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
@@ -278,7 +278,7 @@ socket.on('some one posts text', function (data) {
     scrollTop: 5000000
   });
 });
-socket.on('some one posts stamp', function (data) {
+socket.on('someone posts stamp', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
@@ -299,7 +299,7 @@ socket.on('some one posts stamp', function (data) {
     scrollTop: 5000000
   });
 });
-socket.on('some one posts menu', function (data) {
+socket.on('someone posts menu', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
