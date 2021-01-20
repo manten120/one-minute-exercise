@@ -1,5 +1,5 @@
 const express = require('express');
-const iconsSrc = require('../utility/iconsSrc');
+const { iconsSrc } = require('../utility/icons');
 
 const router = express.Router();
 

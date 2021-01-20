@@ -144,7 +144,7 @@ function createWebSocketServer(io) {
             name: npc.name,
             icon: npc.icon,
           },
-          src: data.menusSrc[getRandomIndex(data.menusSrc)],
+          src: data.randomMenusSrc[getRandomIndex(data.randomMenusSrc)],
         };
 
         setTimeout(() => {

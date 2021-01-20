@@ -230,8 +230,8 @@ socket.on('someone posts menu', (data) => {
 });
 
 if ($('#modalLong').length) {
-  const menusSrc = $('#modalLong').data('menus-src');
-  socket.emit('onload main page', { menusSrc });
+  const randomMenusSrc = $('#modalLong').data('random-menus-src');
+  socket.emit('onload main page', { randomMenusSrc });
 }
 
 // eslint-disable-next-line func-names

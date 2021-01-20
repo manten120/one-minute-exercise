@@ -322,9 +322,9 @@ socket.on('someone posts menu', function (data) {
 });
 
 if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
-  var menusSrc = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('menus-src');
+  var randomMenusSrc = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus-src');
   socket.emit('onload main page', {
-    menusSrc: menusSrc
+    randomMenusSrc: randomMenusSrc
   });
 } // eslint-disable-next-line func-names
 
