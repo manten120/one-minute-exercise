@@ -1,5 +1,6 @@
 const express = require('express');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
+// const { textsKeyAndTextPairs } = require('../utility/texts');
 const { textAndColorPairs } = require('../utility/textAndColorPairs');
 const { getRandomMenusSrc } = require('../utility/menus');
 

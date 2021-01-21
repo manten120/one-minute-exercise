@@ -1,7 +1,6 @@
 import 'bootstrap';
 import $ from 'jquery';
 import io from 'socket.io-client';
-// import { stampsData } from '../utility/stamps';
 
 // モーダルをデフォルトで表示する
 $('#modalLong').modal('show');
@@ -265,12 +264,13 @@ BtnText.on('click', function () {
 
 const BtnStamp = $('.btn-stamp');
 BtnStamp.on('click', function () {
+  const key = $(this).data('key');
   const src = $(this).attr('src');
 
   const emitData = {
     to: '',
     from: myData,
-    src,
+    key,
   };
 
   if (dataSomeone) {
@@ -292,7 +292,6 @@ BtnStamp.on('click', function () {
 
   removeMention();
 
-  const key = $(this).data('key');
   socket.emit('call npc', { from: myData, type: 'stamp', key });
 });
 

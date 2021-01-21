@@ -1,6 +1,14 @@
+const categories = {
+  tassei: '達成',
+  gekirei: '激励',
+  kansya: '感謝',
+};
+
+console.log(categories.tassei);
+
 const textsData = {
   0: {
-    category: '達成',
+    category: categories.tassei,
     text: 'おつかれさまでした',
     response: {
       stamp: [],
@@ -8,7 +16,7 @@ const textsData = {
     },
   },
   1: {
-    category: 'おつかれさま',
+    category: '達成',
     text: 'つかれたぁ～',
     response: {
       stamp: [],
@@ -16,7 +24,7 @@ const textsData = {
     },
   },
   2: {
-    category: 'おつかれさま',
+    category: '達成',
     text: 'リフレッシュ',
     response: {
       stamp: [],
@@ -73,4 +81,30 @@ const textsData = {
   },
 };
 
-module.exports = { textsData };
+console.log(textsData[0].category);
+
+// const categories = ['達成', '激励', '感謝'];
+
+// const btnColors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark'];
+
+// const categorizedAndAddedBtnColor = {}
+// const c = categories.map((category, index) => {
+
+// });
+
+const textsKeyAndTextPairs = Object.keys(textsData).map((key) => ({
+  key,
+  text: textsData[key].text,
+}));
+
+module.exports = {
+  textsData,
+  textsKeyAndTextPairs,
+};
+
+// {
+//   key: {
+//     text,
+//     btcColor,
+//   },
+// }
