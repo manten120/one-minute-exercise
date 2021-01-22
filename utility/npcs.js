@@ -52,7 +52,7 @@ class Npc {
     }, seconds * 1000);
   }
 
-  postMenu(io, randomMenusSrc) {
+  postMenu(io, randomMenus) {
     this.canPostMenu = false;
 
     const emitData = {
@@ -61,7 +61,7 @@ class Npc {
         name: this.name,
         icon: this.icon,
       },
-      src: randomMenusSrc[getRandomIndex(randomMenusSrc)],
+      src: randomMenus[getRandomIndex(randomMenus)].src,
     };
 
     setTimeout(() => {

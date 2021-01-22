@@ -93,14 +93,14 @@ block content
                     img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key).img-thumbnail.btn-stamp
 
     //- モーダルウインドウ
-    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" data-random-menus-src=randomMenusSrc style="display: block;")#modalLong.modal.fade
+    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" data-random-menus=randomMenus style="display: block;")#modalLong.modal.fade
       div(role="document").modal-dialog
         div.modal-content
           div.modal-header
             h5#exampleModalLongTitle.modal-title エクササイズを選んでください
           div.modal-body
             div.row
-              each src in randomMenusSrc
+              each pair in randomMenus
                 div.col-6
                   div.wrapper-img-menus
-                    img(src=src alt="..." data-dismiss="modal").img-thumbnail.img-menus
+                    img(src=pair.src data-key=pair.key alt="エクササイズ選択肢画像" data-dismiss="modal").img-thumbnail.img-menus

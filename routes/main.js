@@ -1,11 +1,11 @@
 const express = require('express');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
 const { textsKeyTextAndBtnColorObjects } = require('../utility/texts');
-const { getRandomMenusSrc } = require('../utility/menus');
+const { getRandomMenusKeyAndSrcPairs } = require('../utility/menus');
 
 const router = express.Router();
 
-let randomMenusSrc;
+let randomMenus;
 let isCoolDownTime = false;
 
 /* GET main page. */
@@ -30,7 +30,7 @@ router.get('/', (req, res) => {
   }
 
   if (!isCoolDownTime) {
-    randomMenusSrc = getRandomMenusSrc(6);
+    randomMenus = getRandomMenusKeyAndSrcPairs(6);
     isCoolDownTime = true;
     setTimeout(() => {
       isCoolDownTime = false;
@@ -52,7 +52,7 @@ router.get('/', (req, res) => {
   res.render('main', {
     isTwitterOauth,
     myData,
-    randomMenusSrc,
+    randomMenus,
     stampsKeyAndSrcPairs,
     textsKeyTextAndBtnColorObjects,
     aisatsu,

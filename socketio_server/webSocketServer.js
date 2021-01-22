@@ -1,3 +1,4 @@
+const { menusKeyAndSrcPairs } = require('../utility/menus');
 const { stampsData } = require('../utility/stamps');
 const { textsData } = require('../utility/texts');
 const { Npc } = require('../utility/npcs');
@@ -17,6 +18,10 @@ function createWebSocketServer(io) {
     socket.on('disconnect', () => {});
 
     socket.on('post my menu', (data) => {
+      if (!Number.isInteger(data.key)) {
+        console.log('不正な値です');
+        return;
+      }
       /**
        * data = {
        *   to: '',
@@ -24,11 +29,22 @@ function createWebSocketServer(io) {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   src: 'メニュー画像のurl'
+       *   key: '配列menusKeyAndSrcPairsの要素のkeyプロパティの値'
        * };
        */
+      const keyAndSrcPair = menusKeyAndSrcPairs.find((pair) => pair.key === data.key);
 
-      socket.broadcast.emit('someone posts menu', data);
+      if (!keyAndSrcPair) {
+        console.log('不正な値です');
+        return;
+      }
+
+      const emitData = {
+        to: '',
+        from: data.from,
+        src: keyAndSrcPair.src,
+      };
+      socket.broadcast.emit('someone posts menu', emitData);
     });
 
     socket.on('post my stamp', (data) => {
@@ -81,7 +97,7 @@ function createWebSocketServer(io) {
        *   },
        *   from : {
        *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
+       *     icon: '送り主(自分)のアイコンのパス',s
        *   },
        *   key: 'textsDataオブジェクトのキー'
        * };
@@ -108,9 +124,9 @@ function createWebSocketServer(io) {
     socket.on('onload main page', (data) => {
       if (!npc.isAlive) {
         npc = new Npc(npc.index);
-        npc.postMenu(rootIo, data.randomMenusSrc);
+        npc.postMenu(rootIo, data.randomMenus);
       } else if (npc.canPostMenu) {
-        npc.postMenu(rootIo, data.randomMenusSrc);
+        npc.postMenu(rootIo, data.randomMenus);
       }
     });
 

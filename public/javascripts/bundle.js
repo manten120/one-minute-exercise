@@ -321,9 +321,9 @@ socket.on('someone posts menu', function (data) {
 });
 
 if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
-  var randomMenusSrc = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus-src');
+  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
   socket.emit('onload main page', {
-    randomMenusSrc: randomMenusSrc
+    randomMenus: randomMenus
   });
 } // eslint-disable-next-line func-names
 
@@ -399,11 +399,12 @@ var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected')
 var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); // eslint-disable-next-line func-names
 
 imgMenus.on('click', function () {
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
   var emitData = {
     to: '',
     from: myData,
-    src: src
+    key: key
   };
   socket.emit('post my menu', emitData);
   imgSelected.attr('src', src).show();

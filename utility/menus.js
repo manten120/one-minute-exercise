@@ -5,16 +5,19 @@ const fileNames = fs.readdirSync('public/images/menus');
 
 /**
  * 例:
- * menusSrc = [
- *  'images/menus/1.jpg',
- *  'images/menus/2.jpg',
- *  'images/menus/3.jpg',
- *  'images/menus/4.jpg',
+ * menusKeyAndSrcPairs = [
+ *  { key: 0, src: 'images/menus/1.jpg' },
+ *  { key: 1, src: 'images/menus/1.jpg' },
+ *  { key: 2, src: 'images/menus/2.jpg' },
+ *  { key: 3, src: 'images/menus/3.jpg' },
  * ]
  */
-const menusSrc = fileNames.map((fileName) => `images/menus/${fileName}`);
+const menusKeyAndSrcPairs = fileNames.map((fileName, index) => ({
+  key: index,
+  src: `images/menus/${fileName}`,
+}));
 
-const getRandomMenusSrc = (numberOfItems) => {
+const getRandomMenusKeyAndSrcPairs = (numberOfItems) => {
   const shuffle = ([...array]) => {
     for (let i = array.length - 1; i >= 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -23,7 +26,7 @@ const getRandomMenusSrc = (numberOfItems) => {
     }
     return array;
   };
-  return shuffle(menusSrc).slice(0, numberOfItems);
+  return shuffle(menusKeyAndSrcPairs).slice(0, numberOfItems);
 };
 
-module.exports = { getRandomMenusSrc };
+module.exports = { menusKeyAndSrcPairs, getRandomMenusKeyAndSrcPairs };

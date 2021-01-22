@@ -229,8 +229,8 @@ socket.on('someone posts menu', (data) => {
 });
 
 if ($('#modalLong').length) {
-  const randomMenusSrc = $('#modalLong').data('random-menus-src');
-  socket.emit('onload main page', { randomMenusSrc });
+  const randomMenus = $('#modalLong').data('random-menus');
+  socket.emit('onload main page', { randomMenus });
 }
 
 // eslint-disable-next-line func-names
@@ -302,12 +302,13 @@ const imgSelected = $('.img-selected');
 const imgRandom = $('.img-random');
 // eslint-disable-next-line func-names
 imgMenus.on('click', function () {
+  const key = $(this).data('key');
   const src = $(this).attr('src');
 
   const emitData = {
     to: '',
     from: myData,
-    src,
+    key,
   };
   socket.emit('post my menu', emitData);
 
