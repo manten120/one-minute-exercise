@@ -32,7 +32,7 @@ passport.use(
     {
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-      callbackURL: `${process.env.HEROKU_URL}/oauth_callback`,
+      callbackURL: `${process.env.HEROKU_URL}oauth_callback`,
     },
     (token, tokenSecret, profile, cb) => {
       process.nextTick(() => cb(null, profile));
