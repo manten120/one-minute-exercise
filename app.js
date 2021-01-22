@@ -22,7 +22,7 @@ passport.use(
     {
       consumerKey: config.twitter.consumerKey,
       consumerSecret: config.twitter.consumerSecret,
-      callbackURL: config.twitter.callbackURL,
+      callbackURL: process.env.HEROKU_URL ? `${process.env.HEROKU_URL}oauth_callback` : config.twitter.callbackURL,
     },
     (token, tokenSecret, profile, cb) => {
       process.nextTick(() => cb(null, profile));
