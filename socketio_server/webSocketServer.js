@@ -1,5 +1,5 @@
 const { stampsData } = require('../utility/stamps');
-// const { textsData } = require('../utility/texts');
+const { textsData } = require('../utility/texts');
 const { Npc } = require('../utility/npcs');
 
 let npc = new Npc();
@@ -32,7 +32,7 @@ function createWebSocketServer(io) {
     });
 
     socket.on('post my stamp', (data) => {
-      if (!Number.isInteger(data.key) || stampsData[data.key]) {
+      if (!Number.isInteger(data.key) || !stampsData[data.key]) {
         console.log('不正な値です');
         return;
       }
@@ -62,13 +62,17 @@ function createWebSocketServer(io) {
       const emitData = {
         to: data.to,
         from: data.from,
-        src: stampsData['100'].src,
+        src: stampsData[data.key].src,
       };
 
       socket.broadcast.emit('someone posts stamp', emitData);
     });
 
     socket.on('post my text', (data) => {
+      if (!Number.isInteger(data.key) || !textsData[data.key]) {
+        console.log('不正な値です!');
+        return;
+      }
       /**
        * data = {
        *   to: {
@@ -79,7 +83,7 @@ function createWebSocketServer(io) {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   text: '返信内容のテキスト'
+       *   key: 'textsDataオブジェクトのキー'
        * };
        *
        * または
@@ -89,11 +93,16 @@ function createWebSocketServer(io) {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   text: '返信内容のテキスト'
+       *   key: 'textsDataオブジェクトのキー'
        * };
        */
 
-      socket.broadcast.emit('someone posts text', data);
+      const emitData = {
+        to: data.to,
+        from: data.from,
+        text: textsData[data.key].text,
+      };
+      socket.broadcast.emit('someone posts text', emitData);
     });
 
     socket.on('onload main page', (data) => {

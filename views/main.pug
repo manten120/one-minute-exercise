@@ -79,18 +79,18 @@ block content
                   each pair in stampsKeyAndSrcPairs
                     img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key).img-thumbnail.btn-stamp
                 div.texts
-                  each pair in textAndColorPairs
-                    - const btnOutlineColor = `btn-outline-${pair.color}`;
-                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
+                  each obj in textsKeyTextAndBtnColorObjects
+                    - const btnOutlineColor = `btn-outline-${obj.btnColor}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-key=obj.key) #{obj.text}
               //- タブコンテンツ2
               div(role="tabpanel" aria-labelledby="tab-text").col-12.tab-pane.fade#tab-text
                 div.texts
-                  each pair in textAndColorPairs
-                    - const btnOutlineColor = `btn-outline-${pair.color}`;
-                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
+                  each obj in textsKeyTextAndBtnColorObjects
+                    - const btnOutlineColor = `btn-outline-${obj.btnColor}`;
+                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-key=obj.key) #{obj.text}
                 div.stamps
                   each pair in stampsKeyAndSrcPairs
-                    img(src=pair.src alt="スタンプ" ).img-thumbnail.btn-stamp
+                    img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key).img-thumbnail.btn-stamp
 
     //- モーダルウインドウ
     div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" data-random-menus-src=randomMenusSrc style="display: block;")#modalLong.modal.fade

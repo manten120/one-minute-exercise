@@ -329,11 +329,12 @@ if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
 
 
 BtnText.on('click', function () {
-  var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('text');
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).text();
   var emitData = {
     to: '',
     from: myData,
-    text: text
+    key: key
   };
 
   if (dataSomeone) {
@@ -353,6 +354,11 @@ BtnText.on('click', function () {
     scrollTop: 5000000
   });
   removeMention();
+  socket.emit('call npc', {
+    from: myData,
+    type: 'text',
+    key: key
+  });
 });
 var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
 BtnStamp.on('click', function () {

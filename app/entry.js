@@ -235,12 +235,12 @@ if ($('#modalLong').length) {
 
 // eslint-disable-next-line func-names
 BtnText.on('click', function () {
-  const text = $(this).data('text');
-
+  const key = $(this).data('key');
+  const text = $(this).text();
   const emitData = {
     to: '',
     from: myData,
-    text,
+    key,
   };
 
   if (dataSomeone) {
@@ -260,6 +260,8 @@ BtnText.on('click', function () {
   leftColumn.animate({ scrollTop: 5000000 });
 
   removeMention();
+
+  socket.emit('call npc', { from: myData, type: 'text', key });
 });
 
 const BtnStamp = $('.btn-stamp');
