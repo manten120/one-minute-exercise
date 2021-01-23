@@ -35,7 +35,7 @@ const closeTimer = () => {
 let w = 100;
 const exerciseTimer = () => {
   setTimeout(() => {
-    w -= 100 / 6000; // 100 / 6000
+    w -= 100 / 100; // 100 / 6000
     progressBar.css('width', `${w}%`);
 
     if (w <= 0) {

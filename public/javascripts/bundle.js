@@ -131,7 +131,7 @@ var w = 100;
 
 var exerciseTimer = function exerciseTimer() {
   setTimeout(function () {
-    w -= 100 / 6000; // 100 / 6000
+    w -= 100 / 100; // 100 / 6000
 
     progressBar.css('width', "".concat(w, "%"));
 
