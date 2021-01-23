@@ -3,15 +3,23 @@ const { textsData } = require('./texts');
 
 const npcs = [
   {
-    name: 'ばなな',
+    name: 'ウホホイ',
     icon: 'images/icons/gorilla1.jpg',
   },
   {
-    name: 'みどり',
+    name: 'まつり',
     icon: 'images/icons/frog1.jpg',
   },
   {
-    name: 'ヤス',
+    name: 'ミドリ',
+    icon: 'images/icons/frog3.jpg',
+  },
+  {
+    name: 'シンゴー',
+    icon: 'images/icons/frog2.jpg',
+  },
+  {
+    name: 'かずゆき',
     icon: 'images/icons/boy1.jpg',
   },
   {
@@ -21,6 +29,62 @@ const npcs = [
   {
     name: 'カダヤピ',
     icon: 'images/icons/bird1.jpg',
+  },
+  {
+    name: '海',
+    icon: 'images/icons/cat3.jpg',
+  },
+  {
+    name: 'カダヤピ',
+    icon: 'images/icons/bird1.jpg',
+  },
+  {
+    name: 'めい',
+    icon: 'images/icons/girl2.jpg',
+  },
+  {
+    name: 'ラオウ',
+    icon: 'images/icons/girl2.jpg',
+  },
+  {
+    name: 'ハルハル',
+    icon: 'images/icons/dog2.jpg',
+  },
+  {
+    name: 'ちえ',
+    icon: 'images/icons/girl1.jpg',
+  },
+  {
+    name: 'ここあ',
+    icon: 'images/icons/dog1.jpg',
+  },
+  {
+    name: 'とり肉',
+    icon: 'images/icons/bird2.jpg',
+  },
+  {
+    name: 'ビットコ',
+    icon: 'images/icons/rabbit2.jpg',
+  },
+  {
+    name: 'としぞう',
+    icon: 'images/icons/cat1.jpg',
+  },
+  {
+    name: '石塚',
+    icon: 'images/icons/cat2.jpg',
+  },
+  {
+    name: 'よっちゃん',
+    icon: 'images/icons/rabbit1.jpg',
+  },
+  {
+    name: 'ヒデト',
+    icon: 'images/icons/dog3.jpg',
+  },
+  {
+    name: 'たいちゃん',
+    icon: 'images/icons/boy2.jpg',
   },
 ];
 
