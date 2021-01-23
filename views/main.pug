@@ -11,7 +11,7 @@ block content
           //- 他人の投稿テンプレート
           div(style="display: none" data-someone='{"name": "", "icon": ""}').post#postTemplate
             div.user
-              img(src="", alt="ユーザーアイコン").icon
+              img(src="", alt="他の参加者のアイコン").icon
               p.name 
             div.fukidashi
               div.comment
@@ -19,11 +19,11 @@ block content
                   span(style="display: none").mention-comment.mt-3
                 p(style="display: none").text-comment
                 div(style="display: none").wrapper-img-comment
-                  img(src="images/stamps/1-min.jpg" alt="...").img-comment
+                  img(src="" alt="スタンプ").img-comment
           //- 自分の投稿テンプレート
           div(style="display: none" data-mine=myData).post.mine#myPostTemplate
             div.user.mine
-              img(src=myData.icon, alt="").icon.mine
+              img(src=myData.icon, alt="あなたのアイコン").icon.mine
               p.name.mine #{myData.name}
             div.fukidashi.mine
               div.comment.mine
@@ -31,7 +31,7 @@ block content
                   span(style="display: none").mention-comment.mine.mt-3
                 p(style="display: none").text-comment.mine
                 div(style="display: none").wrapper-img-comment.mine
-                  img(src="images/stamps/1-min.jpg" alt="...").img-comment.mine
+                  img(src="" alt="スタンプ").img-comment.mine
 
         //- 右カラム
         div.col-7#right-column
