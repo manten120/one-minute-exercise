@@ -8,7 +8,7 @@ $('#modalLong').modal('show');
 const myData = $('body').data('mine');
 
 const imgSelectedExercise = $('.img-selected');
-// const imgRandomExercise = $('.img-random')
+const imgRandomExercise = $('.img-random');
 
 const notice = $('#notice');
 const progressGray = $('.progress');
@@ -35,7 +35,7 @@ const closeTimer = () => {
 let w = 100;
 const exerciseTimer = () => {
   setTimeout(() => {
-    w -= 100 / 100; // 100 / 6000
+    w -= 100 / 3000; // 100 / 6000
     progressBar.css('width', `${w}%`);
 
     if (w <= 0) {
@@ -55,10 +55,14 @@ const exerciseTimer = () => {
     } else if (w <= 25) {
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
+      imgSelectedExercise.fadeIn(2000);
+      imgRandomExercise.fadeOut(2000);
+      textAddition.fadeOut(2000);
       exerciseTimer();
     } else if (w <= 50) {
       progressBar.addClass('bg-warning');
       imgSelectedExercise.fadeOut(2000);
+      imgRandomExercise.fadeIn(2000);
       textAddition.fadeIn(2000);
       exerciseTimer();
     } else if (w <= 100) {
@@ -304,6 +308,7 @@ const imgRandom = $('.img-random');
 imgMenus.on('click', function () {
   const key = $(this).data('key');
   const src = $(this).attr('src');
+  const randomMenus = $('#modalLong').data('random-menus');
 
   const emitData = {
     to: '',
@@ -312,8 +317,15 @@ imgMenus.on('click', function () {
   };
   socket.emit('post my menu', emitData);
 
+  let randomKey;
+  do {
+    randomKey = randomMenus[Math.floor(Math.random() * randomMenus.length)].key;
+  } while (randomKey === key);
+
+  const srcOfImgRandom = randomMenus.find((element) => element.key === randomKey).src;
+
   imgSelected.attr('src', src).show();
-  imgRandom.show();
+  imgRandom.attr('src', srcOfImgRandom);
 
   const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.img-comment').attr('src', src).show();

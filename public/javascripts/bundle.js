@@ -102,8 +102,8 @@ __webpack_require__.r(__webpack_exports__);
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
 var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
-var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected'); // const imgRandomExercise = $('.img-random')
-
+var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
+var imgRandomExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random');
 var notice = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#notice');
 var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
 var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
@@ -131,7 +131,7 @@ var w = 100;
 
 var exerciseTimer = function exerciseTimer() {
   setTimeout(function () {
-    w -= 100 / 100; // 100 / 6000
+    w -= 100 / 3000; // 100 / 6000
 
     progressBar.css('width', "".concat(w, "%"));
 
@@ -152,10 +152,14 @@ var exerciseTimer = function exerciseTimer() {
     } else if (w <= 25) {
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
+      imgSelectedExercise.fadeIn(2000);
+      imgRandomExercise.fadeOut(2000);
+      textAddition.fadeOut(2000);
       exerciseTimer();
     } else if (w <= 50) {
       progressBar.addClass('bg-warning');
       imgSelectedExercise.fadeOut(2000);
+      imgRandomExercise.fadeIn(2000);
       textAddition.fadeIn(2000);
       exerciseTimer();
     } else if (w <= 100) {
@@ -401,14 +405,24 @@ var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); //
 imgMenus.on('click', function () {
   var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
+  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
   var emitData = {
     to: '',
     from: myData,
     key: key
   };
   socket.emit('post my menu', emitData);
+  var randomKey;
+
+  do {
+    randomKey = randomMenus[Math.floor(Math.random() * randomMenus.length)].key;
+  } while (randomKey === key);
+
+  var srcOfImgRandom = randomMenus.find(function (element) {
+    return element.key === randomKey;
+  }).src;
   imgSelected.attr('src', src).show();
-  imgRandom.show();
+  imgRandom.attr('src', srcOfImgRandom);
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.img-comment').attr('src', src).show();
   myTemplate.find('.wrapper-img-comment').show();
