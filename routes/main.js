@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
   } else if (req.cookies.mdOneMinEx) {
     myData = req.cookies.mdOneMinEx;
   } else {
-    res.redirect('/');
+    res.redirect('/#login');
   }
 
   if (!isCoolDownTime) {
