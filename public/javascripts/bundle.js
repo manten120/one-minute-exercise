@@ -165,6 +165,8 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.user:n
 /**
  * メンション
  */
+// dataSomeone = { name: "メンション相手の名前", icon: "メンション相手のアイコンのパス" }
+// メンションしないとき dataSomeone = undefined
 
 var dataSomeone; // メンション相手の名前を表示する
 
@@ -185,7 +187,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.user:not
   setMention(dataSomeone);
 });
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (event) {
-  // 他者のアイコンと吹き出し以外をクリックした時
+  // 他人のアイコンと吹き出し以外をクリックした時
   if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.mine)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.mine)').length) {
     dataSomeone = undefined;
     setMention(dataSomeone);
@@ -196,19 +198,22 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (ev
  */
 // サーバーの IP アドレスに対して WebSocket 通信を開始するリクエストを送る
 
-var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()();
+var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(); // mainページにアクセスしたとき
 
 if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
+  // socket.io イベント送信
   var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
   socket.emit('call npc on loading main page', {
     randomMenus: randomMenus
   });
-}
+} // myData = { name: "自分の名前", icon: "自分のアイコンのパス" }
+
 
 var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
 var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // eslint-disable-next-line func-names
 
 BtnText.on('click', function () {
+  // socket.io イベント送信
   var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
   var emitData = {
     to: '',
@@ -225,7 +230,8 @@ BtnText.on('click', function () {
     from: myData,
     type: 'text',
     key: key
-  });
+  }); // 自分の投稿を表示
+
   var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).text();
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.text-comment').text(text).show();
@@ -239,6 +245,7 @@ BtnText.on('click', function () {
 });
 var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
 BtnStamp.on('click', function () {
+  // socket.io イベント送信
   var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
   var emitData = {
     to: '',
@@ -255,7 +262,8 @@ BtnStamp.on('click', function () {
     from: myData,
     type: 'stamp',
     key: key
-  });
+  }); // 自分の投稿を表示
+
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
 
@@ -273,20 +281,24 @@ var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected')
 var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); // eslint-disable-next-line func-names
 
 imgMenus.on('click', function () {
+  // socket.io イベント送信
   var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
   var emitData = {
     to: '',
     from: myData,
     key: key
   };
-  socket.emit('post my menu', emitData);
+  socket.emit('post my menu', emitData); // 自分の投稿を表示
+
   var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
   var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.img-comment').attr('src', src).show();
   myTemplate.find('.wrapper-img-comment').show();
   myTemplate.appendTo(leftColumn).fadeIn();
-  autoScroll();
-  imgSelected.attr('src', src).show();
+  autoScroll(); // 選択したエクササイズを右カラムに表示
+
+  imgSelected.attr('src', src).show(); // 時間が余ったとき用のエクササイズをランダムに決定
+
   var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
   var randomKey;
 
@@ -299,13 +311,14 @@ imgMenus.on('click', function () {
   }).src;
   imgRandom.attr('src', srcOfImgRandom); // プログレスバー(タイマーの残り時間を表す)を最大値まで伸ばす
 
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar').css('width', '100%'); // プログレスバーが伸びきってからタイマーを開始する
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar').css('width', '100%'); // プログレスバーが伸びきってからタイマーを開始
 
   setTimeout(function () {
     Object(_timer__WEBPACK_IMPORTED_MODULE_3__["default"])();
   }, 1000);
 });
 socket.on('someone posts menu', function (data) {
+  // 他人の投稿を表示
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
@@ -315,6 +328,7 @@ socket.on('someone posts menu', function (data) {
   autoScroll();
 });
 socket.on('someone posts stamp', function (data) {
+  // 他人の投稿を表示
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
@@ -334,6 +348,7 @@ socket.on('someone posts stamp', function (data) {
   autoScroll();
 });
 socket.on('someone posts text', function (data) {
+  // 他人の投稿を表示
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
@@ -365,7 +380,7 @@ rightColum.on('scroll', function () {
   } else {
     notice.addClass('scrolled');
   }
-}); // タブクリック時のアニメーション
+}); // タブをクリックしたときのアニメーション
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.nav-link').on('click', function () {
   if (rightColum.scrollTop() >= 57) {
