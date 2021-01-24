@@ -202,7 +202,13 @@ imgMenus.on('click', function () {
   const srcOfImgRandom = randomMenus.find((element) => element.key === randomKey).src;
   imgRandom.attr('src', srcOfImgRandom);
 
-  timer();
+  // プログレスバー(タイマーの残り時間を表す)を最大値まで伸ばす
+  $('.progress-bar').css('width', '100%');
+
+  // プログレスバーが伸びきってからタイマーを開始する
+  setTimeout(() => {
+    timer();
+  }, 1000);
 });
 
 socket.on('someone posts menu', (data) => {

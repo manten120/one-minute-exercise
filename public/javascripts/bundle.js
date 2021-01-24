@@ -297,8 +297,13 @@ imgMenus.on('click', function () {
   var srcOfImgRandom = randomMenus.find(function (element) {
     return element.key === randomKey;
   }).src;
-  imgRandom.attr('src', srcOfImgRandom);
-  Object(_timer__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  imgRandom.attr('src', srcOfImgRandom); // プログレスバー(タイマーの残り時間を表す)を最大値まで伸ばす
+
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar').css('width', '100%'); // プログレスバーが伸びきってからタイマーを開始する
+
+  setTimeout(function () {
+    Object(_timer__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  }, 1000);
 });
 socket.on('someone posts menu', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
