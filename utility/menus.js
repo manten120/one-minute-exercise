@@ -6,10 +6,10 @@ const fileNames = fs.readdirSync('public/images/menus');
 /**
  * 例:
  * menusKeyAndSrcPairs = [
- *  { key: 0, src: 'images/menus/1.jpg' },
- *  { key: 1, src: 'images/menus/1.jpg' },
- *  { key: 2, src: 'images/menus/2.jpg' },
- *  { key: 3, src: 'images/menus/3.jpg' },
+ *  { key: 0, src: 'images/menus/hoge.jpg' },
+ *  { key: 1, src: 'images/menus/foo.jpg' },
+ *  { key: 2, src: 'images/menus/baa.jpg' },
+ *  { key: 3, src: 'images/menus/guu.jpg' },
  * ]
  */
 const menusKeyAndSrcPairs = fileNames.map((fileName, index) => ({
@@ -17,6 +17,7 @@ const menusKeyAndSrcPairs = fileNames.map((fileName, index) => ({
   src: `images/menus/${fileName}`,
 }));
 
+// 配列menusKeyAndSrcPairsからnumberOfItems個の要素をランダムで抽出した配列を作る
 const getRandomMenusKeyAndSrcPairs = (numberOfItems) => {
   const shuffle = ([...array]) => {
     for (let i = array.length - 1; i >= 0; i -= 1) {

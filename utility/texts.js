@@ -1,3 +1,4 @@
+// vscode(コードエディタ)で補完を効かせるため用意
 const categories = {
   tassei: '達成',
   gekirei: '激励',
@@ -393,8 +394,6 @@ categoryValues.forEach((category, index) => {
     }
   });
 });
-
-console.log(textsKeyTextAndBtnColorObjects);
 
 module.exports = {
   textsData,

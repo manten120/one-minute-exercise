@@ -1,3 +1,4 @@
+// vscode(コードエディタ)で補完を効かせるため用意
 const categories = {
   otsukaresama: 'おつかれさま',
   ganbarou: 'がんばろう',
