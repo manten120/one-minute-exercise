@@ -96,85 +96,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _timer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(50);
 
 
- // モーダルをデフォルトで表示する
 
-jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show');
-var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
-var imgSelectedExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
-var imgRandomExercise = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random');
-var notice = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#notice');
-var progressGray = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress');
-var progressBar = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.progress-bar');
-var textAddition = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.text-addition');
-var selectedImgArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#selected-img-area');
-var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#tabs-area');
-var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // エクササイズ後のタイマー
+ // モーダルウインドウをデフォルトで表示する
 
-var closeTimerWidth = 100;
-
-var closeTimer = function closeTimer() {
-  setTimeout(function () {
-    if (closeTimerWidth <= 0) {
-      return;
-    }
-
-    closeTimerWidth -= 100 / 1200;
-    progressBar.css('width', "".concat(closeTimerWidth, "%"));
-    closeTimer();
-  }, 10);
-}; // エクササイズ中のタイマー
-
-
-var w = 100;
-
-var exerciseTimer = function exerciseTimer() {
-  setTimeout(function () {
-    w -= 100 / 3000; // 100 / 6000
-
-    progressBar.css('width', "".concat(w, "%"));
-
-    if (w <= 0) {
-      setTimeout(function () {
-        notice.text('おつかれさまでした!');
-        selectedImgArea.hide();
-        tabsArea.show();
-      }, 1000);
-      setTimeout(function () {
-        progressGray.css('width', '20%');
-        progressBar.css('width', '100%');
-      }, 3000);
-      setTimeout(function () {
-        notice.text('このページを自動で閉じます');
-        closeTimer();
-      }, 4000);
-    } else if (w <= 25) {
-      progressBar.removeClass('bg-warning');
-      progressBar.addClass('bg-danger');
-      imgSelectedExercise.fadeIn(2000);
-      imgRandomExercise.fadeOut(2000);
-      textAddition.fadeOut(2000);
-      exerciseTimer();
-    } else if (w <= 50) {
-      progressBar.addClass('bg-warning');
-      imgSelectedExercise.fadeOut(2000);
-      imgRandomExercise.fadeIn(2000);
-      textAddition.fadeIn(2000);
-      exerciseTimer();
-    } else if (w <= 100) {
-      exerciseTimer();
-    }
-  }, 10);
-}; // チャット最下部にオートスクロール
-
+jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').modal('show'); // チャット最下部にオートスクロール
 
 var leftColumn = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#left-column');
-leftColumn.animate({
-  scrollTop: 5000000
-}); // messagesArea.scrollTop = messagesArea.scrollHeight;
-// // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
 
+var autoScroll = function autoScroll() {
+  leftColumn.animate({
+    scrollTop: 5000000
+  });
+};
+
+autoScroll();
 /**
  * 他のユーザーの吹き出しとユーザーアイコンを
  * マウスホバーまたはクリックしたとき
@@ -228,15 +166,14 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('mouseup', '.user:n
  * メンション
  */
 
-var dataSomeone;
-
-var removeMention = function removeMention() {
-  dataSomeone = undefined;
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1").removeClass('line');
-};
+var dataSomeone; // メンション相手の名前を表示する
 
 var setMention = function setMention(data) {
-  jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
+  if (data) {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@".concat(data.name.slice(0, 10), "\u3055\u3093")).addClass('line');
+  } else {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()('.at').text("@\u5168\u54E1").removeClass('line');
+  }
 };
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
@@ -248,8 +185,10 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on('click', '.user:not
   setMention(dataSomeone);
 });
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (event) {
+  // 他者のアイコンと吹き出し以外をクリックした時
   if (!jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.fukidashi:not(.mine)').length && !jquery__WEBPACK_IMPORTED_MODULE_1___default()(event.target).closest('.user:not(.mine)').length) {
-    removeMention();
+    dataSomeone = undefined;
+    setMention(dataSomeone);
   }
 });
 /**
@@ -258,28 +197,117 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (ev
 // サーバーの IP アドレスに対して WebSocket 通信を開始するリクエストを送る
 
 var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()();
-socket.on('start data', function () {
-  console.log('start data came');
-});
-socket.on('someone posts text', function (data) {
-  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
-  if (data.to) {
-    template.find('.mention-comment').text("".concat(data.to.name, "\u3055\u3093"));
-    template.find('.mention-comment').show();
+if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
+  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
+  socket.emit('call npc on loading main page', {
+    randomMenus: randomMenus
+  });
+}
 
-    if (data.to.name === myData.name) {
-      template.find('.mention-comment').addClass('me');
-    }
+var myData = jquery__WEBPACK_IMPORTED_MODULE_1___default()('body').data('mine');
+var BtnText = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-text'); // eslint-disable-next-line func-names
+
+BtnText.on('click', function () {
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  var emitData = {
+    to: '',
+    from: myData,
+    key: key
+  };
+
+  if (dataSomeone) {
+    emitData.to = dataSomeone;
   }
 
+  socket.emit('post my text', emitData);
+  socket.emit('call npc', {
+    from: myData,
+    type: 'text',
+    key: key
+  });
+  var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).text();
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
+
+  if (dataSomeone) {
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+  }
+
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
+});
+var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
+BtnStamp.on('click', function () {
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  var emitData = {
+    to: '',
+    from: myData,
+    key: key
+  };
+
+  if (dataSomeone) {
+    emitData.to = dataSomeone;
+  }
+
+  socket.emit('post my stamp', emitData);
+  socket.emit('call npc', {
+    from: myData,
+    type: 'stamp',
+    key: key
+  });
+  var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+
+  if (dataSomeone) {
+    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
+  }
+
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
+});
+var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
+var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
+var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); // eslint-disable-next-line func-names
+
+imgMenus.on('click', function () {
+  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
+  var emitData = {
+    to: '',
+    from: myData,
+    key: key
+  };
+  socket.emit('post my menu', emitData);
+  var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
+  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
+  imgSelected.attr('src', src).show();
+  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
+  var randomKey;
+
+  do {
+    randomKey = randomMenus[Math.floor(Math.random() * randomMenus.length)].key;
+  } while (randomKey === key);
+
+  var srcOfImgRandom = randomMenus.find(function (element) {
+    return element.key === randomKey;
+  }).src;
+  imgRandom.attr('src', srcOfImgRandom);
+  Object(_timer__WEBPACK_IMPORTED_MODULE_3__["default"])();
+});
+socket.on('someone posts menu', function (data) {
+  var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
-  template.find('.text-comment').text(data.text).show();
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
   template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
+  autoScroll();
 });
 socket.on('someone posts stamp', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
@@ -298,11 +326,9 @@ socket.on('someone posts stamp', function (data) {
   template.find('.img-comment').attr('src', data.src);
   template.find('.wrapper-img-comment').show();
   template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
+  autoScroll();
 });
-socket.on('someone posts menu', function (data) {
+socket.on('someone posts text', function (data) {
   var template = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#postTemplate').clone().removeAttr('id').data('someone', data.from);
 
   if (data.to) {
@@ -316,137 +342,26 @@ socket.on('someone posts menu', function (data) {
 
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
-  template.find('.img-comment').attr('src', data.src);
-  template.find('.wrapper-img-comment').show();
+  template.find('.text-comment').text(data.text).show();
   template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
-});
-
-if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
-  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
-  socket.emit('onload main page', {
-    randomMenus: randomMenus
-  });
-} // eslint-disable-next-line func-names
-
-
-BtnText.on('click', function () {
-  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
-  var text = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).text();
-  var emitData = {
-    to: '',
-    from: myData,
-    key: key
-  };
-
-  if (dataSomeone) {
-    emitData.to = dataSomeone;
-  }
-
-  socket.emit('post my text', emitData);
-  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
-  myTemplate.find('.text-comment').text(text).show();
-
-  if (dataSomeone) {
-    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
-  }
-
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
-  removeMention();
-  socket.emit('call npc', {
-    from: myData,
-    type: 'text',
-    key: key
-  });
-});
-var BtnStamp = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.btn-stamp');
-BtnStamp.on('click', function () {
-  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
-  var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
-  var emitData = {
-    to: '',
-    from: myData,
-    key: key
-  };
-
-  if (dataSomeone) {
-    emitData.to = dataSomeone;
-  }
-
-  socket.emit('post my stamp', emitData);
-  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
-
-  if (dataSomeone) {
-    myTemplate.find('.mention-comment').text("".concat(dataSomeone.name, "\u3055\u3093")).show();
-  }
-
-  myTemplate.find('.img-comment').attr('src', src);
-  myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
-  removeMention();
-  socket.emit('call npc', {
-    from: myData,
-    type: 'stamp',
-    key: key
-  });
-});
-var imgMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-menus');
-var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-selected');
-var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_1___default()('.img-random'); // eslint-disable-next-line func-names
-
-imgMenus.on('click', function () {
-  var key = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).data('key');
-  var src = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).attr('src');
-  var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
-  var emitData = {
-    to: '',
-    from: myData,
-    key: key
-  };
-  socket.emit('post my menu', emitData);
-  var randomKey;
-
-  do {
-    randomKey = randomMenus[Math.floor(Math.random() * randomMenus.length)].key;
-  } while (randomKey === key);
-
-  var srcOfImgRandom = randomMenus.find(function (element) {
-    return element.key === randomKey;
-  }).src;
-  imgSelected.attr('src', src).show();
-  imgRandom.attr('src', srcOfImgRandom);
-  var myTemplate = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#myPostTemplate').clone().removeAttr('id');
-  myTemplate.find('.img-comment').attr('src', src).show();
-  myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({
-    scrollTop: 5000000
-  });
-  exerciseTimer();
+  autoScroll();
 });
 /**
- * タブ
+ * タブエリア
  */
 
 var rightColum = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#right-column');
+var notice = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#notice');
 rightColum.on('scroll', function () {
   var scroll = jquery__WEBPACK_IMPORTED_MODULE_1___default()(this).scrollTop();
-  console.log(scroll);
 
   if (scroll < 40) {
     notice.removeClass('scrolled');
   } else {
     notice.addClass('scrolled');
   }
-});
+}); // タブクリック時のアニメーション
+
 jquery__WEBPACK_IMPORTED_MODULE_1___default()('.nav-link').on('click', function () {
   if (rightColum.scrollTop() >= 57) {
     rightColum.animate({
@@ -26703,6 +26618,82 @@ Backoff.prototype.setJitter = function(jitter){
 };
 
 
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+var progressGray = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.progress');
+var progressBar = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.progress-bar');
+var notice = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#notice');
+var selectedImgArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#selected-img-area');
+var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-selected');
+var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-random');
+var textAddition = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.text-addition');
+var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tabs-area'); // エクササイズ後のタイマー
+
+var closeTimerWidth = 100;
+
+var closeTimer = function closeTimer() {
+  setTimeout(function () {
+    if (closeTimerWidth <= 0) {
+      return;
+    }
+
+    closeTimerWidth -= 100 / 1200;
+    progressBar.css('width', "".concat(closeTimerWidth, "%"));
+    closeTimer();
+  }, 10);
+}; // エクササイズ中のタイマー
+
+
+var w = 100;
+
+var timer = function timer() {
+  setTimeout(function () {
+    w -= 100 / 3000; // 100 / 6000
+
+    progressBar.css('width', "".concat(w, "%"));
+
+    if (w <= 0) {
+      setTimeout(function () {
+        notice.text('おつかれさまでした!');
+        selectedImgArea.hide();
+        tabsArea.show();
+      }, 1000);
+      setTimeout(function () {
+        progressGray.css('width', '20%');
+        progressBar.css('width', '100%');
+      }, 3000);
+      setTimeout(function () {
+        notice.text('このページを自動で閉じます');
+        closeTimer();
+      }, 4000);
+    } else if (w <= 25) {
+      progressBar.removeClass('bg-warning');
+      progressBar.addClass('bg-danger');
+      imgSelected.fadeIn(2000);
+      imgRandom.fadeOut(2000);
+      textAddition.fadeOut(2000);
+      timer();
+    } else if (w <= 50) {
+      progressBar.addClass('bg-warning');
+      imgSelected.fadeOut(2000);
+      imgRandom.fadeIn(2000);
+      textAddition.fadeIn(2000);
+      timer();
+    } else if (w <= 100) {
+      timer();
+    }
+  }, 10);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (timer);
 
 /***/ })
 /******/ ]);

@@ -8,15 +8,6 @@ let npc = new Npc();
 function createWebSocketServer(io) {
   const rootIo = io.of('/');
   rootIo.on('connection', (socket) => {
-    console.log('WebSocket のコネクションがありました。');
-
-    // 同時接続者数(ただしトップページ閲覧者も含む)
-    console.log('client count: ', rootIo.sockets.size);
-
-    socket.emit('start data', {});
-
-    socket.on('disconnect', () => {});
-
     socket.on('post my menu', (data) => {
       if (!Number.isInteger(data.key)) {
         console.log('不正な値です');
@@ -121,7 +112,7 @@ function createWebSocketServer(io) {
       socket.broadcast.emit('someone posts text', emitData);
     });
 
-    socket.on('onload main page', (data) => {
+    socket.on('call npc on loading main page', (data) => {
       if (!npc.isAlive) {
         npc = new Npc(npc.index);
         npc.postMenu(rootIo, data.randomMenus);
