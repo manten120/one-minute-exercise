@@ -8,7 +8,7 @@ const npcs = [
   },
   {
     name: 'まつり',
-    icon: 'images/icons/frog1.jpg',
+    icon: 'images/icons/fox1.jpg',
   },
   {
     name: 'ミドリ',
@@ -41,6 +41,14 @@ const npcs = [
   {
     name: 'めい',
     icon: 'images/icons/girl2.jpg',
+  },
+  {
+    name: 'さめーちゃん',
+    icon: 'images/icons/same1.jpg',
+  },
+  {
+    name: 'なまじぃ',
+    icon: 'images/icons/edo.jpg',
   },
   {
     name: 'ラオウ',
@@ -85,6 +93,10 @@ const npcs = [
   {
     name: 'たいちゃん',
     icon: 'images/icons/boy2.jpg',
+  },
+  {
+    name: '名無し',
+    icon: 'images/icons/pig.jpg',
   },
 ];
 
