@@ -9,6 +9,7 @@ const categories = {
   tsukareta: 'つかれた',
   nemui: 'ねむい',
   gohan: 'ごはん',
+  henji: 'へんじ',
 };
 
 const stampsData = {
@@ -343,6 +344,30 @@ const stampsData = {
   48: {
     category: categories.gohan,
     src: 'images/stamps/48-min.jpg',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  49: {
+    category: categories.henji,
+    src: 'images/stamps/good.jpg',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  50: {
+    category: categories.henji,
+    src: 'images/stamps/yes.jpg',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  51: {
+    category: categories.henji,
+    src: 'images/stamps/no.jpg',
     response: {
       stamp: [],
       text: [],
