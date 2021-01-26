@@ -8,12 +8,18 @@ const imgSelected = $('.img-selected');
 const imgRandom = $('.img-random');
 const textAddition = $('.text-addition');
 const tabsArea = $('#tabs-area');
+const dropdownToggle = $('.dropdown-toggle');
 
 // エクササイズ後のタイマー
 let closeTimerWidth = 100;
 const closeTimer = () => {
   setTimeout(() => {
     if (closeTimerWidth <= 0) {
+      // notice.text('※Chrome拡張機能が必要です');
+      setTimeout(() => {
+        tabsArea.hide();
+        $('#chrome-extension').show();
+      }, 1000);
       return;
     }
     closeTimerWidth -= 100 / 1200;
@@ -34,16 +40,18 @@ const timer = () => {
         notice.text('おつかれさまでした!');
         selectedImgArea.hide();
         tabsArea.show();
+        dropdownToggle.removeClass('cantClick');
       }, 1000);
       setTimeout(() => {
         progressGray.css('width', '20%');
         progressBar.css('width', '100%');
-      }, 3000);
+      }, 2000);
       setTimeout(() => {
         notice.text('このページを自動で閉じます');
         closeTimer();
-      }, 4000);
+      }, 3000);
     } else if (w <= 25) {
+      notice.text('あとすこし！がんばれ～!');
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
       imgSelected.fadeIn(2000);

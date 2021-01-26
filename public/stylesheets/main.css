@@ -2,6 +2,7 @@
 body {
   height: 100%;
   margin: 0;
+  user-select: none;
 }
 
 .full-height {
@@ -40,7 +41,6 @@ body {
   height: 48px;
   border-radius: 50%;
   transition: all 0.1s;
-  user-select: none;
   object-fit: cover;
   object-position: 50% 0%; /* 左から50%, 上から0%の位置 */
 }
@@ -60,7 +60,6 @@ body {
   color: #444;
   font-weight: 600;
   font-size: 10px;
-  user-select: none;
   transition: all 0.1s;
 }
 
@@ -120,7 +119,6 @@ body {
 .text-comment {
   margin: 8px 0;
   padding: 0;
-  user-select: none;
 }
 
 .wrapper-img-comment {
@@ -139,12 +137,16 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  user-select: none;
 }
 
 /* 右カラム ヘッダー*/
 .greeting {
   color: #555;
+}
+
+.cantClick {
+  pointer-events: none;
+  color:rgba(131, 130, 130, 0.432);
 }
 
 /* 右カラム タイマー*/
@@ -180,7 +182,6 @@ body {
   object-fit: contain;
   border: 2px solid rgb(0, 123, 255);
   border-radius: 5px;
-  user-select: none;
 }
 
 /* 右カラム タブエリア*/
@@ -204,7 +205,6 @@ body {
   margin-right: 8px;
   object-fit: contain;
   transition: all 0.1s;
-  user-select: none;
 }
 
 .btn-stamp:hover {
@@ -215,6 +215,12 @@ body {
 .btn-stamp:active {
   transform: translateY(0px);
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+/* 右カラム Chrome拡張機能 */
+.extension-img {
+  width: 100%;
+  border-radius: 5px;
 }
 
 /* モーダルウインドウ */
@@ -231,7 +237,6 @@ body {
   height: 100%;
   object-fit: contain;
   transition: all 0.1s;
-  user-select: none;
 }
 
 .img-menus:hover {

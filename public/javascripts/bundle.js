@@ -26655,13 +26655,19 @@ var selectedImgArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#selected-i
 var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-selected');
 var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-random');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.text-addition');
-var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tabs-area'); // エクササイズ後のタイマー
+var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tabs-area');
+var dropdownToggle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dropdown-toggle'); // エクササイズ後のタイマー
 
 var closeTimerWidth = 100;
 
 var closeTimer = function closeTimer() {
   setTimeout(function () {
     if (closeTimerWidth <= 0) {
+      // notice.text('※Chrome拡張機能が必要です');
+      setTimeout(function () {
+        tabsArea.hide();
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
+      }, 1000);
       return;
     }
 
@@ -26685,16 +26691,18 @@ var timer = function timer() {
         notice.text('おつかれさまでした!');
         selectedImgArea.hide();
         tabsArea.show();
+        dropdownToggle.removeClass('cantClick');
       }, 1000);
       setTimeout(function () {
         progressGray.css('width', '20%');
         progressBar.css('width', '100%');
-      }, 3000);
+      }, 2000);
       setTimeout(function () {
         notice.text('このページを自動で閉じます');
         closeTimer();
-      }, 4000);
+      }, 3000);
     } else if (w <= 25) {
+      notice.text('あとすこし！がんばれ～!');
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
       imgSelected.fadeIn(2000);

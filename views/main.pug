@@ -44,7 +44,7 @@ block content
           div(id="header-area").m-1.mt-3.d-flex.justify-content-end
             p(class="greeting").mr-3 #{myData.name}さん、#{aisatsu}
             div.dropdown.mt-1
-              a(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").dropdown-toggle
+              a(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="cantClick").dropdown-toggle#dropdownMenuLink
                 Dropdown menu
               //- dropdownの内容
               div(aria-labelledby="dropdownMenuLink").dropdown-menu.m-2
@@ -98,6 +98,14 @@ block content
                 div(class="stamps")
                   each pair in stampsKeyAndSrcPairs
                     img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key class="btn-stamp").img-thumbnail
+          
+          //- 拡張機能の案内
+          div(style="display: none;" id="chrome-extension").row
+            div.col-12
+              p.display-5 😊ご利用ありがとうございました😊
+              p.display-5 このページを自動で開き、自動で閉じるためには
+              p.display-5 Chrome拡張機能のインストールが必要です
+              img(src="images/other/extension.jpg", alt="Chrome拡張機能" class="extension-img").mb-4
 
     //-/////////////////////
     //- モーダルウインドウ

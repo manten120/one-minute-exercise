@@ -17,8 +17,10 @@ block content
       h2.display-5.font-weight-bold.text-center.mb-5 使いかた
       div.mb-5.ml-5
         h3.lead.font-weight-bold ① 毎時0分に自動でエクササイズページが開きます
-        p.ml-4 (事前にChrome拡張機能のインストールとChromeの起動が必要です)
-        
+        p.ml-4
+          | (事前に
+          a(href="#extension") Chrome拡張機能のインストール 
+          | とChromeの起動が必要です)
       div.mb-5.ml-5
         h3.lead.font-weight-bold.mb-3 ② エクササイズを選択しよう
         p.ml-4 48種類のエクササイズからランダムで6種類が表示されるのでひとつ選ぶ
@@ -45,7 +47,7 @@ block content
 
     div(class="login-section").pt-5.pb-5
       h2.display-5.font-weight-bold.text-center.mb-5.pt-4 さっそく使ってみる
-      div.card
+      div.card.mb-4 
         div.card-body
           form(method="post" action="/login" class="form" id="login")
             div.form-group.mb-5
@@ -66,3 +68,9 @@ block content
           p または
           a(href="/login/twitter").btn.btn-primary.mb-2 Twitterアカウントでログイン
           p.small Twitterのアカウント名とアイコンを使用します
+
+    div(class="extension-section").pt-5.pb-5
+      h2(id="extension").display-5.font-weight-bold.text-center.mb-5.pt-4 Chrome拡張機能
+      div.mb-5.ml-5
+        img(src="images/other/extension.jpg", alt="Chrome拡張機能" class="extension-img").d-block.m-auto
+        h3.lead.font-weight-bold.p-3.mb-4.text-center 体を動かす時間を強制的に作れます
