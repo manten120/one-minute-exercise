@@ -16,79 +16,79 @@ const textsData = {
     category: categories.tassei,
     text: 'おつかれさまでした✨',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 8, 10, 21, 22, 23, 38],
     },
   },
   1: {
     category: categories.tassei,
     text: 'つかれたぁ～💦',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7, 11],
+      text: [0, 4, 7, 21, 22, 24, 51],
     },
   },
   2: {
     category: categories.tassei,
     text: 'リフレッシュできた❤',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [4],
     },
   },
   4: {
     category: categories.gekirei,
     text: '次の1時間も頑張ろう⏰',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18],
+      text: [6, 8, 25],
     },
   },
   5: {
     category: categories.gekirei,
     text: '今日も頑張ろう🔥',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18, 13, 49],
+      text: [6, 15, 25],
     },
   },
   6: {
     category: categories.gekirei,
     text: 'ぼちぼちやっていきましょう～',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18, 13, 49],
+      text: [7, 25, 53, 54, 55],
     },
   },
   7: {
     category: categories.gekirei,
     text: '無理しないでね💦',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [28, 29, 30, 31],
+      text: [8, 10, 11, 25],
     },
   },
   8: {
     category: categories.kansya,
     text: 'ありがとう❤',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   9: {
     category: categories.kansya,
     text: 'いつもありがとう😍',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   10: {
     category: categories.kansya,
     text: 'さんきゅーぅ❣',
     response: {
-      stamp: [],
+      stamp: [49],
       text: [],
     },
   },
@@ -96,7 +96,7 @@ const textsData = {
     category: categories.kansya,
     text: 'マジ感謝✨',
     response: {
-      stamp: [],
+      stamp: [49],
       text: [],
     },
   },
@@ -104,40 +104,40 @@ const textsData = {
     category: categories.aisatsu,
     text: 'おはよう☀',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [21, 22],
+      text: [12, 42, 53, 54, 55],
     },
   },
   13: {
     category: categories.aisatsu,
     text: 'こんにちは😊',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [24, 25],
+      text: [13, 43],
     },
   },
   14: {
     category: categories.aisatsu,
     text: 'こんばんは🌙',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [26, 27],
+      text: [14, 44],
     },
   },
   15: {
     category: categories.aisatsu,
     text: '今日もよろしくです^^',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [13, 49, 17, 18],
+      text: [5, 25],
     },
   },
   16: {
     category: categories.aisatsu,
     text: 'また明日👋',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [5, 6],
+      text: [16, 25, 21, 22, 25, 41, 45],
     },
   },
   17: {
@@ -145,31 +145,31 @@ const textsData = {
     text: 'おなかすいた～😭',
     response: {
       stamp: [43, 44],
-      text: [18],
+      text: [51],
     },
   },
   18: {
     category: categories.gohan,
     text: 'ごはん食べた？🍚',
     response: {
-      stamp: [],
-      text: [19, 20],
+      stamp: [50, 51],
+      text: [19, 20, 46, 47],
     },
   },
   19: {
     category: categories.gohan,
     text: '食べたよ😋',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [49],
     },
   },
   20: {
     category: categories.gohan,
     text: 'まだ～💦',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [45, 48],
+      text: [49],
     },
   },
   21: {
@@ -192,16 +192,16 @@ const textsData = {
     category: categories.tassei,
     text: 'きつかったぁ💦',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [7, 10, 11],
+      text: [7, 24, 51],
     },
   },
   24: {
     category: categories.gohan,
     text: '水分補給わすれずに😤',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [29, 31, 49],
+      text: [25],
     },
   },
   25: {
@@ -217,15 +217,15 @@ const textsData = {
     text: '天気どうですか？',
     response: {
       stamp: [],
-      text: [],
+      text: [27, 28, 29, 30],
     },
   },
   27: {
     category: categories.tenki,
     text: '晴れてる☀',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [49, 48],
     },
   },
   28: {
@@ -233,39 +233,39 @@ const textsData = {
     text: 'くもり☁',
     response: {
       stamp: [],
-      text: [],
+      text: [49],
     },
   },
   29: {
     category: categories.tenki,
     text: '降りそう☁',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [33],
+      text: [49],
     },
   },
   30: {
     category: categories.tenki,
     text: '雨ふってる☔',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [35],
+      text: [49],
     },
   },
   31: {
     category: categories.tenki,
     text: '土砂降り☔',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [33],
+      text: [49],
     },
   },
   32: {
     category: categories.tenki,
     text: '台風やばい🌀☔',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [35],
+      text: [49, 50],
     },
   },
   33: {
@@ -273,7 +273,7 @@ const textsData = {
     text: '雪⛄',
     response: {
       stamp: [],
-      text: [],
+      text: [48],
     },
   },
   34: {
@@ -312,15 +312,15 @@ const textsData = {
     category: categories.tassei,
     text: 'もう無理～😭',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [7, 9, 13, 8, 15],
+      text: [7, 51],
     },
   },
   39: {
     category: categories.kansya,
     text: '元気出ました🔥',
     response: {
-      stamp: [],
+      stamp: [49],
       text: [],
     },
   },
@@ -328,48 +328,48 @@ const textsData = {
     category: categories.gekirei,
     text: 'いつも頑張ってるね✨',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [29, 30, 32, 49],
+      text: [8, 10, 11],
     },
   },
   41: {
     category: categories.aisatsu,
     text: 'おやすみ～💤',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [37, 38],
+      text: [25, 41, 41],
     },
   },
   42: {
     category: categories.aisatsu,
     text: 'Good Morning!!',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [21, 22],
+      text: [12, 5, 42, 53, 54, 55],
     },
   },
   43: {
     category: categories.aisatsu,
     text: 'Hello!!',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [25],
+      text: [13, 43],
     },
   },
   44: {
     category: categories.aisatsu,
     text: 'Good Evening!!',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [26, 27],
+      text: [14, 44],
     },
   },
   45: {
     category: categories.aisatsu,
     text: 'Good Night!!',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [7],
+      text: [41, 45],
     },
   },
   46: {
@@ -408,19 +408,11 @@ const textsData = {
     category: categories.henji,
     text: '気をつけて💦',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [28, 31],
+      text: [25, 10],
     },
   },
   51: {
-    category: categories.henji,
-    text: 'だよね～✨',
-    response: {
-      stamp: [],
-      text: [],
-    },
-  },
-  52: {
     category: categories.henji,
     text: 'だよね～✨',
     response: {
@@ -432,24 +424,24 @@ const textsData = {
     category: categories.shitsumon,
     text: '今日仕事？',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [50, 51, 33],
+      text: [46, 47],
     },
   },
   54: {
     category: categories.shitsumon,
     text: '今日学校？',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [50, 51],
+      text: [46, 47],
     },
   },
   55: {
     category: categories.shitsumon,
     text: '今日休み？',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [50, 51],
+      text: [46, 47],
     },
   },
 };
