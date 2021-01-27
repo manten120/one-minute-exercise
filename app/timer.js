@@ -14,7 +14,7 @@ const dropdownToggle = $('.dropdown-toggle');
 // タイマーの横幅(灰色の箇所に対する%)
 let w2 = 100;
 // タイマー終了までの秒数
-const sec2 = 15;
+const sec2 = 20;
 // timer()実行の間隔(ミリ秒)
 const span2 = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
@@ -60,7 +60,7 @@ const timer = () => {
       dropdownToggle.removeClass('cantClick');
     }, 1000);
     setTimeout(() => {
-      progressGray.css('width', '20%');
+      progressGray.css('width', '25%');
       progressBar.css('width', '100%');
     }, 2000);
     setTimeout(() => {

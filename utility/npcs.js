@@ -112,7 +112,7 @@ class Npc {
     this.name = npcs[this.index].name;
     this.icon = npcs[this.index].icon;
 
-    // エクササイズメニュー投稿,エクササイズ時間1分経過,コミュニケーション時間(約15秒)経過後に
+    // エクササイズメニュー投稿,エクササイズ時間1分経過,コミュニケーション時間(約20秒)経過後に
     // falseになり、npcは活動不可になったものとする
     this.isAlive = true;
 
@@ -169,7 +169,7 @@ class Npc {
 
       setTimeout(() => {
         this.isAlive = false;
-      }, 82 * 1000);
+      }, 87 * 1000);
     }, this.secondsToChooseMenu * 1000);
   }
 
