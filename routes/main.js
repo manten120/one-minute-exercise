@@ -38,6 +38,7 @@ router.get('/', (req, res) => {
   }
 
   const hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
+  console.log('hour: ', hour);
   let aisatsu;
   if (hour <= 3) {
     aisatsu = 'こんばんは';
