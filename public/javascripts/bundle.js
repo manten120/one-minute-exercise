@@ -26657,33 +26657,46 @@ var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-random');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.text-addition');
 var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tabs-area');
 var dropdownToggle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dropdown-toggle'); // エクササイズ後のタイマー
+// タイマーの横幅(灰色の箇所に対する%)
 
-var closeTimerWidth = 100;
+var w2 = 100; // タイマー終了までの秒数
+
+var sec2 = 15; // timer()実行の間隔(ミリ秒)
+
+var span2 = 10; // timer()1回あたりに減るタイマーの横幅(%)
+
+var shrink2 = 100 / (sec2 * 1000) * span2;
 
 var closeTimer = function closeTimer() {
   setTimeout(function () {
-    if (closeTimerWidth <= 0) {
+    if (w2 <= 0) {
       // notice.text('※Chrome拡張機能が必要です');
       setTimeout(function () {
         tabsArea.hide();
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
-      }, 1000);
+      }, 2000);
       return;
     }
 
-    closeTimerWidth -= 100 / 1200;
-    progressBar.css('width', "".concat(closeTimerWidth, "%"));
+    w2 -= shrink2;
+    progressBar.css('width', "".concat(w2, "%"));
     closeTimer();
-  }, 10);
+  }, span2);
 }; // エクササイズ中のタイマー
+// タイマーの横幅(%)
 
 
-var w = 100;
+var w = 100; // タイマー終了までの秒数
+
+var sec = 60; // timer()実行の間隔(ミリ秒)
+
+var span = 10; // timer()1回あたりに減るタイマーの横幅(%)
+
+var shrink = 100 / (sec * 1000) * span;
 
 var timer = function timer() {
   setTimeout(function () {
-    w -= 100 / 3000; // 100 / 6000
-
+    w -= shrink;
     progressBar.css('width', "".concat(w, "%"));
 
     if (w <= 0) {
@@ -26718,7 +26731,7 @@ var timer = function timer() {
     } else if (w <= 100) {
       timer();
     }
-  }, 10);
+  }, span);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (timer);

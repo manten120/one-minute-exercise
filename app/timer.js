@@ -11,28 +11,43 @@ const tabsArea = $('#tabs-area');
 const dropdownToggle = $('.dropdown-toggle');
 
 // エクササイズ後のタイマー
-let closeTimerWidth = 100;
+// タイマーの横幅(灰色の箇所に対する%)
+let w2 = 100;
+// タイマー終了までの秒数
+const sec2 = 15;
+// timer()実行の間隔(ミリ秒)
+const span2 = 10;
+// timer()1回あたりに減るタイマーの横幅(%)
+const shrink2 = (100 / (sec2 * 1000)) * span2;
 const closeTimer = () => {
   setTimeout(() => {
-    if (closeTimerWidth <= 0) {
+    if (w2 <= 0) {
       // notice.text('※Chrome拡張機能が必要です');
       setTimeout(() => {
         tabsArea.hide();
         $('#chrome-extension').show();
-      }, 1000);
+      }, 2000);
       return;
     }
-    closeTimerWidth -= 100 / 1200;
-    progressBar.css('width', `${closeTimerWidth}%`);
+    w2 -= shrink2;
+    progressBar.css('width', `${w2}%`);
     closeTimer();
-  }, 10);
+  }, span2);
 };
 
 // エクササイズ中のタイマー
+// タイマーの横幅(%)
 let w = 100;
+// タイマー終了までの秒数
+const sec = 60;
+// timer()実行の間隔(ミリ秒)
+const span = 10;
+// timer()1回あたりに減るタイマーの横幅(%)
+const shrink = (100 / (sec * 1000)) * span;
+
 const timer = () => {
   setTimeout(() => {
-    w -= 100 / 3000; // 100 / 6000
+    w -= shrink;
     progressBar.css('width', `${w}%`);
 
     if (w <= 0) {
@@ -67,7 +82,7 @@ const timer = () => {
     } else if (w <= 100) {
       timer();
     }
-  }, 10);
+  }, span);
 };
 
 export default timer;
