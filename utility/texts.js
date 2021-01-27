@@ -317,7 +317,7 @@ const textsData = {
     },
   },
   39: {
-    category: categories.tassei,
+    category: categories.kansya,
     text: '元気出ました🔥',
     response: {
       stamp: [],
@@ -430,7 +430,7 @@ const textsData = {
   },
   53: {
     category: categories.shitsumon,
-    text: '今日仕事?',
+    text: '今日仕事？',
     response: {
       stamp: [],
       text: [],
@@ -438,7 +438,7 @@ const textsData = {
   },
   54: {
     category: categories.shitsumon,
-    text: '今日学校?',
+    text: '今日学校？',
     response: {
       stamp: [],
       text: [],
@@ -446,7 +446,7 @@ const textsData = {
   },
   55: {
     category: categories.shitsumon,
-    text: '今日休み?',
+    text: '今日休み？',
     response: {
       stamp: [],
       text: [],
@@ -477,7 +477,18 @@ categoryValues.forEach((category, index) => {
   });
 });
 
+// textsDataのうちcategoryがcategories.tasseiである要素のtextを格納した配列
+const sayFinTexts = Object.keys(textsData)
+  .map((key) => {
+    if (textsData[key].category === categories.tassei) {
+      return textsData[key].text;
+    }
+    return '';
+  })
+  .filter((item) => item);
+
 module.exports = {
   textsData,
   textsKeyTextAndBtnColorObjects,
+  sayFinTexts,
 };

@@ -1,5 +1,5 @@
-const { stampsData } = require('./stamps');
-const { textsData } = require('./texts');
+const { stampsData, sayFinStamps } = require('./stamps');
+const { textsData, sayFinTexts } = require('./texts');
 
 const npcs = [
   {
@@ -161,16 +161,50 @@ class Npc {
       // エクササイズ中の返信を禁止する
       this.coolDown(60);
 
-      // エクササイズ終了後に投稿する
+      // エクササイズ終了直後に投稿する
       setTimeout(() => {
-        emitData.src = 'images/stamps/1-min.jpg';
-        io.emit('someone posts stamp', emitData);
+        this.sayFin(io);
       }, (60 + this.secondsToSayFin) * 1000);
 
       setTimeout(() => {
         this.isAlive = false;
       }, 85 * 1000);
     }, this.secondsToChooseMenu * 1000);
+  }
+
+  // エクササイズ終了直後に投稿する
+  sayFin(io) {
+    // 投稿の候補が存在しないとき
+    if (sayFinStamps.length === 0 && sayFinTexts.length === 0) {
+      return;
+    }
+
+    // スタンプを投稿する確率
+    const stampProbability = sayFinStamps.length / (sayFinStamps.length + sayFinTexts.length);
+
+    if (Math.random() < stampProbability) {
+      // スタンプを投稿するとき
+      const emitData = {
+        to: '',
+        from: {
+          name: this.name,
+          icon: this.icon,
+        },
+        src: sayFinStamps[getRandomIndex(sayFinStamps)],
+      };
+      io.emit('someone posts stamp', emitData);
+    } else {
+      // テキストを投稿するとき
+      const emitData = {
+        to: '',
+        from: {
+          name: this.name,
+          icon: this.icon,
+        },
+        text: sayFinTexts[getRandomIndex(sayFinTexts)],
+      };
+      io.emit('someone posts text', emitData);
+    }
   }
 
   response(io, data) {

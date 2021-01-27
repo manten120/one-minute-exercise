@@ -392,7 +392,18 @@ categoryValues.forEach((category) => {
   });
 });
 
+// stampsDataのうちcategoryがcategories.otsukaresamaである要素のtextを格納した配列
+const sayFinStamps = Object.keys(stampsData)
+  .map((key) => {
+    if (stampsData[key].category === categories.otsukaresama) {
+      return stampsData[key].src;
+    }
+    return '';
+  })
+  .filter((item) => item);
+
 module.exports = {
   stampsData,
   stampsKeyAndSrcPairs,
+  sayFinStamps,
 };
