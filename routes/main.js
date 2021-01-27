@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
 
   let hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
 
-  if (!process.env.HEROKU_URL) {
+  if (process.env.HEROKU_URL) {
     hour += 9;
   }
 
