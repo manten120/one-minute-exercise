@@ -26670,16 +26670,17 @@ var shrink2 = 100 / (sec2 * 1000) * span2;
 var closeTimer = function closeTimer() {
   w2 -= shrink2;
   progressBar.css('width', "".concat(w2, "%"));
-  setTimeout(function () {
-    if (w2 <= 0) {
-      // notice.text('※Chrome拡張機能が必要です');
-      setTimeout(function () {
-        tabsArea.hide();
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
-      }, 2000);
-      return;
-    }
 
+  if (w2 <= 0) {
+    // notice.text('※Chrome拡張機能が必要です');
+    setTimeout(function () {
+      tabsArea.hide();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
+    }, 2000);
+    return;
+  }
+
+  setTimeout(function () {
     closeTimer();
   }, span2);
 }; // エクササイズ中のタイマー
@@ -26699,47 +26700,43 @@ var CanChange2 = true;
 var timer = function timer() {
   w -= shrink;
   progressBar.css('width', "".concat(w, "%"));
+
+  if (w <= 0) {
+    setTimeout(function () {
+      notice.text('おつかれさまでした!');
+      selectedImgArea.hide();
+      tabsArea.show();
+      dropdownToggle.removeClass('cantClick');
+    }, 1000);
+    setTimeout(function () {
+      progressGray.css('width', '20%');
+      progressBar.css('width', '100%');
+    }, 2000);
+    setTimeout(function () {
+      closeTimer();
+      notice.text('このページを自動で閉じます');
+    }, 3000);
+    return;
+  }
+
+  if (w <= 25 && CanChange2) {
+    CanChange2 = false;
+    notice.text('あとすこし！がんばれ～!');
+    progressBar.removeClass('bg-warning');
+    progressBar.addClass('bg-danger');
+    imgSelected.fadeIn(2000);
+    imgRandom.fadeOut(2000);
+    textAddition.fadeOut(2000);
+  } else if (w <= 50 && CanChange1) {
+    CanChange1 = false;
+    progressBar.addClass('bg-warning');
+    imgSelected.fadeOut(2000);
+    imgRandom.fadeIn(2000);
+    textAddition.fadeIn(2000);
+  }
+
   setTimeout(function () {
-    if (w <= 0) {
-      setTimeout(function () {
-        notice.text('おつかれさまでした!');
-        selectedImgArea.hide();
-        tabsArea.show();
-        dropdownToggle.removeClass('cantClick');
-      }, 1000);
-      setTimeout(function () {
-        progressGray.css('width', '20%');
-        progressBar.css('width', '100%');
-      }, 2000);
-      setTimeout(function () {
-        closeTimer();
-        notice.text('このページを自動で閉じます');
-      }, 3000);
-    } else if (w <= 25) {
-      timer();
-
-      if (CanChange2) {
-        CanChange2 = false;
-        notice.text('あとすこし！がんばれ～!');
-        progressBar.removeClass('bg-warning');
-        progressBar.addClass('bg-danger');
-        imgSelected.fadeIn(2000);
-        imgRandom.fadeOut(2000);
-        textAddition.fadeOut(2000);
-      }
-    } else if (w <= 50) {
-      timer();
-
-      if (CanChange1) {
-        CanChange1 = false;
-        progressBar.addClass('bg-warning');
-        imgSelected.fadeOut(1000);
-        imgRandom.fadeIn(2000);
-        textAddition.fadeIn(2000);
-      }
-    } else if (w <= 100) {
-      timer();
-    }
+    timer();
   }, span);
 };
 

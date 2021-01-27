@@ -22,15 +22,15 @@ const shrink2 = (100 / (sec2 * 1000)) * span2;
 const closeTimer = () => {
   w2 -= shrink2;
   progressBar.css('width', `${w2}%`);
+  if (w2 <= 0) {
+    // notice.text('※Chrome拡張機能が必要です');
+    setTimeout(() => {
+      tabsArea.hide();
+      $('#chrome-extension').show();
+    }, 2000);
+    return;
+  }
   setTimeout(() => {
-    if (w2 <= 0) {
-      // notice.text('※Chrome拡張機能が必要です');
-      setTimeout(() => {
-        tabsArea.hide();
-        $('#chrome-extension').show();
-      }, 2000);
-      return;
-    }
     closeTimer();
   }, span2);
 };
@@ -51,45 +51,43 @@ let CanChange2 = true;
 const timer = () => {
   w -= shrink;
   progressBar.css('width', `${w}%`);
+
+  if (w <= 0) {
+    setTimeout(() => {
+      notice.text('おつかれさまでした!');
+      selectedImgArea.hide();
+      tabsArea.show();
+      dropdownToggle.removeClass('cantClick');
+    }, 1000);
+    setTimeout(() => {
+      progressGray.css('width', '20%');
+      progressBar.css('width', '100%');
+    }, 2000);
+    setTimeout(() => {
+      closeTimer();
+      notice.text('このページを自動で閉じます');
+    }, 3000);
+    return;
+  }
+
+  if (w <= 25 && CanChange2) {
+    CanChange2 = false;
+    notice.text('あとすこし！がんばれ～!');
+    progressBar.removeClass('bg-warning');
+    progressBar.addClass('bg-danger');
+    imgSelected.fadeIn(2000);
+    imgRandom.fadeOut(2000);
+    textAddition.fadeOut(2000);
+  } else if (w <= 50 && CanChange1) {
+    CanChange1 = false;
+    progressBar.addClass('bg-warning');
+    imgSelected.fadeOut(2000);
+    imgRandom.fadeIn(2000);
+    textAddition.fadeIn(2000);
+  }
+
   setTimeout(() => {
-    if (w <= 0) {
-      setTimeout(() => {
-        notice.text('おつかれさまでした!');
-        selectedImgArea.hide();
-        tabsArea.show();
-        dropdownToggle.removeClass('cantClick');
-      }, 1000);
-      setTimeout(() => {
-        progressGray.css('width', '20%');
-        progressBar.css('width', '100%');
-      }, 2000);
-      setTimeout(() => {
-        closeTimer();
-        notice.text('このページを自動で閉じます');
-      }, 3000);
-    } else if (w <= 25) {
-      timer();
-      if (CanChange2) {
-        CanChange2 = false;
-        notice.text('あとすこし！がんばれ～!');
-        progressBar.removeClass('bg-warning');
-        progressBar.addClass('bg-danger');
-        imgSelected.fadeIn(2000);
-        imgRandom.fadeOut(2000);
-        textAddition.fadeOut(2000);
-      }
-    } else if (w <= 50) {
-      timer();
-      if (CanChange1) {
-        CanChange1 = false;
-        progressBar.addClass('bg-warning');
-        imgSelected.fadeOut(1000);
-        imgRandom.fadeIn(2000);
-        textAddition.fadeIn(2000);
-      }
-    } else if (w <= 100) {
-      timer();
-    }
+    timer();
   }, span);
 };
 
