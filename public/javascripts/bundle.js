@@ -26676,7 +26676,7 @@ var closeTimer = function closeTimer() {
     setTimeout(function () {
       tabsArea.hide();
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
-    }, 2000);
+    }, 3000);
     return;
   }
 

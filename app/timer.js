@@ -27,7 +27,7 @@ const closeTimer = () => {
     setTimeout(() => {
       tabsArea.hide();
       $('#chrome-extension').show();
-    }, 2000);
+    }, 3000);
     return;
   }
   setTimeout(() => {
