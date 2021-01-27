@@ -17,96 +17,96 @@ const stampsData = {
     category: categories.otsukaresama,
     src: 'images/stamps/1-min.jpg',
     response: {
-      stamp: [2, 3],
-      text: [0, 1, 4],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   2: {
     category: categories.otsukaresama,
     src: 'images/stamps/2-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   3: {
     category: categories.otsukaresama,
     src: 'images/stamps/3-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   5: {
     category: categories.otsukaresama,
     src: 'images/stamps/5-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   6: {
     category: categories.otsukaresama,
     src: 'images/stamps/6-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   7: {
     category: categories.otsukaresama,
     src: 'images/stamps/7-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [1, 2, 3, 5, 6, 7],
+      text: [0, 1, 4, 22],
     },
   },
   8: {
     category: categories.ganbarou,
     src: 'images/stamps/8-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18],
+      text: [6],
     },
   },
   9: {
     category: categories.ganbarou,
     src: 'images/stamps/9-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18],
+      text: [8, 10],
     },
   },
   10: {
     category: categories.ganbarou,
     src: 'images/stamps/10-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [29, 31],
+      text: [8, 10],
     },
   },
   11: {
     category: categories.ganbarou,
     src: 'images/stamps/11-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [29, 31],
+      text: [8, 10],
     },
   },
   13: {
     category: categories.ganbarou,
     src: 'images/stamps/13-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18],
+      text: [25],
     },
   },
   15: {
     category: categories.ganbarou,
     src: 'images/stamps/15-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [16, 17, 18, 29, 31, 49],
+      text: [8, 10],
     },
   },
   16: {
@@ -137,128 +137,128 @@ const stampsData = {
     category: categories.ohayou,
     src: 'images/stamps/21-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [21, 22],
+      text: [12, 42, 53, 54, 55],
     },
   },
   22: {
     category: categories.ohayou,
     src: 'images/stamps/22-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [21, 22],
+      text: [12, 42, 53, 54, 55],
     },
   },
   23: {
     category: categories.konnichiwa,
     src: 'images/stamps/23-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [23, 24, 25],
+      text: [13, 43],
     },
   },
   24: {
     category: categories.konnichiwa,
     src: 'images/stamps/24-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [23, 24, 25],
+      text: [13, 43],
     },
   },
   25: {
     category: categories.konnichiwa,
     src: 'images/stamps/25-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [23, 24, 25],
+      text: [13, 43],
     },
   },
   26: {
     category: categories.konbanwa,
     src: 'images/stamps/26-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [26, 27],
+      text: [14, 44],
     },
   },
   27: {
     category: categories.konbanwa,
     src: 'images/stamps/27-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [26, 27],
+      text: [14, 44],
     },
   },
   28: {
     category: categories.arigatou,
     src: 'images/stamps/28-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   29: {
     category: categories.arigatou,
     src: 'images/stamps/29-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   30: {
     category: categories.arigatou,
     src: 'images/stamps/30-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   31: {
     category: categories.arigatou,
     src: 'images/stamps/31-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   32: {
     category: categories.arigatou,
     src: 'images/stamps/32-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [49],
+      text: [25],
     },
   },
   33: {
     category: categories.tsukareta,
     src: 'images/stamps/33-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [9, 13, 15],
+      text: [0, 7],
     },
   },
   34: {
     category: categories.tsukareta,
     src: 'images/stamps/34-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [9, 13, 15],
+      text: [0, 7],
     },
   },
   35: {
     category: categories.tsukareta,
     src: 'images/stamps/35-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [9, 13, 15],
+      text: [0, 7],
     },
   },
   36: {
     category: categories.tsukareta,
     src: 'images/stamps/36-min.jpg',
     response: {
-      stamp: [],
-      text: [],
+      stamp: [9, 13, 15],
+      text: [0, 7],
     },
   },
   37: {
@@ -274,7 +274,7 @@ const stampsData = {
     src: 'images/stamps/38-min.jpg',
     response: {
       stamp: [],
-      text: [],
+      text: [41],
     },
   },
   39: {
@@ -305,7 +305,7 @@ const stampsData = {
     category: categories.gohan,
     src: 'images/stamps/43-min.jpg',
     response: {
-      stamp: [],
+      stamp: [45, 48],
       text: [],
     },
   },
@@ -313,7 +313,7 @@ const stampsData = {
     category: categories.gohan,
     src: 'images/stamps/44-min.jpg',
     response: {
-      stamp: [],
+      stamp: [45, 48],
       text: [],
     },
   },
@@ -321,7 +321,7 @@ const stampsData = {
     category: categories.gohan,
     src: 'images/stamps/45-min.jpg',
     response: {
-      stamp: [],
+      stamp: [43, 44],
       text: [],
     },
   },
@@ -345,7 +345,7 @@ const stampsData = {
     category: categories.gohan,
     src: 'images/stamps/48-min.jpg',
     response: {
-      stamp: [],
+      stamp: [43, 44],
       text: [],
     },
   },
