@@ -16,7 +16,7 @@ let w2 = 100;
 // タイマー終了までの秒数
 const sec2 = 15;
 // timer()実行の間隔(ミリ秒)
-const span2 = 10;
+const span2 = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
 const shrink2 = (100 / (sec2 * 1000)) * span2;
 const closeTimer = () => {
@@ -41,7 +41,7 @@ let w = 100;
 // タイマー終了までの秒数
 const sec = 60;
 // timer()実行の間隔(ミリ秒)
-const span = 10;
+const span = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
 const shrink = (100 / (sec * 1000)) * span;
 
