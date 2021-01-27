@@ -62,23 +62,23 @@ const timer = () => {
         progressBar.css('width', '100%');
       }, 2000);
       setTimeout(() => {
-        notice.text('このページを自動で閉じます');
         closeTimer();
+        notice.text('このページを自動で閉じます');
       }, 3000);
     } else if (w <= 25) {
+      timer();
       notice.text('あとすこし！がんばれ～!');
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
       imgSelected.fadeIn(2000);
       imgRandom.fadeOut(2000);
       textAddition.fadeOut(2000);
-      timer();
     } else if (w <= 50) {
+      timer();
       progressBar.addClass('bg-warning');
       imgSelected.fadeOut(2000);
       imgRandom.fadeIn(2000);
       textAddition.fadeIn(2000);
-      timer();
     } else if (w <= 100) {
       timer();
     }

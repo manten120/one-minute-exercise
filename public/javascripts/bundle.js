@@ -26663,7 +26663,7 @@ var w2 = 100; // タイマー終了までの秒数
 
 var sec2 = 15; // timer()実行の間隔(ミリ秒)
 
-var span2 = 10; // timer()1回あたりに減るタイマーの横幅(%)
+var span2 = 100; // timer()1回あたりに減るタイマーの横幅(%)
 
 var shrink2 = 100 / (sec2 * 1000) * span2;
 
@@ -26690,7 +26690,7 @@ var w = 100; // タイマー終了までの秒数
 
 var sec = 60; // timer()実行の間隔(ミリ秒)
 
-var span = 10; // timer()1回あたりに減るタイマーの横幅(%)
+var span = 100; // timer()1回あたりに減るタイマーの横幅(%)
 
 var shrink = 100 / (sec * 1000) * span;
 
@@ -26711,23 +26711,23 @@ var timer = function timer() {
         progressBar.css('width', '100%');
       }, 2000);
       setTimeout(function () {
-        notice.text('このページを自動で閉じます');
         closeTimer();
+        notice.text('このページを自動で閉じます');
       }, 3000);
     } else if (w <= 25) {
+      timer();
       notice.text('あとすこし！がんばれ～!');
       progressBar.removeClass('bg-warning');
       progressBar.addClass('bg-danger');
       imgSelected.fadeIn(2000);
       imgRandom.fadeOut(2000);
       textAddition.fadeOut(2000);
-      timer();
     } else if (w <= 50) {
+      timer();
       progressBar.addClass('bg-warning');
       imgSelected.fadeOut(2000);
       imgRandom.fadeIn(2000);
       textAddition.fadeIn(2000);
-      timer();
     } else if (w <= 100) {
       timer();
     }
