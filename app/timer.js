@@ -20,6 +20,8 @@ const span2 = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
 const shrink2 = (100 / (sec2 * 1000)) * span2;
 const closeTimer = () => {
+  w2 -= shrink2;
+  progressBar.css('width', `${w2}%`);
   setTimeout(() => {
     if (w2 <= 0) {
       // notice.text('※Chrome拡張機能が必要です');
@@ -29,8 +31,6 @@ const closeTimer = () => {
       }, 2000);
       return;
     }
-    w2 -= shrink2;
-    progressBar.css('width', `${w2}%`);
     closeTimer();
   }, span2);
 };
@@ -46,10 +46,9 @@ const span = 100;
 const shrink = (100 / (sec * 1000)) * span;
 
 const timer = () => {
+  w -= shrink;
+  progressBar.css('width', `${w}%`);
   setTimeout(() => {
-    w -= shrink;
-    progressBar.css('width', `${w}%`);
-
     if (w <= 0) {
       setTimeout(() => {
         notice.text('おつかれさまでした!');

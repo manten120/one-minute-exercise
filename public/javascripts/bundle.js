@@ -26668,6 +26668,8 @@ var span2 = 100; // timer()1回あたりに減るタイマーの横幅(%)
 var shrink2 = 100 / (sec2 * 1000) * span2;
 
 var closeTimer = function closeTimer() {
+  w2 -= shrink2;
+  progressBar.css('width', "".concat(w2, "%"));
   setTimeout(function () {
     if (w2 <= 0) {
       // notice.text('※Chrome拡張機能が必要です');
@@ -26678,8 +26680,6 @@ var closeTimer = function closeTimer() {
       return;
     }
 
-    w2 -= shrink2;
-    progressBar.css('width', "".concat(w2, "%"));
     closeTimer();
   }, span2);
 }; // エクササイズ中のタイマー
@@ -26695,10 +26695,9 @@ var span = 100; // timer()1回あたりに減るタイマーの横幅(%)
 var shrink = 100 / (sec * 1000) * span;
 
 var timer = function timer() {
+  w -= shrink;
+  progressBar.css('width', "".concat(w, "%"));
   setTimeout(function () {
-    w -= shrink;
-    progressBar.css('width', "".concat(w, "%"));
-
     if (w <= 0) {
       setTimeout(function () {
         notice.text('おつかれさまでした!');
