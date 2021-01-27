@@ -75,15 +75,15 @@ const timer = () => {
     notice.text('あとすこし！がんばれ～!');
     progressBar.removeClass('bg-warning');
     progressBar.addClass('bg-danger');
-    imgSelected.fadeIn(2000);
-    imgRandom.fadeOut(2000);
-    textAddition.fadeOut(2000);
+    imgSelected.fadeIn();
+    imgRandom.fadeOut();
+    textAddition.fadeOut();
   } else if (w <= 50 && CanChange1) {
     CanChange1 = false;
     progressBar.addClass('bg-warning');
-    imgSelected.fadeOut(2000);
-    imgRandom.fadeIn(2000);
-    textAddition.fadeIn(2000);
+    imgSelected.fadeOut();
+    imgRandom.fadeIn();
+    textAddition.fadeIn();
   }
 
   setTimeout(() => {
