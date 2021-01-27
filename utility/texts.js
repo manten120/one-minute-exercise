@@ -7,6 +7,8 @@ const categories = {
   gohan: '御飯',
   tenki: '天気',
   kion: '気温',
+  henji: '返事',
+  shitsumon: '質問',
 };
 
 const textsData = {
@@ -365,6 +367,86 @@ const textsData = {
   45: {
     category: categories.aisatsu,
     text: 'Good Night!!',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  46: {
+    category: categories.henji,
+    text: 'YES👍',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  47: {
+    category: categories.henji,
+    text: 'NO❌',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  48: {
+    category: categories.henji,
+    text: 'おお～😳',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  49: {
+    category: categories.henji,
+    text: 'そうなんだ～',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  50: {
+    category: categories.henji,
+    text: '気をつけて💦',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  51: {
+    category: categories.henji,
+    text: 'だよね～✨',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  52: {
+    category: categories.henji,
+    text: 'だよね～✨',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  53: {
+    category: categories.shitsumon,
+    text: '今日仕事?',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  54: {
+    category: categories.shitsumon,
+    text: '今日学校?',
+    response: {
+      stamp: [],
+      text: [],
+    },
+  },
+  55: {
+    category: categories.shitsumon,
+    text: '今日休み?',
     response: {
       stamp: [],
       text: [],
