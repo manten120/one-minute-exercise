@@ -45,6 +45,9 @@ const span = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
 const shrink = (100 / (sec * 1000)) * span;
 
+let CanChange1 = true;
+let CanChange2 = true;
+
 const timer = () => {
   w -= shrink;
   progressBar.css('width', `${w}%`);
@@ -66,18 +69,24 @@ const timer = () => {
       }, 3000);
     } else if (w <= 25) {
       timer();
-      notice.text('あとすこし！がんばれ～!');
-      progressBar.removeClass('bg-warning');
-      progressBar.addClass('bg-danger');
-      imgSelected.fadeIn(2000);
-      imgRandom.fadeOut(2000);
-      textAddition.fadeOut(2000);
+      if (CanChange2) {
+        CanChange2 = false;
+        notice.text('あとすこし！がんばれ～!');
+        progressBar.removeClass('bg-warning');
+        progressBar.addClass('bg-danger');
+        imgSelected.fadeIn(2000);
+        imgRandom.fadeOut(2000);
+        textAddition.fadeOut(2000);
+      }
     } else if (w <= 50) {
       timer();
-      progressBar.addClass('bg-warning');
-      imgSelected.fadeOut(2000);
-      imgRandom.fadeIn(2000);
-      textAddition.fadeIn(2000);
+      if (CanChange1) {
+        CanChange1 = false;
+        progressBar.addClass('bg-warning');
+        imgSelected.fadeOut(1000);
+        imgRandom.fadeIn(2000);
+        textAddition.fadeIn(2000);
+      }
     } else if (w <= 100) {
       timer();
     }
