@@ -122,6 +122,9 @@ class Npc {
     // npc生成後1人目のユーザーがアクセスしてからnpcがメニューを投稿するまでにかかる秒数
     this.secondsToChooseMenu = Math.floor(Math.random() * 4) + 2;
 
+    // npcがエクササイズ時間1分を終えてから投稿するまでにかかる秒数
+    this.secondsToSayFin = Math.floor(Math.random() * 3) + 1;
+
     // trueのとき投稿(返信含む)禁止時間中とする
     this.isCoolDown = false;
 
@@ -162,11 +165,11 @@ class Npc {
       setTimeout(() => {
         emitData.src = 'images/stamps/1-min.jpg';
         io.emit('someone posts stamp', emitData);
-      }, 60 * 1000);
+      }, (60 + this.secondsToSayFin) * 1000);
 
       setTimeout(() => {
         this.isAlive = false;
-      }, 75 * 1000);
+      }, 82 * 1000);
     }, this.secondsToChooseMenu * 1000);
   }
 
