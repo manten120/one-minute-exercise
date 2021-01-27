@@ -123,7 +123,7 @@ class Npc {
     this.secondsToChooseMenu = Math.floor(Math.random() * 4) + 2;
 
     // npcがエクササイズ時間1分を終えてから投稿するまでにかかる秒数
-    this.secondsToSayFin = Math.floor(Math.random() * 3) + 1;
+    this.secondsToSayFin = Math.floor(Math.random() * 3) + 2;
 
     // trueのとき投稿(返信含む)禁止時間中とする
     this.isCoolDown = false;
@@ -169,7 +169,7 @@ class Npc {
 
       setTimeout(() => {
         this.isAlive = false;
-      }, 87 * 1000);
+      }, 85 * 1000);
     }, this.secondsToChooseMenu * 1000);
   }
 
