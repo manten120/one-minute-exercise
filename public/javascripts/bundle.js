@@ -26661,7 +26661,7 @@ var dropdownToggle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dropdown-to
 
 var w2 = 100; // タイマー終了までの秒数
 
-var sec2 = 20; // timer()実行の間隔(ミリ秒)
+var sec2 = 15; // timer()実行の間隔(ミリ秒)
 
 var span2 = 100; // timer()1回あたりに減るタイマーの横幅(%)
 
@@ -26709,7 +26709,7 @@ var timer = function timer() {
       dropdownToggle.removeClass('cantClick');
     }, 1000);
     setTimeout(function () {
-      progressGray.css('width', '25%');
+      progressGray.css('width', '20%');
       progressBar.css('width', '100%');
     }, 2000);
     setTimeout(function () {

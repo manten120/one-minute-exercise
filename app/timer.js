@@ -14,7 +14,7 @@ const dropdownToggle = $('.dropdown-toggle');
 // タイマーの横幅(灰色の箇所に対する%)
 let w2 = 100;
 // タイマー終了までの秒数
-const sec2 = 18;
+const sec2 = 15;
 // timer()実行の間隔(ミリ秒)
 const span2 = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
