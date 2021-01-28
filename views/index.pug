@@ -4,18 +4,72 @@ block content
   link(rel="stylesheet" href="/stylesheets/index.css")
   // ここまでheadタグに含まれる
   body
-    div.container
-      div.row.login-area
-        div.col-6
-        div.col-6
-          form(method="post" action="/login")
-            div.form-group
-              label(for="name") ニックネームを入力してください
-              input(type="text" name="name" aria-describedby="user nickname" value="名無しさん").form-control#name
-            div.form-group
-              p アイコンを選んでください
-              each src in iconsSrc
-                input(type="radio" name="icon" value=src checked id=src).user-icon
+    div.jumbotron.jumbotron-fluid.d-flex.align-items-center
+      div(class="header-container").container
+        div(class="title-wrapper")
+          div(class="title-accent").display-4.font-weight-bold 強制!!
+          h1.display-3.Fluid.mt-4.mb-5.text-center.font-weight-bold 1分間エクササイズ
+        p.lead.text-center.font-weight-bold ずっとデスクに座りっぱなしではありませんか？
+        p.lead.text-center.font-weight-bold 1時間にいちど、みんなと一緒に1分だけ体をうごかそう！
+        p.lead.text-center.font-weight-bold おわったら少しだけコミュニケーションを楽しみましょう
+
+    div(class="how-to-section").pt-5
+      h2.display-5.font-weight-bold.text-center.mb-5 使いかた
+      div.mb-5.ml-5
+        h3.lead.font-weight-bold ① 毎時0分に自動でエクササイズページが開きます
+        p.ml-4
+          | (事前に
+          a(href="#extension") Chrome拡張機能のインストール
+          | とChromeの起動が必要です)
+      div.mb-5.ml-5
+        h3.lead.font-weight-bold.mb-3 ② エクササイズを選択しよう
+        p.ml-4 50種以上のエクササイズからランダムで6種類が表示されるのでひとつ選ぶ
+        img(src="images/other/menu.jpg", alt="" class="sample-img").ml-4
+      div.mb-5.ml-5
+        h3.lead.font-weight-bold.mb-3 ③ 1分間だけ体をうごかそう
+        img(src="images/other/1min.jpg", alt="" class="sample-img").ml-4.mb-4
+        br
+        p.ml-4 ほかの参加者が選んだエクササイズも表示される
+        img(src="images/other/selected.jpg", alt="" class="sample-img").ml-4.mb-4
+        p.ml-4 みんなと一緒にがんばろう！
+      div.mb-5.ml-5
+        h3.lead.font-weight-bold.mb-3 ④ すこしだけコミュニケーションしよう
+        p.ml-4 エクササイズ終了後の20秒だけ、参加者どうしスタンプやメッセージを送れます
+        img(src="images/other/stamp.jpg", alt="" class="sample-img").ml-4.mb-4
+        br
+        p.ml-4 ちょっとした言葉でまたがんばろうと思える
+        img(src="images/other/after.jpg", alt="" class="sample-img").ml-4
+      div.mb-5.ml-5
+        h3.lead.font-weight-bold ⑤ 自動でページが閉じます
+        p.ml-4 15秒たつと自動でページが閉じます
+        img(src="", alt="")
+    
+    div(class="login-section").pt-5.pb-5
+      h2.display-5.font-weight-bold.text-center.mb-5.pt-4 さっそく使ってみる
+      div.card.mb-4 
+        div.card-body
+          form(method="post" action="/login" class="form" id="login")
+            div.form-group.mb-5
+              label(for="name").lead ニックネームを入力してください
+              input(type="text" name="name" aria-describedby="user nickname" value="名無し").form-control#name
+            div.form-group.mb-5
+              p.lead アイコンを選んでください
+              each src, index in iconsSrc
+                if index === 0
+                  input(type="radio" name="icon" checked value=src id=src).user-icon
+                else
+                  input(type="radio" name="icon" value=src id=src).user-icon
                 label(for=src)
                   img(src=src)
-            button(type="submit").btn.btn-primary Submit
+            button(type="submit").btn.btn-primary.mb-2 ログイン
+            p.small ニックネームとアイコンは30日間ブラウザに保存されます
+            hr
+          p または
+          a(href="/login/twitter").btn.btn-primary.mb-2 Twitterアカウントでログイン
+          p.small Twitterのアカウント名とアイコンを使用します
+
+    div(class="extension-section").pt-5.pb-5
+      h2(id="extension").display-5.font-weight-bold.text-center.mb-5.pt-4 Chrome拡張機能
+      div.mb-5.ml-5
+        img(src="images/other/extension.jpg", alt="Chrome拡張機能" class="extension-img").d-block.m-auto
+        h3.lead.font-weight-bold.p-3.mb-4.text-center 体を動かす時間を強制的に作れます

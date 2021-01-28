@@ -8,7 +8,12 @@ const helmet = require('helmet');
 const session = require('express-session');
 const passport = require('passport');
 const { Strategy } = require('passport-twitter');
-const config = require('./config');
+
+let config;
+if (!process.env.HEROKU_URL) {
+  // eslint-disable-next-line global-require
+  config = require('./config');
+}
 /* Twitter認証 ここまで */
 
 const indexRouter = require('./routes/index');
@@ -20,9 +25,9 @@ const loginRouter = require('./routes/login');
 passport.use(
   new Strategy(
     {
-      consumerKey: config.twitter.consumerKey,
-      consumerSecret: config.twitter.consumerSecret,
-      callbackURL: config.twitter.callbackURL,
+      consumerKey: process.env.TWITTER_CONSUMER_KEY || config.twitter.consumerKey,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET || config.twitter.consumerSecret,
+      callbackURL: process.env.HEROKU_URL ? `${process.env.HEROKU_URL}/oauth_callback` : config.twitter.callbackURL,
     },
     (token, tokenSecret, profile, cb) => {
       process.nextTick(() => cb(null, profile));

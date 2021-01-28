@@ -1,3 +1,48 @@
+.jumbotron {
+  height: 600px;
+  background-image: url("../images/other/header.jpg");
+  background-position: top left;
+
+}
+
+.header-container {
+  width: 700px;
+  border-radius: 10px;
+  background-color: rgba(240, 240, 240, 0.767);
+}
+
+.title-wrapper {
+  position: relative;
+}
+
+.title-accent {
+  position: absolute;
+  top: -40px;
+  left: -50px;
+  transform:rotate(-35deg);
+  color: rgb(208,42,58);
+}
+
+.how-to-section {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.sample-img {
+  width: 500px;
+  border-radius: 5px;
+  border: 1px solid  rgba(240, 240, 240, 0.767);
+}
+
+.login-section {
+  background-color: #FFF;
+}
+
+.card {
+  width: 550px;
+  margin: 0 auto;
+}
+
 input[type="radio"].user-icon {
   display: none;
 }
@@ -15,4 +60,10 @@ label img {
 
 input[type="radio"].user-icon:checked + label img {
   background-color: #007BFF;
+}
+
+.extension-img {
+  width: 600px;
+  border-radius: 5px;
+  border: 1px solid  rgba(240, 240, 240, 0.767);
 }

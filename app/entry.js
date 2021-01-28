@@ -1,78 +1,17 @@
 import 'bootstrap';
 import $ from 'jquery';
 import io from 'socket.io-client';
-// import { stampsData } from '../utility/stamps';
+import timer from './timer';
 
-// モーダルをデフォルトで表示する
+// モーダルウインドウをデフォルトで表示する
 $('#modalLong').modal('show');
-
-const myData = $('body').data('mine');
-
-const imgSelectedExercise = $('.img-selected');
-// const imgRandomExercise = $('.img-random')
-
-const notice = $('#notice');
-const progressGray = $('.progress');
-const progressBar = $('.progress-bar');
-const textAddition = $('.text-addition');
-const selectedImgArea = $('#selected-img-area');
-const tabsArea = $('#tabs-area');
-const BtnText = $('.btn-text');
-
-// エクササイズ後のタイマー
-let closeTimerWidth = 100;
-const closeTimer = () => {
-  setTimeout(() => {
-    if (closeTimerWidth <= 0) {
-      return;
-    }
-    closeTimerWidth -= 100 / 1200;
-    progressBar.css('width', `${closeTimerWidth}%`);
-    closeTimer();
-  }, 10);
-};
-
-// エクササイズ中のタイマー
-let w = 100;
-const exerciseTimer = () => {
-  setTimeout(() => {
-    w -= 100 / 100; // 100 / 6000
-    progressBar.css('width', `${w}%`);
-
-    if (w <= 0) {
-      setTimeout(() => {
-        notice.text('おつかれさまでした!');
-        selectedImgArea.hide();
-        tabsArea.show();
-      }, 1000);
-      setTimeout(() => {
-        progressGray.css('width', '20%');
-        progressBar.css('width', '100%');
-      }, 3000);
-      setTimeout(() => {
-        notice.text('このページを自動で閉じます');
-        closeTimer();
-      }, 4000);
-    } else if (w <= 25) {
-      progressBar.removeClass('bg-warning');
-      progressBar.addClass('bg-danger');
-      exerciseTimer();
-    } else if (w <= 50) {
-      progressBar.addClass('bg-warning');
-      imgSelectedExercise.fadeOut(2000);
-      textAddition.fadeIn(2000);
-      exerciseTimer();
-    } else if (w <= 100) {
-      exerciseTimer();
-    }
-  }, 10);
-};
 
 // チャット最下部にオートスクロール
 const leftColumn = $('#left-column');
-leftColumn.animate({ scrollTop: 5000000 });
-// messagesArea.scrollTop = messagesArea.scrollHeight;
-// // messagesArea.scrollTop( $(messagesArea[0].scrollHeight )
+const autoScroll = () => {
+  leftColumn.animate({ scrollTop: 5000000 });
+};
+autoScroll();
 
 /**
  * 他のユーザーの吹き出しとユーザーアイコンを
@@ -136,17 +75,20 @@ $(leftColumn).on('mouseup', '.user:not(.mine)', function () {
 /**
  * メンション
  */
+
+// dataSomeone = { name: "メンション相手の名前", icon: "メンション相手のアイコンのパス" }
+// メンションしないとき dataSomeone = undefined
 let dataSomeone;
 
-const removeMention = () => {
-  dataSomeone = undefined;
-  $('.at').text(`@全員`).removeClass('line');
-};
-
+// メンション相手の名前を表示する
 const setMention = (data) => {
-  $('.at')
-    .text(`@${data.name.slice(0, 10)}さん`)
-    .addClass('line');
+  if (data) {
+    $('.at')
+      .text(`@${data.name.slice(0, 10)}さん`)
+      .addClass('line');
+  } else {
+    $('.at').text(`@全員`).removeClass('line');
+  }
 };
 
 $(leftColumn).on('click', '.fukidashi:not(.mine)', function () {
@@ -160,8 +102,10 @@ $(leftColumn).on('click', '.user:not(.mine)', function () {
 });
 
 $(document).on('click', (event) => {
+  // 他人のアイコンと吹き出し以外をクリックした時
   if (!$(event.target).closest('.fukidashi:not(.mine)').length && !$(event.target).closest('.user:not(.mine)').length) {
-    removeMention();
+    dataSomeone = undefined;
+    setMention(dataSomeone);
   }
 });
 
@@ -172,11 +116,146 @@ $(document).on('click', (event) => {
 // サーバーの IP アドレスに対して WebSocket 通信を開始するリクエストを送る
 const socket = io();
 
-socket.on('start data', () => {
-  console.log('start data came');
+// mainページにアクセスしたとき
+if ($('#modalLong').length) {
+  // socket.io イベント送信
+  const randomMenus = $('#modalLong').data('random-menus');
+  socket.emit('call npc on loading main page', { randomMenus });
+}
+
+// myData = { name: "自分の名前", icon: "自分のアイコンのパス" }
+const myData = $('body').data('mine');
+
+const BtnText = $('.btn-text');
+// eslint-disable-next-line func-names
+BtnText.on('click', function () {
+  // socket.io イベント送信
+  const key = $(this).data('key');
+  const emitData = {
+    to: '',
+    from: myData,
+    key,
+  };
+  if (dataSomeone) {
+    emitData.to = dataSomeone;
+  }
+  socket.emit('post my text', emitData);
+  socket.emit('call npc', { from: myData, type: 'text', key });
+
+  // 自分の投稿を表示
+  const text = $(this).text();
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.text-comment').text(text).show();
+  if (dataSomeone) {
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+  }
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
 });
 
-socket.on('some one posts text', (data) => {
+const BtnStamp = $('.btn-stamp');
+BtnStamp.on('click', function () {
+  // socket.io イベント送信
+  const key = $(this).data('key');
+  const emitData = {
+    to: '',
+    from: myData,
+    key,
+  };
+  if (dataSomeone) {
+    emitData.to = dataSomeone;
+  }
+  socket.emit('post my stamp', emitData);
+  socket.emit('call npc', { from: myData, type: 'stamp', key });
+
+  // 自分の投稿を表示
+  const src = $(this).attr('src');
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  if (dataSomeone) {
+    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+  }
+  myTemplate.find('.img-comment').attr('src', src);
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
+});
+
+const imgMenus = $('.img-menus');
+const imgSelected = $('.img-selected');
+const imgRandom = $('.img-random');
+
+// eslint-disable-next-line func-names
+imgMenus.on('click', function () {
+  // socket.io イベント送信
+  const key = $(this).data('key');
+  const emitData = {
+    to: '',
+    from: myData,
+    key,
+  };
+  socket.emit('post my menu', emitData);
+
+  // 自分の投稿を表示
+  const src = $(this).attr('src');
+  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
+  myTemplate.find('.img-comment').attr('src', src).show();
+  myTemplate.find('.wrapper-img-comment').show();
+  myTemplate.appendTo(leftColumn).fadeIn();
+  autoScroll();
+
+  // 選択したエクササイズを右カラムに表示
+  imgSelected.attr('src', src).show();
+
+  // 時間が余ったとき用のエクササイズをランダムに決定
+  const randomMenus = $('#modalLong').data('random-menus');
+  let randomKey;
+  do {
+    randomKey = randomMenus[Math.floor(Math.random() * randomMenus.length)].key;
+  } while (randomKey === key);
+  const srcOfImgRandom = randomMenus.find((element) => element.key === randomKey).src;
+  imgRandom.attr('src', srcOfImgRandom);
+
+  // プログレスバー(タイマーの残り時間を表す)を最大値まで伸ばす
+  $('.progress-bar').css('width', '100%');
+
+  // プログレスバーが伸びきってからタイマーを開始
+  setTimeout(() => {
+    timer();
+  }, 1000);
+});
+
+socket.on('someone posts menu', (data) => {
+  // 他人の投稿を表示
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  autoScroll();
+});
+
+socket.on('someone posts stamp', (data) => {
+  // 他人の投稿を表示
+  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
+  if (data.to) {
+    template.find('.mention-comment').text(`${data.to.name}さん`);
+    template.find('.mention-comment').show();
+
+    if (data.to.name === myData.name) {
+      template.find('.mention-comment').addClass('me');
+    }
+  }
+  template.find('.icon').attr('src', data.from.icon);
+  template.find('.name').text(data.from.name);
+  template.find('.img-comment').attr('src', data.src);
+  template.find('.wrapper-img-comment').show();
+  template.appendTo(leftColumn).fadeIn();
+  autoScroll();
+});
+
+socket.on('someone posts text', (data) => {
+  // 他人の投稿を表示
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
     template.find('.mention-comment').text(`${data.to.name}さん`);
@@ -190,143 +269,17 @@ socket.on('some one posts text', (data) => {
   template.find('.name').text(data.from.name);
   template.find('.text-comment').text(data.text).show();
   template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-});
-
-socket.on('some one posts stamp', (data) => {
-  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
-  if (data.to) {
-    template.find('.mention-comment').text(`${data.to.name}さん`);
-    template.find('.mention-comment').show();
-
-    if (data.to.name === myData.name) {
-      template.find('.mention-comment').addClass('me');
-    }
-  }
-  template.find('.icon').attr('src', data.from.icon);
-  template.find('.name').text(data.from.name);
-  template.find('.img-comment').attr('src', data.src);
-  template.find('.wrapper-img-comment').show();
-  template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-});
-
-socket.on('some one posts menu', (data) => {
-  const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
-  if (data.to) {
-    template.find('.mention-comment').text(`${data.to.name}さん`);
-    template.find('.mention-comment').show();
-
-    if (data.to.name === myData.name) {
-      template.find('.mention-comment').addClass('me');
-    }
-  }
-  template.find('.icon').attr('src', data.from.icon);
-  template.find('.name').text(data.from.name);
-  template.find('.img-comment').attr('src', data.src);
-  template.find('.wrapper-img-comment').show();
-  template.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-});
-
-if ($('#modalLong').length) {
-  socket.emit('onload main page');
-}
-
-// eslint-disable-next-line func-names
-BtnText.on('click', function () {
-  const text = $(this).data('text');
-
-  const emitData = {
-    to: '',
-    from: myData,
-    text,
-  };
-
-  if (dataSomeone) {
-    emitData.to = dataSomeone;
-  }
-
-  socket.emit('post my text', emitData);
-
-  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
-  myTemplate.find('.text-comment').text(text).show();
-
-  if (dataSomeone) {
-    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
-  }
-
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-
-  removeMention();
-});
-
-const BtnStamp = $('.btn-stamp');
-BtnStamp.on('click', function () {
-  const src = $(this).attr('src');
-
-  const emitData = {
-    to: '',
-    from: myData,
-    src,
-  };
-
-  if (dataSomeone) {
-    emitData.to = dataSomeone;
-  }
-
-  socket.emit('post my stamp', emitData);
-
-  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
-
-  if (dataSomeone) {
-    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
-  }
-
-  myTemplate.find('.img-comment').attr('src', src);
-  myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-
-  removeMention();
-
-  const key = $(this).data('key');
-  socket.emit('call npc', { from: myData, type: 'stamp', key });
-});
-
-const imgMenus = $('.img-menus');
-const imgSelected = $('.img-selected');
-const imgRandom = $('.img-random');
-// eslint-disable-next-line func-names
-imgMenus.on('click', function () {
-  const src = $(this).attr('src');
-
-  const emitData = {
-    to: '',
-    from: myData,
-    src,
-  };
-  socket.emit('post my menu', emitData);
-
-  imgSelected.attr('src', src).show();
-  imgRandom.show();
-
-  const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
-  myTemplate.find('.img-comment').attr('src', src).show();
-  myTemplate.find('.wrapper-img-comment').show();
-  myTemplate.appendTo(leftColumn).fadeIn();
-  leftColumn.animate({ scrollTop: 5000000 });
-  exerciseTimer();
+  autoScroll();
 });
 
 /**
- * タブ
+ * タブエリア
  */
 const rightColum = $('#right-column');
+const notice = $('#notice');
+
 rightColum.on('scroll', function () {
   const scroll = $(this).scrollTop();
-  console.log(scroll);
   if (scroll < 40) {
     notice.removeClass('scrolled');
   } else {
@@ -334,6 +287,7 @@ rightColum.on('scroll', function () {
   }
 });
 
+// タブをクリックしたときのアニメーション
 $('.nav-link').on('click', () => {
   if (rightColum.scrollTop() >= 57) {
     rightColum.animate({ scrollTop: 57 }, 300);

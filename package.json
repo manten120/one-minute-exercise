@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --watch & PORT=8000 nodemon --legacy-watch .bin/www",
-    "dev2": "webpack --config webpack.config.js --watch & PORT=8002 nodemon --legacy-watch .bin/www",
-    "lint-fix": "eslint --fix './**/*.js' && prettier --write './**/*js'"
+    "lint-fix": "eslint --fix './**/*.js' && prettier --write './**/*js'",
+    "test": "npx jest --testTimeout=10000 --forceExit"
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
@@ -33,10 +33,14 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.1.3",
     "husky": "^4.3.7",
+    "jest": "25.1.0",
     "lint-staged": "^10.5.3",
     "nodemon": "^2.0.7",
+    "passport-stub": "1.1.1",
     "prettier": "^2.2.1",
+    "supertest": "3.1.0",
     "webpack": "4.26.1",
     "webpack-cli": "3.1.2"
   },
@@ -51,6 +55,6 @@
     ]
   },
   "engines": {
-    "node": "~10"
+    "node": "10.14.2"
   }
 }

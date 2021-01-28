@@ -4,41 +4,47 @@ block content
   link(rel="stylesheet" href="/stylesheets/main.css")
   //- ここまでheadタグに含まれる
   body(data-mine=myData)
-    div.container.full-height
-      div.row.full-height
-        //- 左カラム・チャットエリア
-        div.col-5#left-column
-          //- 他人の投稿テンプレート
-          div(style="display: none" data-someone='{"name": "hanako", "icon": "images/icons/girl1.jpg"}').post#postTemplate
-            div.user
-              img(src="/images/icons/girl1.jpg", alt="ユーザーアイコン").icon
-              p.name hanako
-            div.fukidashi
-              div.comment
-                div
-                  span(style="display: none").mention-comment.mt-3
-                p(style="display: none").text-comment
-                div(style="display: none").wrapper-img-comment
-                  img(src="images/stamps/1-min.jpg" alt="...").img-comment
-          //- 自分の投稿テンプレート
-          div(style="display: none" data-mine=myData).post.mine#myPostTemplate
-            div.user.mine
-              img(src=myData.icon, alt="").icon.mine
-              p.name.mine #{myData.name}
-            div.fukidashi.mine
-              div.comment.mine
-                div
-                  span(style="display: none").mention-comment.mine.mt-3
-                p(style="display: none").text-comment.mine
-                div(style="display: none").wrapper-img-comment.mine
-                  img(src="images/stamps/1-min.jpg" alt="...").img-comment.mine
+    div(class="full-height").container
+      div(class="full-height").row
 
+        //-//////////
+        //- 左カラム
+        //-//////////
+        div(id="left-column").col-5
+          //- 他人の投稿テンプレート
+          div(style="display: none" data-someone='{"name": "", "icon": ""}' class="post" id="postTemplate")
+            div(class="user")
+              img(src="", alt="他の参加者のアイコン" class="icon")
+              p(class="name")
+            div(class="fukidashi")
+              div(class="comment")
+                div
+                  span(style="display: none" class="mention-comment").mt-3
+                p(style="display: none" class="text-comment")
+                div(style="display: none" class="wrapper-img-comment")
+                  img(src="" alt="スタンプ" class="img-comment")
+          //- 自分の投稿テンプレート
+          div(style="display: none" data-mine=myData class="post mine" id="myPostTemplate")
+            div(class="user mine")
+              img(src=myData.icon, alt="あなたのアイコン" class="icon mine")
+              p(class="name mine") #{myData.name}
+            div(class="fukidashi mine")
+              div(class="comment mine")
+                div
+                  span(style="display: none" class="mention-comment mine").mt-3
+                p(style="display: none" class="text-comment mine")
+                div(style="display: none" class="wrapper-img-comment mine")
+                  img(src="" alt="スタンプ" class="img-comment mine")
+
+        //-////////////
         //- 右カラム
-        div.col-7#right-column
-          div.m-1.mt-3.d-flex.justify-content-end#header-area
-            p.greeting.mr-3 #{myData.name}さん、#{aisatsu}
+        //-////////////
+        div(id="right-column").col-7
+          //- ヘッダー
+          div(id="header-area").m-1.mt-3.d-flex.justify-content-end
+            p(class="greeting").mr-3 #{myData.name}さん、#{aisatsu}
             div.dropdown.mt-1
-              a(href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").dropdown-toggle
+              a(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="cantClick").dropdown-toggle#dropdownMenuLink
                 Dropdown menu
               //- dropdownの内容
               div(aria-labelledby="dropdownMenuLink").dropdown-menu.m-2
@@ -48,59 +54,70 @@ block content
                 a(href="/logout").dropdown-item ログアウト
 
           //- タイマー
-          div.pb-2#timer-area
-            h4#notice 1分だけ がんばりましょ!!
+          div(id="timer-area").pb-2
+            h4(id="notice") 1分だけ がんばりましょ!!
             div.progress.mb-2
-              div(role="progressbar" style="width: 100%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
+              div(role="progressbar" style="width: 0%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="60").progress-bar.progress-bar-striped.progress-bar-animated
           
           //- 選択したエクササイズを表示するエリア
-          div(style="display: block;").row#selected-img-area
+          div(id="selected-img-area").row
             div.col-12
-              div.wrapper-img-selected
-                img(src="images/menus/2.jpg" alt="エクササイズ画像" style="display: none;").img-random
-                img(src="images/menus/1.jpg" alt="エクササイズ画像" style="display: none;").img-selected
-              h5(style="display: none;").text-addition 時間があまったらやってみよう!!
-              button(type="button" class="" data-toggle="modal" data-target="#modalLong").btn.btn-primary Launch demo modal
+              div(class="wrapper-img-selected")
+                img(src="" alt="エクササイズ画像" style="display: none;" class="img-random")
+                img(src="" alt="エクササイズ画像" style="display: none;" class="img-selected")
+              h5(style="display: none;" class="text-addition") 時間があまったらやってみよう!!
           
           //- タブエリア
-          div(style="display: none;").row#tabs-area
+          div(style="display: none;" id="tabs-area").row
             //- タブナビゲーション
-            div.wrapper-nav-tabs.d-flex
+            div(class="wrapper-nav-tabs").d-flex
               ul(role="tablist").nav.nav-tabs
                 li.nav-item
                   a(data-toggle="tab" href="#tab-stamp").nav-link.active スタンプ
                 li.nav-item
                   a(data-toggle="tab" href="#tab-text").nav-link テキスト
-              div.at.mt-3.ml-4.small @全員
+              div(class="at").mt-3.ml-4.small @全員
             div.tab-content
               //-タブコンテンツ１
               div.col-12.tab-pane.show.active#tab-stamp
-                div.stamps
+                div(class="stamps")
                   each pair in stampsKeyAndSrcPairs
-                    img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key).img-thumbnail.btn-stamp
-                div.texts
-                  each pair in textAndColorPairs
-                    - const btnOutlineColor = `btn-outline-${pair.color}`;
-                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
+                    img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key class="btn-stamp").img-thumbnail
+                div(class="texts")
+                  each obj in textsKeyTextAndBtnColorObjects
+                    - const btnOutlineColor = `btn-outline-${obj.btnColor}`;
+                    //- btn-outline-hogehogeクラスはBootStrapのクラスだが
+                    //- 変数を使用するため例外的に()の中に記述
+                    button(type="button" class="btn-text" class=btnOutlineColor data-key=obj.key).btn.mr-2.mb-2 #{obj.text}
               //- タブコンテンツ2
               div(role="tabpanel" aria-labelledby="tab-text").col-12.tab-pane.fade#tab-text
-                div.texts
-                  each pair in textAndColorPairs
-                    - const btnOutlineColor = `btn-outline-${pair.color}`;
-                    button(type="button" class="btn mr-2 mb-2 btn-text" class=btnOutlineColor data-text=pair.text) #{pair.text}
-                div.stamps
+                div(class="texts")
+                  each obj in textsKeyTextAndBtnColorObjects
+                    - const btnOutlineColor = `btn-outline-${obj.btnColor}`;
+                    button(type="button" class="btn-text" class=btnOutlineColor data-key=obj.key).btn.mr-2.mb-2 #{obj.text}
+                div(class="stamps")
                   each pair in stampsKeyAndSrcPairs
-                    img(src=pair.src alt="スタンプ" ).img-thumbnail.btn-stamp
+                    img(src=pair.src alt="スタンプ" data-type="stamp" data-key=pair.key class="btn-stamp").img-thumbnail
+          
+          //- 拡張機能の案内
+          div(style="display: none;" id="chrome-extension").row
+            div.col-12
+              p.display-5 😊ご利用ありがとうございました😊
+              p.display-5 このページを自動で開き、自動で閉じるためには
+              p.display-5 Chrome拡張機能のインストールが必要です
+              img(src="images/other/extension.jpg", alt="Chrome拡張機能" class="extension-img").mb-4
 
+    //-/////////////////////
     //- モーダルウインドウ
-    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;")#modalLong.modal.fade
+    //-////////////////////
+    div(tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" data-random-menus=randomMenus style="display: block;")#modalLong.modal.fade
       div(role="document").modal-dialog
         div.modal-content
           div.modal-header
             h5#exampleModalLongTitle.modal-title エクササイズを選んでください
           div.modal-body
             div.row
-              each src in menusSrc
+              each pair in randomMenus
                 div.col-6
-                  div.wrapper-img-menus
-                    img(src=src alt="..." data-dismiss="modal").img-thumbnail.img-menus
+                  div(class="wrapper-img-menus")
+                    img(src=pair.src data-key=pair.key alt="エクササイズ選択肢画像" data-dismiss="modal" class="img-menus").img-thumbnail

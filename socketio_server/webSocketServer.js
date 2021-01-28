@@ -1,111 +1,18 @@
+const { menusKeyAndSrcPairs } = require('../utility/menus');
 const { stampsData } = require('../utility/stamps');
 const { textsData } = require('../utility/texts');
+const { Npc } = require('../utility/npcs');
 
-let npc;
-let indexOfPreviousNpc;
-
-let npcExists = false;
-let coolDown = false;
-
-const setCoolDown = (coolDownTimeSeconds) => {
-  coolDown = true;
-  setTimeout(() => {
-    coolDown = false;
-  }, coolDownTimeSeconds * 1000);
-};
-
-const npcs = [
-  {
-    name: 'ばなな',
-    icon: 'images/icons/gorilla1.jpg',
-  },
-  {
-    name: 'みどり',
-    icon: 'images/icons/frog1.jpg',
-  },
-  {
-    name: 'ヤス',
-    icon: 'images/icons/boy1.jpg',
-  },
-  {
-    name: '*H a n a*',
-    icon: 'images/icons/girl2.jpg',
-  },
-  {
-    name: 'カダヤピ',
-    icon: 'images/icons/bird1.jpg',
-  },
-];
+let npc = new Npc();
 
 function createWebSocketServer(io) {
   const rootIo = io.of('/');
   rootIo.on('connection', (socket) => {
-    console.log('WebSocket のコネクションがありました。');
-
-    // 同時接続者数(ただしトップページ閲覧者も含む)
-    console.log('client count: ', rootIo.sockets.size);
-
-    socket.emit('start data', {});
-
-    socket.on('disconnect', () => {});
-
-    socket.on('post my text', (data) => {
-      /**
-       * data = {
-       *   to: {
-       *     name : '返信相手の名前'
-       *     icon: '返信相手のアイコンのパス',
-       *   },
-       *   from : {
-       *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
-       *   },
-       *   text: '返信内容のテキスト'
-       * };
-       *
-       * または
-       * data = {
-       *   to: '',
-       *   from : {
-       *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
-       *   },
-       *   text: '返信内容のテキスト'
-       * };
-       */
-
-      socket.broadcast.emit('some one posts text', data);
-    });
-
-    socket.on('post my stamp', (data) => {
-      /**
-       * data = {
-       *   to: {
-       *     name : '返信相手の名前'
-       *     icon: '返信相手のアイコンのパス',
-       *   },
-       *   from : {
-       *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
-       *   },
-       *   src: 'スタンプ画像のurl'
-       * };
-       *
-       * または
-       * data = {
-       *   to: '',
-       *   from : {
-       *     name : '送り(自分)の名前'
-       *     icon: '送り主(自分)のアイコンのパス',
-       *   },
-       *   src: 'スタンプ画像のurl'
-       * };
-       */
-
-      socket.broadcast.emit('some one posts stamp', data);
-    });
-
     socket.on('post my menu', (data) => {
+      if (!Number.isInteger(data.key)) {
+        console.log('不正な値です');
+        return;
+      }
       /**
        * data = {
        *   to: '',
@@ -113,132 +20,109 @@ function createWebSocketServer(io) {
        *     name : '送り(自分)の名前'
        *     icon: '送り主(自分)のアイコンのパス',
        *   },
-       *   src: 'メニュー画像のurl'
+       *   key: '配列menusKeyAndSrcPairsの要素のkeyプロパティの値'
        * };
        */
+      const keyAndSrcPair = menusKeyAndSrcPairs.find((pair) => pair.key === data.key);
 
-      socket.broadcast.emit('some one posts menu', data);
-    });
-
-    socket.on('onload main page', () => {
-      const secondsForNpcToChooseMenu = Math.floor(Math.random() * 4) + 2;
-
-      if (!npcExists) {
-        npcExists = true;
-        setTimeout(() => {
-          npcExists = false;
-        }, (75 + secondsForNpcToChooseMenu) * 1000);
-
-        let indexOfNpc = Math.floor(Math.random() * npcs.length);
-        while (indexOfNpc === indexOfPreviousNpc) {
-          indexOfNpc = Math.floor(Math.random() * npcs.length);
-        }
-
-        console.log('indexOfNpc', indexOfNpc);
-        npc = npcs[indexOfNpc];
-        indexOfPreviousNpc = indexOfNpc;
-
-        const emitData = {
-          to: '',
-          from: {
-            name: npc.name,
-            icon: npc.icon,
-          },
-          src: 'images/menus/8.jpg',
-        };
-
-        setTimeout(() => {
-          rootIo.emit('some one posts menu', emitData);
-          setCoolDown(60);
-
-          emitData.src = 'images/stamps/1-min.jpg';
-
-          setTimeout(() => {
-            rootIo.emit('some one posts stamp', emitData);
-          }, 60000);
-        }, secondsForNpcToChooseMenu * 1000);
-      }
-      console.log('npc: ', npc);
-    });
-
-    socket.on('call npc', (data) => {
-      if (coolDown || !npcExists) {
+      if (!keyAndSrcPair) {
+        console.log('不正な値です');
         return;
       }
-
-      setCoolDown(5);
-
-      if (Math.random() < 0.1) {
-        return;
-      }
-
-      let responsePostType; // 'stamp' or 'text'
-
-      const responseTimeLag = Math.floor((Math.random() * 3 + 1) * 1000);
 
       const emitData = {
         to: '',
-        from: {
-          name: npc.name,
-          icon: npc.icon,
-        },
-        // and
-        // src: 'スタンプ画像のurl'
-        // or
-        // text: '返信内容のテキスト'
+        from: data.from,
+        src: keyAndSrcPair.src,
+      };
+      socket.broadcast.emit('someone posts menu', emitData);
+    });
+
+    socket.on('post my stamp', (data) => {
+      if (!Number.isInteger(data.key) || !stampsData[data.key]) {
+        console.log('不正な値です');
+        return;
+      }
+      /**
+       * data = {
+       *   to: {
+       *     name : '返信相手の名前'
+       *     icon: '返信相手のアイコンのパス',
+       *   },
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
+       *   key: 'stampsDataオブジェクトのキー'
+       * };
+       *
+       * または
+       * data = {
+       *   to: '',
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
+       *   key: 'stampsDataオブジェクトのキー'
+       * };
+       */
+      const emitData = {
+        to: data.to,
+        from: data.from,
+        src: stampsData[data.key].src,
       };
 
-      if (Math.random() < 0.5) {
-        emitData.to = data.from;
+      socket.broadcast.emit('someone posts stamp', emitData);
+    });
+
+    socket.on('post my text', (data) => {
+      if (!Number.isInteger(data.key) || !textsData[data.key]) {
+        console.log('不正な値です!');
+        return;
       }
+      /**
+       * data = {
+       *   to: {
+       *     name : '返信相手の名前'
+       *     icon: '返信相手のアイコンのパス',
+       *   },
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',s
+       *   },
+       *   key: 'textsDataオブジェクトのキー'
+       * };
+       *
+       * または
+       * data = {
+       *   to: '',
+       *   from : {
+       *     name : '送り(自分)の名前'
+       *     icon: '送り主(自分)のアイコンのパス',
+       *   },
+       *   key: 'textsDataオブジェクトのキー'
+       * };
+       */
 
-      if (data.type === 'stamp') {
-        const { response } = stampsData[data.key];
-        if (response.stamp.length === 0 && response.text.length === 0) {
-          return;
-        }
+      const emitData = {
+        to: data.to,
+        from: data.from,
+        text: textsData[data.key].text,
+      };
+      socket.broadcast.emit('someone posts text', emitData);
+    });
 
-        const stampProbability = response.stamp.length / (response.stamp.length + response.text.length);
-
-        if (Math.random() < stampProbability) {
-          responsePostType = 'stamp';
-          const index = Math.floor(response.stamp.length * Math.random());
-          const key = response.stamp[index];
-          const { src } = stampsData[key];
-          emitData.src = src;
-        } else {
-          responsePostType = 'text';
-          const index = Math.floor(response.text.length * Math.random());
-          const key = response.text[index];
-          const { text } = textsData[key];
-          emitData.text = text;
-        }
-      } else {
-        const { response } = textsData[data.key];
-        if (response.stamp.length === 0 && response.text.length === 0) {
-          return;
-        }
-
-        const stampProbability = response.stamp.length / (response.stamp.length + response.text.length);
-
-        if (Math.random() < stampProbability) {
-          responsePostType = 'stamp';
-          const index = Math.floor(response.stamp.length * Math.random());
-          const key = response.stamp[index];
-          const { src } = stampsData[key];
-          emitData.src = src;
-        } else {
-          responsePostType = 'text';
-          const index = Math.floor(response.text.length * Math.random());
-          const key = response.text[index];
-          const { text } = textsData[key];
-          emitData.text = text;
-        }
+    socket.on('call npc on loading main page', (data) => {
+      if (!npc.isAlive) {
+        npc = new Npc(npc.index);
+        npc.postMenu(rootIo, data.randomMenus);
+      } else if (npc.canPostMenu) {
+        npc.postMenu(rootIo, data.randomMenus);
       }
+    });
 
-      setTimeout(() => {
-        rootIo.emit(`some one posts ${responsePostType}`, emitData);
-      }, responseTimeLag);
+    socket.on('call npc', (data) => {
+      npc.response(rootIo, data);
     });
   });
 }

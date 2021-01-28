@@ -1,9 +1,12 @@
 const express = require('express');
-const menusSrc = require('../utility/menusSrc');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
-const textAndColorPairs = require('../utility/textAndColorPairs');
+const { textsKeyTextAndBtnColorObjects } = require('../utility/texts');
+const { getRandomMenusKeyAndSrcPairs } = require('../utility/menus');
 
 const router = express.Router();
+
+let randomMenus;
+let isCoolDownTime = false;
 
 /* GET main page. */
 router.get('/', (req, res) => {
@@ -23,10 +26,23 @@ router.get('/', (req, res) => {
   } else if (req.cookies.mdOneMinEx) {
     myData = req.cookies.mdOneMinEx;
   } else {
-    res.redirect('/');
+    res.redirect('/#login');
   }
 
-  const hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
+  if (!isCoolDownTime) {
+    randomMenus = getRandomMenusKeyAndSrcPairs(6);
+    isCoolDownTime = true;
+    setTimeout(() => {
+      isCoolDownTime = false;
+    }, 30000);
+  }
+
+  let hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
+
+  if (process.env.HEROKU_URL) {
+    hour += 9;
+  }
+
   let aisatsu;
   if (hour <= 3) {
     aisatsu = 'こんばんは';
@@ -38,7 +54,14 @@ router.get('/', (req, res) => {
     aisatsu = 'こんばんは';
   }
 
-  res.render('main', { isTwitterOauth, myData, menusSrc, stampsKeyAndSrcPairs, textAndColorPairs, aisatsu });
+  res.render('main', {
+    isTwitterOauth,
+    myData,
+    randomMenus,
+    stampsKeyAndSrcPairs,
+    textsKeyTextAndBtnColorObjects,
+    aisatsu,
+  });
   res.end();
 });
 
