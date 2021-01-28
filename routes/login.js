@@ -4,9 +4,6 @@ const router = express.Router();
 
 /* GET main page. */
 router.post('/', (req, res) => {
-  // const { name, icon } = req.body;
-  // const ud = { name, icon };
-
   const mdOneMinEx = {
     name: req.body.name,
     icon: req.body.icon,
