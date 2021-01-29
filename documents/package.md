@@ -28,3 +28,4 @@
 | jest | テスト |
 | supertest | テスト時に使用。Routerの挙動をテスト |
 | passport-staged | テスト時にTwitterログインをシミュレート |
+| serve-favicon | faviconを設定する |

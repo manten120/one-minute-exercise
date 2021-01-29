@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
+const favicon = require('serve-favicon');
 /* Twitter認証 */
 const session = require('express-session');
 const passport = require('passport');
@@ -45,6 +46,7 @@ passport.deserializeUser((obj, cb) => {
 
 const app = express();
 app.use(helmet());
+app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
 
 // Twitterのアイコン画像を使用するためhttps://pbs.twimg.comを許可
 // Twitterのシェアボタンのためhttps://platform.twitter.com,https://syndication.twitter.comを許可
