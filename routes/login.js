@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-/* GET main page. */
+/* クッキーを用いた簡易ログイン */
 router.post('/', (req, res) => {
   const mdOneMinEx = {
     name: req.body.name,
