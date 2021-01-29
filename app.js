@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
+const favicon = require('serve-favicon');
 /* Twitter認証 */
 const session = require('express-session');
 const passport = require('passport');
@@ -18,7 +19,6 @@ if (!process.env.HEROKU_URL) {
 
 const indexRouter = require('./routes/index');
 const mainRouter = require('./routes/main');
-const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 
 /* Twitter認証 */
@@ -46,6 +46,7 @@ passport.deserializeUser((obj, cb) => {
 
 const app = express();
 app.use(helmet());
+app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
 
 // Twitterのアイコン画像を使用するためhttps://pbs.twimg.comを許可
 // Twitterのシェアボタンのためhttps://platform.twitter.com,https://syndication.twitter.comを許可
@@ -78,7 +79,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/main', mainRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 
 /* Twitter認証 */
