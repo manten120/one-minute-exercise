@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import 'bootstrap';
 import $ from 'jquery';
 import io from 'socket.io-client';
