@@ -18,7 +18,6 @@ if (!process.env.HEROKU_URL) {
 
 const indexRouter = require('./routes/index');
 const mainRouter = require('./routes/main');
-const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 
 /* Twitter認証 */
@@ -78,7 +77,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/main', mainRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 
 /* Twitter認証 */
