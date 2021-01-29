@@ -61,4 +61,6 @@ mainブランチにマージしたときCircleCIにより自動でHerokuにデ�
 
 ## その他
 
+`.vscode/`にvscode用の設定ファイルを用意してるのでコードエディタはvscodeをおすすめします
+
 そのほか開発時の設計・メモなどは [/documents](https://github.com/manten120/one-minute-exercise/tree/main/documents) に。
