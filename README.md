@@ -58,3 +58,7 @@ $ yarn test
 ## 🏁 デプロイ
 
 mainブランチにマージしたときCircleCIにより自動でHerokuにデプロイされる
+
+## その他
+
+そのほか開発時の設計・メモなどは [/documents](https://github.com/manten120/one-minute-exercise/tree/main/documents) に。
