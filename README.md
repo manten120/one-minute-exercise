@@ -2,6 +2,8 @@
 
 ### サイト「 強制!!１分間エクササイズ 」のリポジトリです　[![manten120](https://circleci.com/gh/manten120/one-minute-exercise.svg?style=svg)](https://app.circleci.com/pipelines/github/manten120/one-minute-exercise)
 
+※※ 1/30現在, git push および main ブランチへマージしときにCircleCI が作動しなくなってしまったため、手動ででテストとデプロイを行っています。原因は不明。
+
 <br/>
 
 ## 🌐 SITE URL
