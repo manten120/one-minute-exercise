@@ -1,7 +1,9 @@
 const express = require('express');
+const moment = require('moment-timezone');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
 const { textsKeyTextAndBtnColorObjects } = require('../utility/texts');
 const { getRandomMenusKeyAndSrcPairs } = require('../utility/menus');
+const { CHROME_EXTENSION_STORE_URL } = require('../utility/const');
 
 const router = express.Router();
 
@@ -37,11 +39,7 @@ router.get('/', (req, res) => {
     }, 30000);
   }
 
-  let hour = new Date(new Date().toLocaleString({ timeZone: 'Asia/Tokyo' })).getHours();
-
-  if (process.env.HEROKU_URL) {
-    hour += 9;
-  }
+  const hour = moment().tz('Asia/Tokyo').format('H');
 
   let aisatsu;
   if (hour <= 3) {
@@ -61,6 +59,7 @@ router.get('/', (req, res) => {
     stampsKeyAndSrcPairs,
     textsKeyTextAndBtnColorObjects,
     aisatsu,
+    CHROME_EXTENSION_STORE_URL,
   });
   res.end();
 });
