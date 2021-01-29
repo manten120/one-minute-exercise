@@ -57,4 +57,4 @@ $ yarn test
 
 ## 🏁 デプロイ
 
-mainブランチにマージしたときCircleCIにより自動でデプロイされる
+mainブランチにマージしたときCircleCIにより自動でHerokuにデプロイされる
