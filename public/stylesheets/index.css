@@ -2,7 +2,12 @@
   height: 600px;
   background-image: url("../images/other/header.jpg");
   background-position: top left;
+}
 
+.twitter-share-button {
+  position: absolute !important;
+  top: 32px;
+  right: 32px;
 }
 
 .header-container {

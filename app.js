@@ -48,16 +48,17 @@ const app = express();
 app.use(helmet());
 
 // Twitterのアイコン画像を使用するためhttps://pbs.twimg.comを許可
+// Twitterのシェアボタンのためhttps://platform.twitter.com,https://syndication.twitter.comを許可
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      'img-src': ["'self'", 'data:', 'https://pbs.twimg.com'],
+      'default-src': ["'self'", 'https://platform.twitter.com'],
+      'script-src': ["'self'", 'https://platform.twitter.com'],
+      'img-src': ["'self'", 'data:', 'https://pbs.twimg.com', 'https://syndication.twitter.com'],
     },
   })
 );
-
-console.log(helmet.contentSecurityPolicy.getDefaultDirectives());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -93,13 +94,6 @@ app.get('/logout', (req, res) => {
   res.clearCookie('mdOneMinEx');
   res.redirect('/');
 });
-
-// function ensureAuthenticated(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.redirect('/');
-// }
 /* Twitter認証 ここまで */
 
 // catch 404 and forward to error handler
