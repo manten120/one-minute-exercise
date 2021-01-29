@@ -2,6 +2,7 @@ const express = require('express');
 const { stampsKeyAndSrcPairs } = require('../utility/stamps');
 const { textsKeyTextAndBtnColorObjects } = require('../utility/texts');
 const { getRandomMenusKeyAndSrcPairs } = require('../utility/menus');
+const { CHROME_EXTENSION_STORE_URL } = require('../utility/const');
 
 const router = express.Router();
 
@@ -61,6 +62,7 @@ router.get('/', (req, res) => {
     stampsKeyAndSrcPairs,
     textsKeyTextAndBtnColorObjects,
     aisatsu,
+    CHROME_EXTENSION_STORE_URL,
   });
   res.end();
 });
