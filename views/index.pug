@@ -53,7 +53,7 @@ block content
           form(method="post" action="/login" class="form")
             div.form-group.mb-5
               label(for="name").lead ニックネームを入力してください
-              input(type="text" name="name" aria-describedby="user nickname" placeholder="10文字まで" maxlength="10" required autofocus).form-control#name
+              input(type="text" name="name" aria-describedby="user nickname" placeholder="10文字まで" maxlength="10" required).form-control#name
             div.form-group.mb-5
               p.lead アイコンを選んでください
               each src, index in iconsSrc
