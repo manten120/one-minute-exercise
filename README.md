@@ -2,8 +2,6 @@
 
 ### サイト「 強制!!１分間エクササイズ 」のリポジトリです
 
-<br/>
-
 ![Deploy](https://github.com/manten120/one-minute-exercise/workflows/Deploy/badge.svg)
 ![Test](https://github.com/manten120/one-minute-exercise/workflows/Test/badge.svg)
 
