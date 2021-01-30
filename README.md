@@ -1,8 +1,14 @@
 ![キャプチャ](https://user-images.githubusercontent.com/61675236/106231929-2b59e600-6236-11eb-89d6-8a087589b258.JPG)
 
-### サイト「 強制!!１分間エクササイズ 」のリポジトリです　[![manten120](https://circleci.com/gh/manten120/one-minute-exercise.svg?style=svg)](https://app.circleci.com/pipelines/github/manten120/one-minute-exercise)
+### サイト「 強制!!１分間エクササイズ 」のリポジトリです
 
-※※ 1/30現在, git push および main ブランチへマージしときに CircleCI が作動しなくなってしまったため、手動ででテストとデプロイを行っています。原因は不明。
+<br/>
+
+![Deploy](https://github.com/manten120/one-minute-exercise/workflows/Deploy/badge.svg)
+![Test](https://github.com/manten120/one-minute-exercise/workflows/Test/badge.svg)
+
+※ CI/CDツールについて <br/>
+　 完成直前に CircleCI との連携がうまくいかなくなってしまったため、GitHub Actions に移行しました
 
 <br/>
 
@@ -53,13 +59,13 @@ $ yarn test
 ```
 
 - テストを実行
-- git push したときと mainブランチにマージしたときにもCircleCIで行われる
+- git push したときと mainブランチにプルリクエストしたときにも GitHub Actions で行われる
 
 <br/>
 
 ## 🏁 デプロイ
 
-mainブランチにマージしたときCircleCIにより自動でHerokuにデプロイされる
+main ブランチにマージしたとき GitHub Actions で自動的に Heroku にデプロイされる
 
 <br/>
 
