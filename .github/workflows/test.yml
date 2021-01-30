@@ -1,4 +1,4 @@
-name: Main
+name: Test
 
 on: [push]
 
@@ -22,4 +22,6 @@ jobs:
         yarn install
         yarn test
       env:
-        CI: true
+        HEROKU_URL: ${{ secrets.HEROKU_URL }}
+        TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+        TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
