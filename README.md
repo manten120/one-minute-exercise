@@ -7,9 +7,6 @@
 ![Deploy](https://github.com/manten120/one-minute-exercise/workflows/Deploy/badge.svg)
 ![Test](https://github.com/manten120/one-minute-exercise/workflows/Test/badge.svg)
 
-※ CI/CDツールについて <br/>
-　 完成直前に CircleCI との連携がうまくいかなくなってしまったため、GitHub Actions に移行しました
-
 <br/>
 
 ## 🌐 SITE URL
@@ -70,6 +67,8 @@ main ブランチにマージしたとき GitHub Actions で自動的に Heroku 
 <br/>
 
 ## その他
+
+完成直前に CircleCI との連携がうまくいかなくなってしまったため、CI/CDツールを GitHub Actions に移行しました
 
 `.vscode/`にvscode用の設定ファイルを用意してるのでコードエディタはvscodeをおすすめします
 
