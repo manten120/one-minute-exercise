@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   context: `${__dirname}/app`,
   mode: 'none',
@@ -20,6 +22,12 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    // other plugin configs
+    new webpack.SourceMapDevToolPlugin({
+      exclude: ['popper.js'],
+    }),
+  ],
   watchOptions: {
     // 仮想環境で--watchオプション(変更時にオートビルド)を有効にする
     poll: true,

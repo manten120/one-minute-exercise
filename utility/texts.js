@@ -456,6 +456,25 @@ const textDataValuesAddedKey = Object.keys(textsData).map((key) => ({
 
 const categoryValues = Object.keys(categories).map((key) => categories[key]);
 
+/**
+ * textsDataとbtnColorから配列を作る
+ *
+ * 例
+ * textsKeyTextAndBtnColorObjects = [
+ *   { key: '0', text: 'おつかれさまでした✨', btnColor: 'primary' },
+ *   { key: '1', text: 'つかれたぁ～💦', btnColor: 'primary' },
+ *   { key: '2', text: 'リフレッシュできた❤', btnColor: 'primary' },
+ *   { key: '21', text: 'おつです😊', btnColor: 'primary' },
+ *   { key: '22', text: '乙カレー🍛', btnColor: 'primary' },
+ *   { key: '23', text: 'きつかったぁ💦', btnColor: 'primary' },
+ *   { key: '38', text: 'もう無理～😭', btnColor: 'primary' },
+ *   { key: '4', text: '次の1時間も頑張ろう⏰', btnColor: 'secondary' },
+ *   { key: '5', text: '今日も頑張ろう🔥', btnColor: 'secondary' },
+ *   { key: '6', text: 'ぼちぼちやっていきましょう～', btnColor: 'secondary' },
+ *  ]
+ *
+ * textsDataのkeyとtextの組をcategory順に並べ、categoryごとにbtnColorをもたせている
+ */
 const textsKeyTextAndBtnColorObjects = [];
 categoryValues.forEach((category, index) => {
   textDataValuesAddedKey.forEach((value) => {
@@ -469,7 +488,10 @@ categoryValues.forEach((category, index) => {
   });
 });
 
-// textsDataのうちcategoryがcategories.tasseiである要素のtextを格納した配列
+/**
+ * textsDataのうちcategoryがcategories.tasseiである要素のtextを格納した配列
+ * 例 seyFinTexts = ['おつかれさまでした✨', 'つかれたぁ～💦', 'リフレッシュできた❤']
+ */
 const sayFinTexts = Object.keys(textsData)
   .map((key) => {
     if (textsData[key].category === categories.tassei) {

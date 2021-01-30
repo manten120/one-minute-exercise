@@ -112,14 +112,13 @@ var autoScroll = function autoScroll() {
     scrollTop: 5000000
   });
 };
-
-autoScroll();
 /**
  * 他のユーザーの吹き出しとユーザーアイコンを
  * マウスホバーまたはクリックしたとき
  * 両要素に.hoverクラスを着脱することで
  * アニメーションをつける
  */
+
 
 jquery__WEBPACK_IMPORTED_MODULE_1___default()(leftColumn).on({
   mouseenter: function mouseenter() {
@@ -202,7 +201,6 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default()(document).on('click', function (ev
 var socket = socket_io_client__WEBPACK_IMPORTED_MODULE_2___default()(); // mainページにアクセスしたとき
 
 if (jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').length) {
-  // socket.io イベント送信
   var randomMenus = jquery__WEBPACK_IMPORTED_MODULE_1___default()('#modalLong').data('random-menus');
   socket.emit('call npc on loading main page', {
     randomMenus: randomMenus
@@ -26657,7 +26655,10 @@ var imgSelected = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-selected')
 var imgRandom = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.img-random');
 var textAddition = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.text-addition');
 var tabsArea = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tabs-area');
-var dropdownToggle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dropdown-toggle'); // エクササイズ後のタイマー
+var dropdownToggle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.dropdown-toggle');
+/**
+ * エクササイズ終了後のタイマー
+ */
 // タイマーの横幅(灰色の箇所に対する%)
 
 var w2 = 100; // タイマー終了までの秒数
@@ -26673,7 +26674,6 @@ var closeTimer = function closeTimer() {
   progressBar.css('width', "".concat(w2, "%"));
 
   if (w2 <= 0) {
-    // notice.text('※Chrome拡張機能が必要です');
     setTimeout(function () {
       tabsArea.hide();
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#chrome-extension').show();
@@ -26684,7 +26684,10 @@ var closeTimer = function closeTimer() {
   setTimeout(function () {
     closeTimer();
   }, span2);
-}; // エクササイズ中のタイマー
+};
+/**
+ * エクササイズ中のタイマー
+ */
 // タイマーの横幅(%)
 
 
