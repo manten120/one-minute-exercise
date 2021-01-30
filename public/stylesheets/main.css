@@ -116,6 +116,11 @@ body {
   background: linear-gradient(transparent 60%, #ff6 60%);
 }
 
+.wrapper-text-comment {
+  display: flex;
+  justify-content: center;
+}
+
 .text-comment {
   margin: 8px 0;
   padding: 0;
@@ -132,8 +137,6 @@ body {
 
 .img-comment {
   position: absolute;
-  /* top: 0;
-  left: 0; */
   width: 100%;
   height: 100%;
   object-fit: contain;
