@@ -68,7 +68,7 @@ main ブランチにマージしたとき GitHub Actions で自動的に Heroku 
 
 `.vscode/`にvscode用の設定ファイルを用意してるのでコードエディタはvscodeをおすすめします
 
-コンテスト提出直前に CircleCI との連携がうまくいかなくなってしまったため( [同じ症状の方を発見。こちらで解決方法を募集しています](https://teratail.com/questions/319236) )、CI/CDツールを GitHub Actions に移行しました
+コンテスト提出期限直前に CircleCI との連携がうまくいかなくなってしまったため( [同じ症状の方を発見。こちらで解決方法を募集しています](https://teratail.com/questions/319236) )、CI/CDツールを GitHub Actions に移行しました
 
 
 そのほか開発時の設計・メモなどは [/documents](https://github.com/manten120/one-minute-exercise/tree/main/documents) に
