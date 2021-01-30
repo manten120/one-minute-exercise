@@ -46,14 +46,14 @@ block content
         p.ml-4 20秒たつと自動でページが閉じます
         img(src="", alt="")
     
-    div(class="login-section").pt-5.pb-5
+    div(class="login-section" id="login").pt-5.pb-5
       h2.display-5.font-weight-bold.text-center.mb-5.pt-4 さっそく使ってみる
       div.card.mb-4 
         div.card-body
-          form(method="post" action="/login" class="form" id="login")
+          form(method="post" action="/login" class="form")
             div.form-group.mb-5
               label(for="name").lead ニックネームを入力してください
-              input(type="text" name="name" aria-describedby="user nickname" value="名無し").form-control#name
+              input(type="text" name="name" aria-describedby="user nickname" placeholder="10文字まで" maxlength="10" required autofocus).form-control#name
             div.form-group.mb-5
               p.lead アイコンを選んでください
               each src, index in iconsSrc

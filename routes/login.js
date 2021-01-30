@@ -4,6 +4,15 @@ const router = express.Router();
 
 /* クッキーを用いた簡易ログイン */
 router.post('/', (req, res) => {
+  // ログイフォームに入力された名前の文字数が不正であるとき
+  if (req.body.name.length === 0 || req.body.name.length > 10) {
+    res.redirect('/');
+  }
+  // ログイフォームで選択したアイコン画像のURLが不正であるとき
+  if (!req.body.icon.startsWith('images/icons/')) {
+    res.redirect('/');
+  }
+
   const mdOneMinEx = {
     name: req.body.name,
     icon: req.body.icon,
