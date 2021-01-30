@@ -12,7 +12,6 @@ const leftColumn = $('#left-column');
 const autoScroll = () => {
   leftColumn.animate({ scrollTop: 5000000 });
 };
-autoScroll();
 
 /**
  * 他のユーザーの吹き出しとユーザーアイコンを
@@ -119,7 +118,6 @@ const socket = io();
 
 // mainページにアクセスしたとき
 if ($('#modalLong').length) {
-  // socket.io イベント送信
   const randomMenus = $('#modalLong').data('random-menus');
   socket.emit('call npc on loading main page', { randomMenus });
 }

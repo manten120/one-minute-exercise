@@ -383,6 +383,16 @@ const stampsDataValuesAddedKey = Object.keys(stampsData).map((key) => ({
 
 const categoryValues = Object.keys(categories).map((key) => categories[key]);
 
+/**
+ * 例
+ * textsKeyTextAndBtnColorObjects = [
+ *   { key: '1', src: 'images/stamps/1-min.jpg' },
+ *   { key: '2', src: 'images/stamps/2-min.jpg' },
+ *   { key: '3', src: 'images/stamps/3-min.jpg' },
+ *  ]
+ *
+ * stampsDataの各要素のkeyとsrcの組をcategory順に格納する
+ */
 const stampsKeyAndSrcPairs = [];
 categoryValues.forEach((category) => {
   stampsDataValuesAddedKey.forEach((value) => {
@@ -392,7 +402,10 @@ categoryValues.forEach((category) => {
   });
 });
 
-// stampsDataのうちcategoryがcategories.otsukaresamaである要素のtextを格納した配列
+/**
+ * stampsDataのうちcategoryがcategories.otsukaresamaである要素のsrcを格納した配列
+ * 例 seyFinTexts = ['images/stamps/1-min.jpg', 'images/stamps/2-min.jpg', 'images/stamps/3-min.jpg']
+ */
 const sayFinStamps = Object.keys(stampsData)
   .map((key) => {
     if (stampsData[key].category === categories.otsukaresama) {

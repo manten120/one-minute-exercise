@@ -10,7 +10,10 @@ const textAddition = $('.text-addition');
 const tabsArea = $('#tabs-area');
 const dropdownToggle = $('.dropdown-toggle');
 
-// エクササイズ後のタイマー
+/**
+ * エクササイズ終了後のタイマー
+ */
+
 // タイマーの横幅(灰色の箇所に対する%)
 let w2 = 100;
 // タイマー終了までの秒数
@@ -19,11 +22,11 @@ const sec2 = 15;
 const span2 = 100;
 // timer()1回あたりに減るタイマーの横幅(%)
 const shrink2 = (100 / (sec2 * 1000)) * span2;
+
 const closeTimer = () => {
   w2 -= shrink2;
   progressBar.css('width', `${w2}%`);
   if (w2 <= 0) {
-    // notice.text('※Chrome拡張機能が必要です');
     setTimeout(() => {
       tabsArea.hide();
       $('#chrome-extension').show();
@@ -35,7 +38,10 @@ const closeTimer = () => {
   }, span2);
 };
 
-// エクササイズ中のタイマー
+/**
+ * エクササイズ中のタイマー
+ */
+
 // タイマーの横幅(%)
 let w = 100;
 // タイマー終了までの秒数
