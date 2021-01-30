@@ -18,7 +18,7 @@
 
 #### [GitHubリポジトリ](https://github.com/manten120/one-minute-exercise-chrome-extension)
 
-### [インストール( chrome ウェブストアへ移動 )](https://chrome.google.com/webstore/detail/%E5%BC%B7%E5%88%B61%E5%88%86%E9%96%93%E3%82%A8%E3%82%AF%E3%82%B5%E3%82%B5%E3%82%A4%E3%82%BA/hgocnapfpahehjogcjfchlbidfidiooc?hl=ja)
+#### [インストール( chrome ウェブストアへ移動 )](https://chrome.google.com/webstore/detail/%E5%BC%B7%E5%88%B61%E5%88%86%E9%96%93%E3%82%A8%E3%82%AF%E3%82%B5%E3%82%B5%E3%82%A4%E3%82%BA/hgocnapfpahehjogcjfchlbidfidiooc?hl=ja)
 
 <br/>
 
@@ -60,6 +60,8 @@ $ yarn test
 ## 🏁 デプロイ
 
 mainブランチにマージしたときCircleCIにより自動でHerokuにデプロイされる
+
+<br/>
 
 ## その他
 
