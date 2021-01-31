@@ -20,6 +20,7 @@ if (!process.env.HEROKU_URL) {
 const indexRouter = require('./routes/index');
 const mainRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
+const oauthCallbackRouter = require('./routes/oauthCallback');
 
 /* Twitter認証 */
 passport.use(
@@ -80,21 +81,17 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/main', mainRouter);
 app.use('/login', loginRouter);
-
 /* Twitter認証 */
+app.use('/oauth_callback', passport.authenticate('twitter', { failureRedirect: '/' }), oauthCallbackRouter);
 app.get('/login/twitter', passport.authenticate('twitter'));
-
-app.get('/oauth_callback', passport.authenticate('twitter', { failureRedirect: '/' }), (req, res) => {
-  res.clearCookie('mdOneMinEx');
-  res.redirect('/main');
-});
+/* Twitter認証 ここまで */
 
 app.get('/logout', (req, res) => {
-  req.logout();
   res.clearCookie('mdOneMinEx');
+  // Twitter認証からログアウト
+  req.logout();
   res.redirect('/');
 });
-/* Twitter認証 ここまで */
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

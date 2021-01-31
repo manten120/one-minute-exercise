@@ -1,5 +1,4 @@
 const request = require('supertest');
-const passportStub = require('passport-stub');
 const app = require('../app');
 
 describe('/', () => {
@@ -12,7 +11,7 @@ describe('/', () => {
 });
 
 describe('/login', () => {
-  test('簡易ログインするとき、クッキーをセットし/mainへリダイレクトする', () =>
+  test('通常ログインするとき、クッキーをセットし/mainへリダイレクトする', () =>
     request
       .agent(app)
       .post('/login')
@@ -65,35 +64,20 @@ describe('/main', () => {
     cookieExpireDaysMs / 1000
   }; Path=/; Expires=${expires}`;
 
-  test('簡易ログインしているときユーザー名が表示される', () =>
+  test('ログインしているときユーザー名が表示される', () =>
     request
       .agent(app)
       .get('/main')
       .set('Cookie', [cookie])
       .send()
       .expect(/taroさん/));
-});
-
-describe('/main', () => {
-  beforeAll(() => {
-    passportStub.install(app);
-    passportStub.login({ _json: { name: 'testuser', profile_image_url_https: '' } });
-  });
-
-  afterAll(() => {
-    passportStub.logout();
-    passportStub.uninstall(app);
-  });
-
-  test('Twitterアカウントでログインしているときユーザー名が表示される', () =>
-    request(app)
-      .get('/main')
-      .expect(/testuser/)
-      .expect(200));
 
   test('ログアウトするためのリンクが含まれる', () =>
-    request(app)
+    request
+      .agent(app)
       .get('/main')
+      .set('Cookie', [cookie])
+      .send()
       .expect(/<a [^<>]*href="\/logout">/)
       .expect(200));
 });

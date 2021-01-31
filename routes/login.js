@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-/* クッキーを用いた簡易ログイン */
+/* 通常ログイン */
 router.post('/', (req, res) => {
   // ログイフォームに入力された名前の文字数が不正であるとき
   if (req.body.name.length === 0 || req.body.name.length > 10) {

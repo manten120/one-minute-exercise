@@ -112,6 +112,14 @@ body {
   border-left: 15px solid #fff;
 }
 
+.wrapper-mention-comment {
+  max-width: 160px;
+}
+
+.mention-comment.shrink {
+  font-size: 12px;
+}
+
 .mention-comment.me {
   background: linear-gradient(transparent 60%, #ff6 60%);
 }

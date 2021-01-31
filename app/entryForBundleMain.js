@@ -145,7 +145,11 @@ BtnText.on('click', function () {
   const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
   myTemplate.find('.text-comment').text(text).show();
   if (dataSomeone) {
-    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    const myMention = myTemplate.find('.mention-comment');
+    if (dataSomeone.name.length >= 9) {
+      myMention.addClass('shrink');
+    }
+    myMention.text(`${dataSomeone.name}さん`).show();
   }
   myTemplate.appendTo(leftColumn).fadeIn();
   autoScroll();
@@ -170,7 +174,11 @@ BtnStamp.on('click', function () {
   const src = $(this).attr('src');
   const myTemplate = $('#myPostTemplate').clone().removeAttr('id');
   if (dataSomeone) {
-    myTemplate.find('.mention-comment').text(`${dataSomeone.name}さん`).show();
+    const myMention = myTemplate.find('.mention-comment');
+    if (dataSomeone.name.length >= 9) {
+      myMention.addClass('shrink');
+    }
+    myMention.text(`${dataSomeone.name}さん`).show();
   }
   myTemplate.find('.img-comment').attr('src', src);
   myTemplate.find('.wrapper-img-comment').show();
@@ -236,12 +244,14 @@ socket.on('someone posts stamp', (data) => {
   // 他人の投稿を表示
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
-    template.find('.mention-comment').text(`${data.to.name}さん`);
-    template.find('.mention-comment').show();
-
+    const mention = template.find('.mention-comment');
     if (data.to.name === myData.name) {
-      template.find('.mention-comment').addClass('me');
+      mention.addClass('me');
     }
+    if (data.to.name.length >= 9) {
+      mention.addClass('shrink');
+    }
+    mention.text(`${data.to.name}さん`).show();
   }
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
@@ -255,12 +265,14 @@ socket.on('someone posts text', (data) => {
   // 他人の投稿を表示
   const template = $('#postTemplate').clone().removeAttr('id').data('someone', data.from);
   if (data.to) {
-    template.find('.mention-comment').text(`${data.to.name}さん`);
-    template.find('.mention-comment').show();
-
+    const mention = template.find('.mention-comment');
     if (data.to.name === myData.name) {
-      template.find('.mention-comment').addClass('me');
+      mention.addClass('me');
     }
+    if (data.to.name.length >= 9) {
+      mention.addClass('shrink');
+    }
+    mention.text(`${data.to.name}さん`).show();
   }
   template.find('.icon').attr('src', data.from.icon);
   template.find('.name').text(data.from.name);
