@@ -31,12 +31,14 @@ router.get('/', (req, res) => {
     res.redirect('/#login');
   }
 
+  // アクセス時に表示される6種のエクササイズメニューを決定し
+  // その後１分間ほかのユーザーがアクセスしたときにもそのメニューを表示する
   if (!isCoolDownTime) {
     randomMenus = getRandomMenusKeyAndSrcPairs(6);
     isCoolDownTime = true;
     setTimeout(() => {
       isCoolDownTime = false;
-    }, 30000);
+    }, 60000);
   }
 
   const hour = moment().tz('Asia/Tokyo').format('H');

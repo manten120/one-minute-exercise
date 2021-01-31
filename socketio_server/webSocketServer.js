@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { menusKeyAndSrcPairs } = require('../utility/menus');
 const { stampsData } = require('../utility/stamps');
 const { textsData } = require('../utility/texts');
