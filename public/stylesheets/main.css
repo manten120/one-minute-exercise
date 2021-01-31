@@ -156,7 +156,7 @@ body {
 #timer-area {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 10;
   background-color: #fff;
 }
 
@@ -191,7 +191,7 @@ body {
 .wrapper-nav-tabs {
   position: sticky;
   top: 75px;
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   padding: 0 16px 16px;
   background-color: #fff;
