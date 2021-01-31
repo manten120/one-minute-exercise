@@ -23,10 +23,6 @@ const npcs = [
     icon: 'images/icons/boy1.jpg',
   },
   {
-    name: '*H a n a*',
-    icon: 'images/icons/girl2.jpg',
-  },
-  {
     name: 'カダヤピ',
     icon: 'images/icons/bird1.jpg',
   },
@@ -120,7 +116,7 @@ class Npc {
     this.canPostMenu = true;
 
     // npc生成後1人目のユーザーがアクセスしてからnpcがメニューを投稿するまでにかかる秒数
-    this.secondsToChooseMenu = Math.floor(Math.random() * 4) + 2;
+    this.secondsToChooseMenu = Math.floor(Math.random() * 6) + 3;
 
     // npcがエクササイズ時間1分を終えてから投稿するまでにかかる秒数
     this.secondsToSayFin = Math.floor(Math.random() * 3) + 3;
