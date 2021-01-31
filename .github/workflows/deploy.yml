@@ -20,7 +20,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: bundle JavaScript files
-        run: npx webpack
+        run: |
+          yarn install
+          npx webpack
       - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
