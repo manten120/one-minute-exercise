@@ -39,15 +39,22 @@ $ yarn dev
 ```
 
 - http://localhost:8000 で開発サーバを開始
-- appディレクトリのJSファイルを書き換え保存したときwebpackでpublic/javascsripts/bundle.jsにオートビルド
-- その他JSファイルを書き換え保存したとき自動でサーバー再起動
+- `app/`のjsファイルを書き換え保存したとき、自動的にwebpackを実行し`public/javascsripts/`にバンドルする
+- その他JSファイルを書き換え保存したとき、自動でサーバーを再起動する
 
 
 ```
 $ yarn lint-fix
 ```
 
-- jsファイルのコード整形。git commit したときにも自動で行われる。
+- jsファイルのコード整形。git commit したときにも自動で行われる
+
+```
+$ yarn build
+```
+
+- webpack を実行し`app/`のjsファイルを`public/javascipts/`にバンドルする
+- Heroku にデプロイしたときにも実行される
 
 ```
 $ yarn test
@@ -70,4 +77,4 @@ main ブランチにマージしたとき GitHub Actions で自動的に Heroku 
 
 コンテスト提出期限直前に CircleCI との連携がうまくいかなくなってしまったため( [同じ症状の方を発見。こちらで解決方法を募集しています](https://teratail.com/questions/319236) )、CI/CDツールを GitHub Actions に移行しました
 
-そのほか開発時の設計・メモなどは [/documents](https://github.com/manten120/one-minute-exercise/tree/main/documents) に
+そのほか開発時の設計・メモなどは [documents/](https://github.com/manten120/one-minute-exercise/tree/main/documents) に
