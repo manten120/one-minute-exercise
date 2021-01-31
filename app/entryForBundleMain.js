@@ -126,7 +126,6 @@ if ($('#modalLong').length) {
 const myData = $('body').data('mine');
 
 const BtnText = $('.btn-text');
-// eslint-disable-next-line func-names
 BtnText.on('click', function () {
   // socket.io イベント送信
   const key = $(this).data('key');
@@ -183,7 +182,6 @@ const imgMenus = $('.img-menus');
 const imgSelected = $('.img-selected');
 const imgRandom = $('.img-random');
 
-// eslint-disable-next-line func-names
 imgMenus.on('click', function () {
   // socket.io イベント送信
   const key = $(this).data('key');

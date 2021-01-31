@@ -5,7 +5,8 @@ import $ from 'jquery';
  * スクロールボタン
  */
 const topBtn = $('.page-top');
-topBtn.hide();
+
+// eslint-disable-next-line func-names
 $(window).on('scroll', function () {
   if ($(this).scrollTop() > 3800) {
     topBtn.fadeIn();

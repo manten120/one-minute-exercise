@@ -7,7 +7,7 @@ const npcs = [
     icon: 'images/icons/gorilla1.jpg',
   },
   {
-    name: 'まつり',
+    name: 'フェニックス',
     icon: 'images/icons/fox1.jpg',
   },
   {
@@ -67,7 +67,7 @@ const npcs = [
     icon: 'images/icons/dog1.jpg',
   },
   {
-    name: 'とり肉',
+    name: 'とり肉んぽ',
     icon: 'images/icons/bird2.jpg',
   },
   {
