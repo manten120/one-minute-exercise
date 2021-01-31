@@ -10,11 +10,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    strategy:
+      matrix:
+        node-version: [10.14.2]
     steps:
       - uses: actions/checkout@v2
-      - name: webpack
-        run: |
-          npx webpack
+      - name: Run tests with ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: bundle JavaScript files
+        run: npx webpack
       - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
