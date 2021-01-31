@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "dev": "webpack --config webpack.config.js --watch & PORT=8000 nodemon --legacy-watch .bin/www",
     "lint-fix": "eslint --fix './**/*.js' && prettier --write './**/*js'",
-    "test": "npx webpack && npx jest --testTimeout=10000 --forceExit"
+    "test": "npx webpack && npx jest --testTimeout=10000 --forceExit",
+    "build": "npx webpack"
   },
   "dependencies": {
     "bootstrap": "^4.5.3",
